@@ -1,0 +1,131 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> 前端知识点：原生篇(1) · 刘小窝</title><meta name="description" content="前端知识点：原生篇(1) - John Doe"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="http://yoursite.com/atom.xml" title="刘小窝"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">博客</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">文章列表</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">前端知识点：原生篇(1)</h1><div class="post-info">Apr 7, 2015</div><div class="post-content"><h2 id="1-js六大数据类型"><a href="#1-js六大数据类型" class="headerlink" title="1. js六大数据类型"></a>1. js六大数据类型</h2><blockquote>
+<p>这里的数据类型是按照typeof返回来分类，也不是很懂有些教程写数据类型还有null，求解答数据类型应该是哪几类？</p>
+</blockquote>
+<h3 id="基本数据类型"><a href="#基本数据类型" class="headerlink" title="基本数据类型"></a>基本数据类型</h3><ul>
+<li>number    数字</li>
+<li>string    字符串</li>
+<li>boolean   布尔</li>
+<li>undefined 未定义</li>
+<li>function  函数</li>
+</ul>
+<h3 id="复杂数据类型"><a href="#复杂数据类型" class="headerlink" title="复杂数据类型"></a>复杂数据类型</h3><ul>
+<li>object    对象(可拆分为多种数据类型)</li>
+</ul>
+<h2 id="2-数据类型补充"><a href="#2-数据类型补充" class="headerlink" title="2. 数据类型补充"></a>2. 数据类型补充</h2><ul>
+<li>null空对象 -&gt; 数据类型(object)</li>
+<li>NaN 非数字 -&gt; 数据类型(number)</li>
+</ul>
+<blockquote>
+<p>NaN和任何数据类型都不相等，包括自己</p>
+</blockquote>
+<h2 id="3-数字相关判断方法"><a href="#3-数字相关判断方法" class="headerlink" title="3. 数字相关判断方法"></a>3. 数字相关判断方法</h2><ul>
+<li><h3 id="是否是数字"><a href="#是否是数字" class="headerlink" title="是否是数字"></a>是否是数字</h3><p>isNaN() 非数字-&gt;true  数字-&gt;false</p>
+</li>
+<li><h3 id="是否是整数"><a href="#是否是整数" class="headerlink" title="是否是整数"></a>是否是整数</h3><p>if(num == parseInt(num))</p>
+</li>
+</ul>
+<h2 id="4-变量"><a href="#4-变量" class="headerlink" title="4. 变量"></a>4. 变量</h2><ol>
+<li><h3 id="全局变量"><a href="#全局变量" class="headerlink" title="全局变量"></a>全局变量</h3></li>
+<li><h3 id="局部变量"><a href="#局部变量" class="headerlink" title="局部变量"></a>局部变量</h3></li>
+<li><h3 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h3><p>子函数可以使用父函数的全局变量</p>
+</li>
+</ol>
+<blockquote>
+<p>变量的遮蔽<br> 全局变量和局部变量同名<br> 就近原则-&gt;在函数里优先使用自己的变量</p>
+</blockquote>
+<h2 id="5-运算符"><a href="#5-运算符" class="headerlink" title="5. 运算符"></a>5. 运算符</h2><ol>
+<li><h3 id="算术运算符"><a href="#算术运算符" class="headerlink" title="算术运算符"></a>算术运算符</h3></li>
+<li><h3 id="比较运算符"><a href="#比较运算符" class="headerlink" title="比较运算符"></a>比较运算符</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">== -&gt; !=    === -&gt; !==</div></pre></td></tr></table></figure>
+</li>
+<li><h3 id="赋值运算符"><a href="#赋值运算符" class="headerlink" title="赋值运算符"></a>赋值运算符</h3></li>
+<li><h3 id="逻辑运算符"><a href="#逻辑运算符" class="headerlink" title="逻辑运算符"></a>逻辑运算符</h3></li>
+</ol>
+<h2 id="6-常见变量命名前缀"><a href="#6-常见变量命名前缀" class="headerlink" title="6. 常见变量命名前缀"></a>6. 常见变量命名前缀</h2><table>
+<thead>
+<tr>
+<th>前缀</th>
+<th>全称</th>
+<th>含义</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>o</td>
+<td>object</td>
+<td>一个对象，一个元素</td>
+<td>oDiv</td>
+</tr>
+<tr>
+<td>a</td>
+<td>array</td>
+<td>一组元素</td>
+<td>aLi</td>
+</tr>
+<tr>
+<td>s</td>
+<td>string</td>
+<td>字符串</td>
+<td>sUserName</td>
+</tr>
+<tr>
+<td>i</td>
+<td>integer</td>
+<td>整数</td>
+<td>iCount</td>
+</tr>
+<tr>
+<td>f</td>
+<td>float</td>
+<td>浮点数</td>
+<td>fPrice</td>
+</tr>
+<tr>
+<td>b</td>
+<td>boolean</td>
+<td>布尔</td>
+<td>bOk</td>
+</tr>
+<tr>
+<td>fn</td>
+<td>function</td>
+<td>函数</td>
+<td>fnSucc</td>
+</tr>
+<tr>
+<td>re</td>
+<td>RegExp</td>
+<td>正则</td>
+<td>reMailCheck</td>
+</tr>
+</tbody>
+</table>
+<h2 id="7-字符串转化为数字"><a href="#7-字符串转化为数字" class="headerlink" title="7. 字符串转化为数字"></a>7. 字符串转化为数字</h2><h3 id="parseInt"><a href="#parseInt" class="headerlink" title="parseInt()"></a>parseInt()</h3><ul>
+<li>从左往右开始找，找到第一个非数字(包含小数点)就停止，如果第一个数不是数字，则返回NaN</li>
+<li>eg: ‘12.5’ -&gt; 12    ‘12abc’ -&gt; 12    ‘abc’ -&gt; NaN</li>
+</ul>
+<h3 id="parseFloat"><a href="#parseFloat" class="headerlink" title="parseFloat()"></a>parseFloat()</h3><ul>
+<li>从左往右开始找，找到第一个非数字(不包含小数点)就停止，如果第一个数不是数字，则返回NaN</li>
+<li>eg: ‘12.5’ -&gt; 12.5    ‘12abc’ -&gt; 12    ‘abc’ -&gt; NaN</li>
+</ul>
+<h3 id="Number"><a href="#Number" class="headerlink" title="Number()"></a>Number()</h3><ul>
+<li>既能处理整数，也能处理小数，但只能处理数字</li>
+<li>eg: ‘12.5’ -&gt; 12.5     ‘12’ -&gt; 12         ‘12abc’ -&gt; NaN     ‘abc’ -&gt; NaN</li>
+</ul>
+<h2 id="8-数字转化为字符串"><a href="#8-数字转化为字符串" class="headerlink" title="8. 数字转化为字符串"></a>8. 数字转化为字符串</h2><p>number + ‘’</p>
+<blockquote>
+<p>eg：12 + ‘’ -&gt; ‘12’</p>
+</blockquote>
+<h2 id="9-if语句变形"><a href="#9-if语句变形" class="headerlink" title="9. if语句变形"></a>9. if语句变形</h2><ol>
+<li>条件 &amp;&amp; 语句; (条件为真时执行)</li>
+<li>条件 || 语句; (条件为假时执行)</li>
+<li>三目运算  条件? 语句1: 语句2;</li>
+</ol>
+<h2 id="10-js及事件的概念"><a href="#10-js及事件的概念" class="headerlink" title="10. js及事件的概念"></a>10. <strong>js</strong>及<strong>事件</strong>的概念</h2><ul>
+<li>js：修改样式</li>
+<li>事件：用户的操作</li>
+</ul>
+<blockquote>
+<p>任何标签都可以添加事件，任何属性都可以修改</p>
+</blockquote>
+</div></article></div></main><footer><div class="paginator"><a href="/2015/04/07/前端知识点/前端知识点：原生篇(2)/" class="prev">PREV</a><a href="/2015/03/07/js类/javascript逻辑运算符与或非/" class="next">NEXT</a></div><div class="copyright"><p>© 2014 - 2017 刘小窝.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-65933410-1",'auto');ga('send','pageview');</script></body></html>

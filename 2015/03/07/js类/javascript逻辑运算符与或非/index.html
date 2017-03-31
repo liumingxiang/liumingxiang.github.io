@@ -1,0 +1,53 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> javascript逻辑运算符“||”和“&&” · 刘小窝</title><meta name="description" content="javascript逻辑运算符“||”和“&amp;&amp;” - John Doe"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="http://yoursite.com/atom.xml" title="刘小窝"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">博客</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">文章列表</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">javascript逻辑运算符“||”和“&&”</h1><div class="post-info">Mar 7, 2015</div><div class="post-content"><p>#一、先来说说||（逻辑或）,从字面上来说，只有前后都是false的时候才返回false，否则返回true。</p>
+<p>alert(true||false);    // true<br>alert(false||true);    // true<br>alert(true||true);        // true<br>alert(false||false);    // false</p>
+<p>##二、但是，从深层意义上来说的话，却有另一番天地，试下面代码</p>
+<p>alert(0||1);</p>
+<p>显然，我们知道，前面0意味着false,而后面1意味着true,那么上面的结果应该是true,而事实返回的结果是1。再看下面代码：</p>
+<p>alert(2||1);</p>
+<p>我们知道，前面2是true,后面1也是true,那返回结果又是什么呢？测试结果是2,继续看：</p>
+<p>alert(‘a’||1);</p>
+<p>同样，前面’a’是true，后面1也是true;测试结果是’a’,下面</p>
+<p>alert(‘’||1);</p>
+<p>由上，我们知道前面’’是false,后面1是true,而返回结果是1。再看下面</p>
+<p>alert(‘a’||0);</p>
+<p> 前面’a’是true，而后面0是false,返回结果是’a’，继续下面</p>
+<p>alert(‘a’||’b’);</p>
+<p> 前面’a’是true,后面’b’是false,返回结果是’a’，我们继续下面</p>
+<p>alert(‘’||0);</p>
+<p> 前面’’是false,后面0同样是false,返回结果是0</p>
+<p>alert(0||’’);</p>
+<p>前面0是false，后面’’是false，返回结果是’’</p>
+<p>这就意味</p>
+<p>1、只要“||”前面为false,不管“||”后面是true还是false，都返回“||”后面的值。</p>
+<p>2、只要“||”前面为true,不管“||”后面是true还是false，都返回“||”前面的值。<br>二、下面说说&amp;&amp;（逻辑与）,从字面上来说，只有前后都是true的时候才返回true，否则返回false。</p>
+<p>alert(true&amp;&amp;false);    // false<br>alert(true&amp;&amp;true);    // true<br>alert(false&amp;&amp;false);    // false<br>alert(false&amp;&amp;true);    // false</p>
+<p>然后，根据上面经验，我们看看“&amp;&amp;”号前后，不单单是布尔类型的情况。</p>
+<p>alert(‘’&amp;&amp;1);</p>
+<p>结是返回’’,“&amp;&amp;”前面’’是false,后面是1是true。</p>
+<p>alert(‘’&amp;&amp;0);</p>
+<p>结是返回’’,“&amp;&amp;”前面’’是false,后面是0也是false。</p>
+<p>alert(‘a’&amp;&amp;1);</p>
+<p>结是返回1,“&amp;&amp;”前面’’a是true,后面是1也是true。</p>
+<p>alert(‘a’&amp;&amp;0);</p>
+<p>结是返回0,“&amp;&amp;”前面’’a是true,后面是0是false。</p>
+<p>alert(‘a’&amp;&amp;’’);</p>
+<p>结是返回’’,“&amp;&amp;”前面’’a是true,后面是’’是false。</p>
+<p>alert(0&amp;&amp;’a’);</p>
+<p>结是返回0,“&amp;&amp;”前面’’0是false,后面是’a’是true。</p>
+<p>alert(0&amp;&amp;’’);</p>
+<p>结是返回0,“&amp;&amp;”前面’’0是false,后面是’’也是false。 </p>
+<p>这意味着</p>
+<p>1、只要“&amp;&amp;”前面是false，无论“&amp;&amp;”后面是true还是false，结果都将返“&amp;&amp;”前面的值;</p>
+<p>2、只要“&amp;&amp;”前面是true，无论“&amp;&amp;”后面是true还是false，结果都将返“&amp;&amp;”后面的值;</p>
+<p>让我们总结一下：</p>
+<p>1、只要“||”前面为false，无论“||”后面是true还是false，结果都返回“||”后面的值。</p>
+<p>2、只要“||”前面为true，无论“||”后面是true还是false，结果都返回“||”前面的值。</p>
+<p>3、只要“&amp;&amp;”前面是false，无论“&amp;&amp;”后面是true还是false，结果都将返“&amp;&amp;”前面的值;</p>
+<p>4、只要“&amp;&amp;”前面是true，无论“&amp;&amp;”后面是true还是false，结果都将返“&amp;&amp;”后面的值;</p>
+<p>由上两个测试可知，逻辑运算符，“||”和“&amp;&amp;”都是遵行短路原则，只要确定符号前面的真假，既可确定返回值。</p>
+<p>需要说明的是“&amp;&amp;”的优先级是高于“||”的，下面测试：</p>
+<p>alert(1||’a’&amp;&amp;2);</p>
+<p>返回结果是1。</p>
+<p>根据反证原理，我们假设“||”的优先级不低于“&amp;&amp;”（这里只所以用“不低于”，是为了同时证明等级相同的情况）。</p>
+<p>根据上面我们得出的结论（1），（1||’a’）将返回前面的值1，(1&amp;&amp;2)根据结论(4)应该返回后面的值2。这显然不对，由此可知“&amp;&amp;”的优先级是高于“||”的。</p>
+</div></article></div></main><footer><div class="paginator"><a href="/2015/04/07/前端知识点/前端知识点：原生篇(1)/" class="prev">PREV</a><a href="/2015/03/07/js类/js运算符的优先级/" class="next">NEXT</a></div><div class="copyright"><p>© 2014 - 2017 刘小窝.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-65933410-1",'auto');ga('send','pageview');</script></body></html>
