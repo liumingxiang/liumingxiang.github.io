@@ -141,6 +141,981 @@
   </entry>
   
   <entry>
+    <title>前端知识点：清除浮动</title>
+    <link href="http://yoursite.com/2016/04/03/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9%EF%BC%9A%E6%B8%85%E9%99%A4%E6%B5%AE%E5%8A%A8/"/>
+    <id>http://yoursite.com/2016/04/03/前端知识点/前端知识点：清除浮动/</id>
+    <published>2016-04-03T12:04:15.000Z</published>
+    <updated>2017-03-31T17:17:02.927Z</updated>
+    
+    <content type="html"><![CDATA[<p>前端技术栈更新太快，眼花缭乱，大家一个劲揽过来学习的时候，别忘了回头看看那些已经掌握的基础知识。</p>
+<h2 id="浮动到底是什么？"><a href="#浮动到底是什么？" class="headerlink" title="浮动到底是什么？"></a>浮动到底是什么？</h2><p>浮动核心就一句话：<strong>浮动元素会脱离文档流并向左/向右浮动，直到碰到父元素或者另一个浮动元素</strong>。请默念3次！</p>
+<a id="more"></a>
+<ol>
+<li><p>为父元素设置高度<br>为父元素定高，简单粗暴，坏处不用多说吧，没有人会这么干的…^_^</p>
+</li>
+<li><p>在父元素的最后设置<code>clear:both</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;div class=&quot;p&quot;&gt;</div><div class="line">     &lt;div class=&quot;c&quot;&gt;&lt;/div&gt;</div><div class="line">     &lt;div class=&quot;c&quot;&gt;&lt;/div&gt;</div><div class="line">     &lt;div class=&quot;c&quot;&gt;&lt;/div&gt;</div><div class="line">     &lt;div style=&quot;clear:left;&quot;&gt;&lt;/div&gt; &lt;!--冗余的子元素--&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure>
+<p>原理如下：<br>当添加了最后一个冗余元素（未设置<code>clear:both</code>）时；父元素和此冗余元素的高度都为<code>0</code>，并且三个浮动的元素都浮在了它们的上方盖住了它们（可以把它们看成PS中的图层）。现在，给这个冗余元素添加<code>clear:both</code>（<a href="http://www.w3school.com.cn/cssref/pr_class_clear.asp" target="_blank" rel="external">clear属性介绍</a>），它便要躲开这三个浮动元素，因此，一直往下跑，直到没有被浮动元素盖住才停下来。而父元素看到这个子元素跑开了，自然想要包裹住它。</p>
+<ol>
+<li><p>为父元素设置高度<br>为父元素定高，简单粗暴，坏处不用多说吧，没有人会这么干的…^_^</p>
+</li>
+<li><p>在父元素的最后设置<code>clear:both</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;div class=&quot;p&quot;&gt;</div><div class="line">     &lt;div class=&quot;c&quot;&gt;&lt;/div&gt;</div><div class="line">     &lt;div class=&quot;c&quot;&gt;&lt;/div&gt;</div><div class="line">     &lt;div class=&quot;c&quot;&gt;&lt;/div&gt;</div><div class="line">     &lt;div style=&quot;clear:left;&quot;&gt;&lt;/div&gt; &lt;!--冗余的子元素--&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure>
+<p>原理如下：<br>当添加了最后一个冗余元素（未设置<code>clear:both</code>）时；父元素和此冗余元素的高度都为<code>0</code>，并且三个浮动的元素都浮在了它们的上方盖住了它们（可以把它们看成PS中的图层）。现在，给这个冗余元素添加<code>clear:both</code>（<a href="http://www.w3school.com.cn/cssref/pr_class_clear.asp" target="_blank" rel="external">clear属性介绍</a>），它便要躲开这三个浮动元素，因此，一直往下跑，直到没有被浮动元素盖住才停下来。而父元素看到这个子元素跑开了，自然想要包裹住它。</p>
+<p><img src="/images/fudong/1.png" alt="img"></p>
+<p>这样就能看到我们想要的结果了——父元素高度被撑开了。</p>
+<p>​            <img src="/images/fudong/2.png" alt="img"></p>
+<ol>
+<li><p>貌似不错，不过似乎有点问题——我们有必要在页面中添加这么多没有意义的冗余元素吗？显然这样太麻烦，而且不符合语义化。<br>还好有<a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/Pseudo-elements" target="_blank" rel="external">伪元素</a>，这里我们使用<a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/::after" target="_blank" rel="external"><code>::after</code></a>。添加一个类<code>fix</code>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">.fix::after &#123; </div><div class="line">     content:&quot;.&quot;; </div><div class="line">     display:block; </div><div class="line">     height:0; </div><div class="line">     visibility:hidden; </div><div class="line">     clear:both;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在我们需要清除浮动时，只需要给父元素追加<code>fix</code>类即可，既方便又符合语义化。<br>当然，大神的<code>fix</code>类这么写：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">.fix::after &#123; </div><div class="line">     content:&quot;&quot;; </div><div class="line">     display:table; </div><div class="line">     clear:both;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>大师手笔，看起来更清爽了……</p>
+</li>
+<li><p>给父元素添加<code>overflow:hidden</code><br>这里有必要了解一下<code>BFC</code><a href="https://www.w3.org/TR/CSS2/visuren.html#block-formatting" target="_blank" rel="external">块级格式化上下文</a>，只说结论：</p>
+<blockquote>
+<p>创建了 BFC的元素就是一个独立的盒子，不过只有Block-level box可以参与创建BFC， 它规定了内部的Block-level Box如何布局，并且与这个独立盒子里的布局不受外部影响，当然它也不会影响到外面的元素。它具有以下特征：</p>
+<ol>
+<li>内部的Box会在垂直方向，从顶部开始一个接一个地放置。</li>
+<li>Box垂直方向的距离由margin决定。属于同一个BFC的两个相邻Box的margin会发生叠加。</li>
+<li>每个元素的margin box的左边， 与包含块border box的左边相接触(对于从左往右的格式化，否则相反)。即使存在浮动也是如此。</li>
+<li>BFC的区域不会与float box叠加。</li>
+<li>BFC就是页面上的一个隔离的独立容器，容器里面的子元素不会影响到外面的元素，反之亦然。</li>
+<li><strong>计算BFC的高度时，浮动元素也参与计算。</strong></li>
+</ol>
+</blockquote>
+<p>看到第六条，如获至宝。只需给父元素创建块级格式化上下文，就可以让浮动的元素参与高度计算，这样一来，父元素的高度就有了。<br>不单单只有给父元素添加<code>overflow:hidden</code>才可以创建块级格式化上下文，下列方法都可以：</p>
+<ul>
+<li>浮动 (元素的 <code>float</code>不为 <code>none</code>）</li>
+<li>绝对定位元素 (元素的 <code>position</code>为 <code>absolute</code> 或 <code>fixed</code>)</li>
+<li>行内块 inline-blocks (元素的 <code>display: inline-block</code>)</li>
+<li>表格单元格 (元素的 <code>display: table-cell</code>，HTML表格单元格默认属性)</li>
+<li>表格标题 (元素的 <code>display: table-caption</code>，HTML表格标题默认属性)</li>
+<li><code>overflow</code>的值不为 visible的元素</li>
+<li>弹性盒子 flex boxes (元素的 <code>display: flex</code> 或 <code>inline-flex</code>)</li>
+</ul>
+<p>用<code>overflow:hidden</code>较多的原因是不会带来其它的布局问题。</p>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;前端技术栈更新太快，眼花缭乱，大家一个劲揽过来学习的时候，别忘了回头看看那些已经掌握的基础知识。&lt;/p&gt;
+&lt;h2 id=&quot;浮动到底是什么？&quot;&gt;&lt;a href=&quot;#浮动到底是什么？&quot; class=&quot;headerlink&quot; title=&quot;浮动到底是什么？&quot;&gt;&lt;/a&gt;浮动到底是什么？&lt;/h2&gt;&lt;p&gt;浮动核心就一句话：&lt;strong&gt;浮动元素会脱离文档流并向左/向右浮动，直到碰到父元素或者另一个浮动元素&lt;/strong&gt;。请默念3次！&lt;/p&gt;
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>前端知识点：任意元素的垂直水平居中</title>
+    <link href="http://yoursite.com/2016/04/02/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9%EF%BC%9A%E4%BB%BB%E6%84%8F%E5%85%83%E7%B4%A0%E7%9A%84%E5%9E%82%E7%9B%B4%E6%B0%B4%E5%B9%B3%E5%B1%85%E4%B8%AD/"/>
+    <id>http://yoursite.com/2016/04/02/前端知识点/前端知识点：任意元素的垂直水平居中/</id>
+    <published>2016-04-02T14:04:15.000Z</published>
+    <updated>2017-03-31T16:04:06.966Z</updated>
+    
+    <content type="html"><![CDATA[<p>这里涉及到行内元素和块级元素。</p>
+<p>行内元素和块级元素可以相互转换，比如用<strong>display</strong>来进行设置。</p>
+<p><strong>行内元素（又叫内联元素inline element）:</strong>不占据一整行，随内容而定。</p>
+<p>有以下特点：</p>
+<p> ①不可以设置宽高，也不可以设置行高，其宽度随着内容增加，高度随字体大小而改变。</p>
+<p>②内联元素可以设置外边界，但是外边界不对上下起作用，只能对左右起作用。</p>
+<p>③也可以设置内边界，但是内边界在ie6中不对上下起作用，只能对左右起作用。</p>
+<a id="more"></a>
+<p>行内快配合 vertical-middle(需要一个空盒子)/<em> 通过表格去控制元素水平垂直居中元素设置成行内快 display: inline-block; 父级容器设置text-align：center vertical-align: middle; </em>/        .box{            width: 800px;            height: 800px;            border: 1px solid #000;            text-align: center;        }        .content{            background-color: red;            display: inline-block;            vertical-align: middle;        }        .info{            height: 100%;            width: 0;            vertical-align: middle;            display: inline-block;        }!<img src="/images/juzhong/1.png" alt="img"></p>
+<p>通过表格去控制 table方法元素设置成行内快  父级容器设置text-align：center vertical-align: 最后把父元素转换为表格middle; display:table-cell;内容需要自己换行        .box{            width: 800px;            height: 800px;            border: 1px solid #000;            text-align: center;                       display: table-cell; /<em> 将这个盒子转换成表格单元格 </em>/            vertical-align: middle;        }        .content{            background-color: red;            display: inline-block;        } 通过transform:translate我们可以通过盒子的绝对定位配合transform：translate（-50%，-50%）实现一个没有宽度高度的盒子水平垂直居中 ,如果没有宽度的话，盒子最大的宽只能达到父盒子的一半<br>需要决定定位 和定位的位置<code>.box{    background-color: red;    position: absolute;    left: 50%;    top: 50%;    /* 因为translate的百分比参照是自身盒子的宽高，所以，我们可以借助于这个配合定位实现居中 */    transform: translate(-50%,-50%);}</code></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;这里涉及到行内元素和块级元素。&lt;/p&gt;
+&lt;p&gt;行内元素和块级元素可以相互转换，比如用&lt;strong&gt;display&lt;/strong&gt;来进行设置。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;行内元素（又叫内联元素inline element）:&lt;/strong&gt;不占据一整行，随内容而定。&lt;/p&gt;
+&lt;p&gt;有以下特点：&lt;/p&gt;
+&lt;p&gt; ①不可以设置宽高，也不可以设置行高，其宽度随着内容增加，高度随字体大小而改变。&lt;/p&gt;
+&lt;p&gt;②内联元素可以设置外边界，但是外边界不对上下起作用，只能对左右起作用。&lt;/p&gt;
+&lt;p&gt;③也可以设置内边界，但是内边界在ie6中不对上下起作用，只能对左右起作用。&lt;/p&gt;
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>前端知识点：前端知识点：关于this</title>
+    <link href="http://yoursite.com/2016/03/21/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9%EF%BC%9A%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9%EF%BC%9A%E5%85%B3%E4%BA%8Ethis/"/>
+    <id>http://yoursite.com/2016/03/21/前端知识点/前端知识点：前端知识点：关于this/</id>
+    <published>2016-03-21T11:04:15.000Z</published>
+    <updated>2017-03-31T15:23:59.403Z</updated>
+    
+    <content type="html"><![CDATA[<p>JavaScript中最令人困惑的机制之一就是<code>this</code>关键字。它是一个在每个函数作用域中自动定义的特殊标识符关键字，但即便是一些老练的开发者也对它到底指向什么感到困扰。</p>
+<blockquote>
+<p>任何足够 <em>先进</em> 的技术都跟魔法没有区别。– Arthur C. Clarke</p>
+</blockquote>
+<p>JavaScript的<code>this</code>机制实际上没有 <em>那么</em> 先进，但是开发者们总是在大脑中引用这句话来表达“复杂”和“混乱”，毫无疑问，如果没有清晰的理解，在 <em>你的</em> 困惑中<code>this</code>可能看起来就是彻头彻尾的魔法。</p>
+<p><strong>注意：</strong> “this”这个词是在一般的论述中极常用的代词。所以，特别是在口头论述中，很难确定我们是在将“this”作为一个代词使用，还是在将它作为一个实际的关键字识别符使用。为了表意清晰，我会总是使用<code>this</code>来代表特殊的关键字，而在其他情况下使用“this”或 <em>this</em> 或this。</p>
+<a id="more"></a>
+<p>​    1、普通函数中的this（严格模式this指的是undefined，否则指的是window）</p>
+<p>​    2、构造函数中的this：this就是该构造函数创建的实例对象</p>
+<p>​    3、原型方法中的this：this和构造函数中的this相同，都是实例对象</p>
+<p>​    4、对象方法中的this: 调用该方法的对象（重点理解）（对象方法就是function）</p>
+<p>​    5、事件方法中的this：绑定该事件的对象</p>
+<p>​    6、定时函数中的this: this就是window</p>
+<p>​    call/apply可以改变this指向，两者的唯一区别是：第二个参数格式不同：call参数都是单个的，而apply参数是数组</p>
+<p>​    bind也可以改变函数的this指向，但是不调用函数（bind是ES5新测性）</p>
+<p>(4)理解: // 对象方法</p>
+<p>​    // 对象方法中的this就是方法的调用者（方法前面的点前面的对象）</p>
+<p>​    // var obj = {};</p>
+<p>​    // obj.info = 123;</p>
+<p>​    // obj.showInfo = function(){</p>
+<p>​    //     console.log(this.info);</p>
+<p>​    // }</p>
+<p>​    // obj.showInfo();</p>
+<p>/*</p>
+<p>​    函数调用形式与this的关系</p>
+<p>​    */</p>
+<p>​    // 普通函数</p>
+<p>​    // 普通函数中this指向window，但是在严格模式下this的值是undefined</p>
+<p>​    // function foo(){</p>
+<p>​    //     “use strict”</p>
+<p>​    //     console.log(this);</p>
+<p>​    //     console.log(this === window);</p>
+<p>​    // }</p>
+<p>​    // foo();</p>
+<p>​    // ———————————</p>
+<p>​    // 构造函数</p>
+<p>​    // 构造函数中的this与构造函数原型方法中的this指向相同，都指向该构造函数的实例对象</p>
+<p>​    // function Student(name,age){</p>
+<p>​    //     this.name = name;</p>
+<p>​    //     this.age = age;</p>
+<p>​    // }</p>
+<p>​    // Student.prototype.showName = function(){</p>
+<p>​    //     console.log(this.name);</p>
+<p>​    // }</p>
+<p>​    // var stu = new Student(‘张三’,12);</p>
+<p>​    // console.log(stu.age);</p>
+<p>​    // stu.showName();</p>
+<p>​    // ———————————–</p>
+<p>​    // 对象方法</p>
+<p>​    // 对象方法中的this就是方法的调用者（方法前面的点前面的对象）</p>
+<p>​    // var obj = {};</p>
+<p>​    // obj.info = 123;</p>
+<p>​    // obj.showInfo = function(){</p>
+<p>​    //     console.log(this.info);</p>
+<p>​    // }</p>
+<p>​    // obj.showInfo();</p>
+<p>​    // ———————————-</p>
+<p>​    // call/apply改变所调用函数的内部this指向</p>
+<p>​    // function foo(){</p>
+<p>​    //     console.log(this);</p>
+<p>​    // }</p>
+<p>​    // foo.call({name:’abc’});</p>
+<p>​    // foo.apply({name:’hello’});</p>
+<p>​    // function sum(flag){</p>
+<p>​    //     console.log(this.a + this.b);</p>
+<p>​    //     console.log(flag);</p>
+<p>​    //     return this.a + this.b;</p>
+<p>​    // }</p>
+<p>​    // // var ret = sum.call({a:123,b:456});</p>
+<p>​    // // var ret = sum.call({a:11,b:22},true);</p>
+<p>​    // var ret = sum.apply({a:11,b:22},[true]);</p>
+<p>​    // console.log(ret);</p>
+<p>​    // var arr = [1,223,34,455,34,3443,34];</p>
+<p>​    // var ret = Math.max(1,223,34,455,34,3443,34);</p>
+<p>​    // console.log(ret);</p>
+<p>​    // var ret = Math.max.apply(null,arr);</p>
+<p>​    // console.log(ret);</p>
+<p>​    // arr.sort(function(a,b){</p>
+<p>​    //     if(a &gt; b){</p>
+<p>​    //         return 1;</p>
+<p>​    //     }else if(a &lt; b){</p>
+<p>​    //         return -1;</p>
+<p>​    //     }else{</p>
+<p>​    //         return 0;</p>
+<p>​    //     }</p>
+<p>​    // });</p>
+<p>​    // console.log(arr);</p>
+<p> /*</p>
+<p>​    this补充</p>
+<p>​    1、事件函数中的this</p>
+<p>​    2、定时函数</p>
+<p>​    */</p>
+<p>​    window.onload = function(){</p>
+<p>​        function Change(btn,div){</p>
+<p>​            this.btn = document.getElementById(btn);</p>
+<p>​            this.div = document.getElementById(div);</p>
+<p>​        }</p>
+<p>​        Change.prototype.change = function(){</p>
+<p>​            // 原型方法中的this指的是构造函数的实例对象</p>
+<p>​            var that = this;</p>
+<p>​            this.btn.onclick = function(){</p>
+<p>​                // 事件函数中的this就是绑定事件的对象</p>
+<p>​                that.div.innerHTML = ‘测试数据’;</p>
+<p>​            }</p>
+<p>​        }</p>
+<p>​    }</p>
+<p>​    // ————————————–</p>
+<p>​    setTimeout(function(){</p>
+<p>​        // 定时函数中的this就是window</p>
+<p>​        console.log(this);</p>
+<p>​    },1000);</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;JavaScript中最令人困惑的机制之一就是&lt;code&gt;this&lt;/code&gt;关键字。它是一个在每个函数作用域中自动定义的特殊标识符关键字，但即便是一些老练的开发者也对它到底指向什么感到困扰。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;任何足够 &lt;em&gt;先进&lt;/em&gt; 的技术都跟魔法没有区别。– Arthur C. Clarke&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;JavaScript的&lt;code&gt;this&lt;/code&gt;机制实际上没有 &lt;em&gt;那么&lt;/em&gt; 先进，但是开发者们总是在大脑中引用这句话来表达“复杂”和“混乱”，毫无疑问，如果没有清晰的理解，在 &lt;em&gt;你的&lt;/em&gt; 困惑中&lt;code&gt;this&lt;/code&gt;可能看起来就是彻头彻尾的魔法。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;注意：&lt;/strong&gt; “this”这个词是在一般的论述中极常用的代词。所以，特别是在口头论述中，很难确定我们是在将“this”作为一个代词使用，还是在将它作为一个实际的关键字识别符使用。为了表意清晰，我会总是使用&lt;code&gt;this&lt;/code&gt;来代表特殊的关键字，而在其他情况下使用“this”或 &lt;em&gt;this&lt;/em&gt; 或this。&lt;/p&gt;
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>前端知识点：前端知识点：面向对象(下)</title>
+    <link href="http://yoursite.com/2016/02/12/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9%EF%BC%9A%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9%EF%BC%9A%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1(%E4%B8%8B)/"/>
+    <id>http://yoursite.com/2016/02/12/前端知识点/前端知识点：前端知识点：面向对象(下)/</id>
+    <published>2016-02-12T14:04:15.000Z</published>
+    <updated>2017-03-31T14:52:36.433Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="7-如何编写面向对象程序"><a href="#7-如何编写面向对象程序" class="headerlink" title="7. 如何编写面向对象程序"></a>7. 如何编写面向对象程序</h2><ol>
+<li>采用构造+原型，写一个构造函数</li>
+<li>把方法挂在原型上(不能有方法嵌套)</li>
+<li>把全局变量变成属性</li>
+<li>调整this</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    // 1. 写一个构造函数    function ToRed() &#123;        // 3. 全局变量变成属性        this.oDiv = document.body.children[0];        // document.onclick = this.fnClick;        // 上句相当于        // document.onclick = function() &#123;        //  alert(this);    // document        //  this.oDiv.style.background = &apos;#f00&apos;;    // 当前的this指向document，错误        // &#125;        // 4. 调整this        var _this = this;        document.onclick = function() &#123;            _this.fnClick();        &#125;    &#125;    // 2. 方法挂在原型上    ToRed.prototype.fnClick = function() &#123;        this.oDiv.style.background = &apos;#f00&apos;;    &#125;    new ToRed();&lt;/script&gt;</div></pre></td></tr></table></figure>
+<p>``</p>
+<h2 id="8-面向对象：继承"><a href="#8-面向对象：继承" class="headerlink" title="8. 面向对象：继承"></a>8. 面向对象：继承</h2><ol>
+<li><p>属性的继承</p>
+</li>
+<li><ul>
+<li><code>父级的构造函数.call(this, 参数1, 参数2, ...);</code></li>
+<li><code>父级的构造函数.apply(this, arguments);</code></li>
+</ul>
+</li>
+<li><p>方法的继承</p>
+</li>
+<li><ul>
+<li><code>子级.prototype = 父级.prototype;</code> // 引用 子级新方法在此之前写会被清空<br>问题：子级改了，父级也改了</li>
+<li>循环复制</li>
+</ul>
+</li>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    for(var name in 父级.prototype) &#123;        子级.prototype[name] = 父级.prototype[name];  // 循环复制父级的方法    &#125;&lt;/script&gt;</div></pre></td></tr></table></figure>
+</li>
+<li><ul>
+<li>问题：<code>子级 instanceof 父级;</code> // false</li>
+<li>组合继承：子级的原型对象指向父级的实例，子级的原型对象的构造函数再指向自己。 <strong>推荐使用</strong></li>
+</ul>
+</li>
+<li><ol>
+<li>``</li>
+</ol>
+</li>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    子级.prototype = new 父级的构造函数();    子级.prototype.constructor = 子级的构造函数;&lt;/script&gt;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="实例：自动播放选项卡-继承"><a href="#实例：自动播放选项卡-继承" class="headerlink" title="实例：自动播放选项卡(继承)"></a>实例：自动播放选项卡(继承)</h3><hr>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;style&gt;    * &#123;        margin: 0;        padding: 0;    &#125;    #box button.active, #box2 button.active &#123;        background: #ff0;    &#125;    #box div, #box2 div &#123;        display: none;        width: 100px;        height: 100px;        font-size: 20px;        border: 1px solid #ccc;    &#125;    #box div.active, #box2 div.active &#123;        display: block;    &#125;&lt;/style&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;!-- 不自动播放 --&gt;&lt;div id=&quot;box&quot;&gt;    &lt;button class=&quot;active&quot;&gt;btn1&lt;/button&gt;    &lt;button&gt;btn2&lt;/button&gt;    &lt;button&gt;btn3&lt;/button&gt;    &lt;div class=&quot;active&quot;&gt;div1&lt;/div&gt;    &lt;div&gt;div2&lt;/div&gt;    &lt;div&gt;div3&lt;/div&gt;&lt;/div&gt;&lt;!-- 自动播放 --&gt;&lt;div id=&quot;box2&quot;&gt;    &lt;button class=&quot;active&quot;&gt;btn1&lt;/button&gt;    &lt;button&gt;btn2&lt;/button&gt;    &lt;button&gt;btn3&lt;/button&gt;    &lt;div class=&quot;active&quot;&gt;div1&lt;/div&gt;    &lt;div&gt;div2&lt;/div&gt;    &lt;div&gt;div3&lt;/div&gt;&lt;/div&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    // 构造函数写属性    function Tab(id) &#123;        if(!id) &#123;            return;        &#125;        this.oBox = document.getElementById(id);        this.aBtn = this.oBox.getElementsByTagName(&apos;button&apos;);        this.aDiv = this.oBox.getElementsByTagName(&apos;div&apos;);    &#125;    // 原型写方法    Tab.prototype.fnClick = function() &#123;        var _this = this;        for (var i = 0; i &lt; this.aBtn.length; i++) &#123;            (function(index) &#123;                _this.aBtn[i].onclick = function() &#123;                    _this._click(this, index);                &#125;            &#125;)(i);        &#125;    &#125;    Tab.prototype._click = function(oBtn, index) &#123;        for (var i = 0; i &lt; this.aBtn.length; i++) &#123;            this.aBtn[i].className = &apos;&apos;;            this.aDiv[i].className = &apos;&apos;;        &#125;        oBtn.className = &apos;active&apos;;        this.aDiv[index].className = &apos;active&apos;;    &#125;    // 自动播放属性    function AutoTab(id) &#123;        var _this = this;        Tab.call(this, id);  // 继承Tab属性        this.iNow = 0;  // 当前选项卡索引值        this.timer = null;        clearInterval(this.timer);        this.timer = setInterval(function() &#123;            _this.next();        &#125;, 1000);    &#125;    AutoTab.prototype = new Tab();  // 继承Tab方法    AutoTab.prototype.constructor = AutoTab;    // 自动播放方法    AutoTab.prototype.next = function() &#123;        this._click(this.aBtn[this.iNow], this.iNow);        this.iNow++;        if(this.iNow == this.aBtn.length) &#123;            this.iNow = 0;        &#125;        this.fnClick();    &#125;    var old_click = AutoTab.prototype._click;    AutoTab.prototype._click = function(oBtn, index) &#123;        this.iNow = index;        old_click.apply(this, arguments);  // 调整this    &#125;    var oTab = new Tab(&apos;box&apos;);  // 不自动播放    var oAuto = new AutoTab(&apos;box2&apos;);    oAuto.next();  // 自动播放    console.log(oTab.constructor == Tab);   // true    console.log(oTab instanceof AutoTab);   // false    console.log(oAuto.constructor == AutoTab);  // true    console.log(oAuto instanceof AutoTab);  // true    console.log(oAuto instanceof Tab);  // true&lt;/script&gt;</div></pre></td></tr></table></figure>
+<h2 id="9-解决变量名冲突的多种方法"><a href="#9-解决变量名冲突的多种方法" class="headerlink" title="9. 解决变量名冲突的多种方法"></a>9. 解决变量名冲突的多种方法</h2><p>​    1. 闭包、自执行函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    (function()&#123;&#125;)();    (function()&#123;&#125;());    // 首部加符号防止报错，不限于~    ~function()&#123;&#125;();&lt;/script&gt;</div></pre></td></tr></table></figure>
+<ol>
+<li><p>面向对象</p>
+</li>
+<li><p>命名空间</p>
+</li>
+<li><p>模块化</p>
+</li>
+<li><p>let(ES6)</p>
+</li>
+</ol>
+<h2 id="10-伪数组问题"><a href="#10-伪数组问题" class="headerlink" title="10. 伪数组问题"></a>10. 伪数组问题</h2><ul>
+<li><strong>DOM获取的元素是伪数组</strong></li>
+<li><strong>arguments是伪数组</strong></li>
+</ul>
+<blockquote>
+<p>注意json属性名不用纯数字</p>
+</blockquote>
+<h2 id="11-js的冒泡-Bubbling-Event-和捕获-Capture-Event-的区别"><a href="#11-js的冒泡-Bubbling-Event-和捕获-Capture-Event-的区别" class="headerlink" title="11. js的冒泡(Bubbling Event)和捕获(Capture Event)的区别"></a>11. js的冒泡(Bubbling Event)和捕获(Capture Event)的区别</h2><blockquote>
+<p>这个问题在之前的原生篇没有写好，这边补充进来。面试题那篇中也有这题。</p>
+</blockquote>
+<p>js之事件冒泡和事件捕获详细介绍</p>
+<ol>
+<li>冒泡型事件：事件按照从最特定的事件目标到最不特定的事件目标(document对象)的顺序触发。</li>
+<li>捕获型事件(event capturing)：事件从最不精确的对象(document 对象)开始触发，然后到最精确(也可以在窗口级别捕获事件，不过必须由开发人员特别指定)。</li>
+<li>DOM事件流：<strong>同时支持两种事件模型</strong>：捕获型事件和冒泡型事件，但是，<strong>捕获型事件先发生</strong>。两种事件流会触及DOM中的所有对象，从document对象开始，也在document对象结束。<br>DOM事件模型最独特的性质是，文本节点也触发事件(在IE中不会)。</li>
+</ol>
+<p>示例<br>假设一个元素div，它有一个下级元素p。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;div&gt;　　&lt;p&gt;元素&lt;/p&gt;&lt;/div&gt;</div></pre></td></tr></table></figure>
+<p>这两个元素都绑定了click事件，如果用户点击了p：</p>
+<ul>
+<li>事件捕获<br>当你使用事件捕获时，<strong>父级元素先触发</strong>，子级元素后触发，即div先触发，p后触发。</li>
+<li>事件冒泡<br>当你使用事件冒泡时，<strong>子级元素先触发</strong>，父级元素后触发，即p先触发，div后触发。</li>
+</ul>
+<blockquote>
+<p>addEventListener函数，它有三个参数，第三个参数若是true，则表示采用事件捕获，若是false，则表示采用事件冒泡。<br>IE只支持事件冒泡，不支持事件捕获。</p>
+</blockquote>
+<p><img src="http://mmbiz.qpic.cn/mmbiz_png/2bdBSyvBaf148xN0ibmV7CNCJkEPpTW5BiapEnYTibxRdiaXsedbhR6OFcyeGfcfPUibyic67OSTRU8rLNdfq1a7JGdg/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1" alt="img"></p>
+<h3 id="阻止冒泡"><a href="#阻止冒泡" class="headerlink" title="阻止冒泡"></a>阻止冒泡</h3><p>• 在W3c中，使用<code>stopPropagation()</code>方法<br>• 在IE下设置<code>oEvent.cancelBubble = true</code>；</p>
+<blockquote>
+<p>在捕获的过程中stopPropagation()后，后面的冒泡过程也不会发生了。</p>
+</blockquote>
+<h3 id="阻止捕获"><a href="#阻止捕获" class="headerlink" title="阻止捕获"></a>阻止捕获</h3><p><strong>阻止事件的默认行为</strong>，例如<code>click &lt;a&gt;</code>后的跳转</p>
+<p>• 在W3c中，使用<code>oEvent.preventDefault()</code>方法；<br>• 在IE下设置<code>window.event.returnValue = false;</code>或<code>return false</code></p>
+<h2 id="12-如何写一个自己的框架"><a href="#12-如何写一个自己的框架" class="headerlink" title="12. 如何写一个自己的框架"></a>12. 如何写一个自己的框架</h2><blockquote>
+<p>以下只是我自己的一点想法，有些幼稚，大家可以提供更好的意见</p>
+</blockquote>
+<h3 id="仿写jQuery要点回顾"><a href="#仿写jQuery要点回顾" class="headerlink" title="仿写jQuery要点回顾"></a>仿写jQuery要点回顾</h3><ul>
+<li><p>链式运动<br>每个功能方法最后需返回当前对象<br><code>return this;</code></p>
+</li>
+<li><p>编写插件</p>
+</li>
+<li><ul>
+<li>一个插件(插件中的this不用加$)</li>
+</ul>
+</li>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    $.fn = jQuery.prototype;    $.fn.插件名 = fn;    // 调用    $(div).插件名();&lt;/script&gt;</div></pre></td></tr></table></figure>
+</li>
+<li><ul>
+<li>一组插件</li>
+</ul>
+</li>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    $.fn = jQuery.prototype;      $.fn.extend = jQuery.prototype.extend = function(json) &#123;        for(var name in json) &#123;            jQuery.prototype[name] = json[name];        &#125;    &#125;    // 调用    $(div).插件名();&lt;/script&gt;</div></pre></td></tr></table></figure>
+</li>
+<li><p><code>$.ajax</code></p>
+</li>
+<li><ul>
+<li><code>$.xxx</code>形式 放在原型的属性上</li>
+<li><code>xxx.find()</code>形式 放在原型的原型链上</li>
+</ul>
+</li>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    $.ajax = jQuery.ajax = function(json) &#123;        // 调用原生的ajax方法，jsonp同理        ajax(json);    &#125;&lt;/script&gt;</div></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;7-如何编写面向对象程序&quot;&gt;&lt;a href=&quot;#7-如何编写面向对象程序&quot; class=&quot;headerlink&quot; title=&quot;7. 如何编写面向对象程序&quot;&gt;&lt;/a&gt;7. 如何编写面向对象程序&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;采用构造+原型，写一个构造函数&lt;/li&gt;
+&lt;
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>前端知识点：前端知识点：选择器</title>
+    <link href="http://yoursite.com/2016/02/11/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9%EF%BC%9A%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9%EF%BC%9A%E9%80%89%E6%8B%A9%E5%99%A8/"/>
+    <id>http://yoursite.com/2016/02/11/前端知识点/前端知识点：前端知识点：选择器/</id>
+    <published>2016-02-10T18:04:15.000Z</published>
+    <updated>2017-03-31T15:02:51.646Z</updated>
+    
+    <content type="html"><![CDATA[<ul>
+<li><p>H5选择器</p>
+</li>
+<li><ul>
+<li>querySelectorAll 对比 getElements 的优势</li>
+<li>jQuery的选择器即是querySelectorAll</li>
+</ul>
+</li>
+<li><p>H5自定义属性 dataset</p>
+</li>
+<li><p>H5元素类名操作 classList</p>
+</li>
+</ul>
+<a id="more"></a>
+<h2 id="3-H5选择器补充"><a href="#3-H5选择器补充" class="headerlink" title="3. H5选择器补充"></a>3. H5选择器补充</h2><p>*兼容：IE8+</p>
+<ul>
+<li><p>​</p>
+<p>document/dom.querySelector() 匹配指定 css 选择器的一个元素</p>
+</li>
+<li><p>​</p>
+<p>querySelectorAll() 匹配指定 css 选择器的所有元素 (NodeList)</p>
+</li>
+</ul>
+<blockquote>
+<p><strong>注意：</strong> querySelectorAll()方法得到的类数组对象是非动态实时的</p>
+</blockquote>
+<h3 id="querySelectorAll-对比-getElements-的优势"><a href="#querySelectorAll-对比-getElements-的优势" class="headerlink" title="querySelectorAll 对比 getElements 的优势"></a>querySelectorAll 对比 getElements 的优势</h3><p>可以操作数组</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;div class=&quot;box&quot;&gt;&lt;/div&gt;    &lt;div class=&quot;box&quot;&gt;&lt;/div&gt;    &lt;div class=&quot;box&quot;&gt;&lt;/div&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    var aBox = document.querySelectorAll(&apos;div&apos;);    // getElements得到的是伪数组，不能操作各项的属性    // var aBox = document.getElementsByTagName(&apos;div&apos;);    // for (var i = 0; i &lt; aBox.length; i++) &#123;    //  aBox[i].onclick = function() &#123;    //      alert(1);    //  &#125;    // &#125;    aBox.forEach(function(item, index) &#123;        item.onclick = function() &#123;            alert(index);            // 弹出当前点击div的索引值，依次为0、1、2        &#125;    &#125;)&lt;/script&gt;</div></pre></td></tr></table></figure>
+<h3 id="jQuery的选择器即是querySelectorAll"><a href="#jQuery的选择器即是querySelectorAll" class="headerlink" title="jQuery的选择器即是querySelectorAll"></a>jQuery的选择器即是querySelectorAll</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    function $(selector) &#123;        var items = document.querySelectorAll(selector);        if(items.length &gt; 1) &#123;            return items;        &#125; else if (items.length == 0) &#123;            return;        &#125; else &#123;            return items[0];        &#125;    &#125;&lt;/script&gt;</div></pre></td></tr></table></figure>
+<p>##.CSS 选择符有哪些？哪些属性可以继承？优先级算法如何计算？ CSS3新增伪类有那些？</p>
+<pre><code>*   1.id选择器（ # myid）
+    2.类选择器（.myclassname）
+    3.标签选择器（div, h1, p）
+    4.相邻选择器（h1 + p）
+    5.子选择器（ul &lt; li）
+    6.后代选择器（li a）
+    7.通配符选择器（ * ）
+    8.属性选择器（a[rel = &quot;external&quot;]）
+    9.伪类选择器（a: hover, li: nth - child）
+</code></pre><p>##CSS3新增伪类举例：<br>    p:first-of-type 选择属于其父元素的首个 </p><p> 元素的每个 </p><p> 元素。<br>    p:last-of-type  选择属于其父元素的最后 </p><p> 元素的每个 </p><p> 元素。<br>    p:only-of-type  选择属于其父元素唯一的 </p><p> 元素的每个 </p><p> 元素。<br>    p:only-child    选择属于其父元素的唯一子元素的每个 </p><p> 元素。<br>    p:nth-child(2)  选择属于其父元素的第二个子元素的每个 </p><p> 元素。<br>    :enabled、:disabled 控制表单控件的禁用状态。<br>    :checked，单选框或复选框被选中。<br>上图一张：<br><img src="/images/css3t/1.png" alt="img"></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;ul&gt;
+&lt;li&gt;&lt;p&gt;H5选择器&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;ul&gt;
+&lt;li&gt;querySelectorAll 对比 getElements 的优势&lt;/li&gt;
+&lt;li&gt;jQuery的选择器即是querySelectorAll&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;H5自定义属性 dataset&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;H5元素类名操作 classList&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>前端知识点：前端知识点：面向对象(中)</title>
+    <link href="http://yoursite.com/2016/02/11/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9%EF%BC%9A%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9%EF%BC%9A%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1(%E4%B8%AD)/"/>
+    <id>http://yoursite.com/2016/02/11/前端知识点/前端知识点：前端知识点：面向对象(中)/</id>
+    <published>2016-02-10T18:04:15.000Z</published>
+    <updated>2017-03-31T15:25:40.825Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="1-面向对象"><a href="#1-面向对象" class="headerlink" title="1. 面向对象"></a>1. 面向对象</h2><h3 id="1-对象组成"><a href="#1-对象组成" class="headerlink" title="(1) 对象组成"></a>(1) 对象组成</h3><ol>
+<li><strong>属性(变量)</strong></li>
+<li><strong>方法(函数)</strong></li>
+</ol>
+<h3 id="2-面向对象特征"><a href="#2-面向对象特征" class="headerlink" title="(2) 面向对象特征"></a>(2) 面向对象特征</h3><ol>
+<li><strong>封装</strong></li>
+<li><strong>继承</strong><br>子级可以继承父级的一切东西</li>
+<li><strong>多态</strong><br>子级可以继承多个父级</li>
+</ol>
+<h3 id="3-对象相关方法"><a href="#3-对象相关方法" class="headerlink" title="(3) 对象相关方法"></a>(3) 对象相关方法</h3><ul>
+<li><p>instanceof 判断是否属于该类型</p>
+</li>
+<li><ul>
+<li>true 属于</li>
+<li>false 不属于<br>eg: <code>arr instanceof Array;</code> // true</li>
+</ul>
+</li>
+<li><p>constructor 查找对象的父级<br>eg: <code>arr.constructor == Array;</code> // true</p>
+</li>
+</ul>
+<blockquote>
+<p><strong>JSON不是一个类型，其父类型就是Object</strong><br><code>json.constructor == JSON;</code> // false<br><code>json.constructor == Object;</code> // true</p>
+</blockquote>
+<h4 id="执念"><a href="#执念" class="headerlink" title="执念"></a>执念</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    var arr = [1, 2];    var json = &#123;&#125;;    var oDate = new Date();    console.log(arr.constructor == Array); // true    console.log(json.constructor == JSON); // false    console.log(json.constructor == Object); // true    console.log(typeof oDate); // object    console.log(oDate instanceof Date); // true    console.log(typeof Date); // function    console.log(Date instanceof Function); // true    console.log(oDate instanceof Function); // false    console.log(typeof Image); // function    console.log(Image instanceof Function); // true    // 开始划重点    console.log(Function instanceof Object); // true    console.log(Object instanceof Function); // true    console.log(Object instanceof Object); // true    console.log(Function instanceof Function); // true    console.log(arr instanceof Array); // true    console.log(Array instanceof Object); // true    console.log(arr instanceof Object); // *true    console.log(arr instanceof Array); // true    console.log(Array instanceof Function); // true    console.log(arr instanceof Function); // *false    Object.prototype.run = 7;    var run = 5;    var arr2 = [];    console.log(run); // 5    console.log(typeof run); // number    console.log(run instanceof Number); // false    console.log(Number instanceof Object); // true    console.log(Boolean instanceof Object); // true    console.log(run instanceof Object); // false    console.log(arr2.run); // 7&lt;/script&gt;</div></pre></td></tr></table></figure>
+<h2 id="2-引用类型"><a href="#2-引用类型" class="headerlink" title="2. 引用类型"></a>2. 引用类型</h2><ul>
+<li><p>Object类型</p>
+</li>
+<li><p>Array类型</p>
+</li>
+<li><p>Date类型</p>
+</li>
+<li><p>RegExp类型</p>
+</li>
+<li><p>Function类型</p>
+</li>
+<li><p>基本包装类型</p>
+</li>
+<li><ul>
+<li>Boolean类型</li>
+<li>String类型</li>
+</ul>
+</li>
+<li><p>内置对象</p>
+</li>
+<li><ul>
+<li>Global对象</li>
+<li>Math对象</li>
+</ul>
+</li>
+</ul>
+<h3 id="Array-sum实现原理"><a href="#Array-sum实现原理" class="headerlink" title="Array.sum实现原理"></a>Array.sum实现原理</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    var arr = [1, 2, 3];    // sum的实现原理    Array.prototype.sum = function() &#123;        var sum = 0;        for(var i = 0; i &lt; this.length; i++) &#123;            sum += this[i];        &#125;        return sum;    &#125;    console.log(arr.sum());&lt;/script&gt;</div></pre></td></tr></table></figure>
+<h3 id="Array-forEach实现原理"><a href="#Array-forEach实现原理" class="headerlink" title="Array.forEach实现原理"></a>Array.forEach实现原理</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    // forEach实现原理    if (!Array.prototype.forEach) &#123;        Array.prototype.forEach = function(fn) &#123;            for (var i = 0; i &lt; this.length; i++) &#123;                fn(this[i], i, this);            &#125;        &#125;;    &#125;    [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;].forEach(function(value, index, array) &#123;        assert(value, &quot;Is in position &quot; + index + &quot; out of &quot; + (array.length - 1));    &#125;);&lt;/script&gt;</div></pre></td></tr></table></figure>
+<h3 id="Array-every实现原理"><a href="#Array-every实现原理" class="headerlink" title="Array.every实现原理"></a>Array.every实现原理</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    if (Array.prototype.every === undefined) &#123;        Array.prototype.every = function(fun) &#123;            //遍历当前数组中每个元素            for (var i = 0; i &lt; this.length; i++) &#123;                if (this[i] !== undefined) &#123;                    //调用fun,依次传入当前元素值,位置i,当前数组作为参数  ，将返回值，保存在变量r中                    var r = fun(this[i], i, this);                    if (r == false) &#123; //如果r为false                        return false; //返回false                    &#125;                &#125;            &#125; //(遍历结束)            return true; //返回true        &#125;    &#125;&lt;/script&gt;</div></pre></td></tr></table></figure>
+<h3 id="Array-some原理"><a href="#Array-some原理" class="headerlink" title="Array.some原理"></a>Array.some原理</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    if (Array.prototype.some === undefined) &#123;        Array.prototype.some = function(fun) &#123;            for (var i = 0; i &lt; this.length; i++) &#123;                if (this[i] !== unefined) &#123;                    var r = fun(this[i], i, this);                    if (r == true) &#123;                        return true;                    &#125;                &#125;            &#125;            return false;        &#125;    &#125;&lt;/script&gt;</div></pre></td></tr></table></figure>
+<h3 id="Array-map原理"><a href="#Array-map原理" class="headerlink" title="Array.map原理"></a>Array.map原理</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    if (Array.prototype.map === undefined) &#123;        Array.prototype.map = function(fun) &#123;            //创建空数组: newArr            var newArr = [];            //遍历当前数组中每个元素            for (var i = 0; i &lt; this.length; i++) &#123;                //如果当前元素不是undefined                if (this[i] !== undefined) &#123; //判断稀疏数组                    //调用fun传入当前元素值，位置i，当前数组，将结果保存在r中                    //将newArr的i位置赋值为r                    var r = fun(this[i], i, this);                    newArr[i] = r;                &#125;            &#125; //(遍历结束)            return newArr; //返回newArr        &#125;    &#125;&lt;/script&gt;</div></pre></td></tr></table></figure>
+<h3 id="Array-reduce原理"><a href="#Array-reduce原理" class="headerlink" title="Array.reduce原理"></a>Array.reduce原理</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    if (Array.prototype.reduce === undefined) &#123;        Array.prototype.reduce = function(fun, base) &#123;            base === undefined &amp;&amp; (base = 0);            for (var i = 0; i &lt; this.length; i++) &#123;                if (this[i] !== undefined) &#123;                    base = fun(base, this[i], i, this);                &#125;            &#125;            return base;        &#125;    &#125;&lt;/script&gt;</div></pre></td></tr></table></figure>
+<h3 id="Function-bind原理"><a href="#Function-bind原理" class="headerlink" title="Function.bind原理"></a>Function.bind原理</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    if (Function.prototype.bind === undefined) &#123;        Function.prototype.bind = function(obj /*，参数列表*/ ) &#123;            var fun = this; //留住this            //*****将类数组对象，转化为普通数组            var args = Array.prototype.slice.call(arguments, 1);            //args保存的就是提前绑定的参数列表            /*function slice(1)&#123;               var sub=[];               for(var i=0;i&lt;length;i++)&#123;                sub.push(arguments[i]);               &#125;               return sub;            &#125;*/            return function() &#123;                //将后传入的参数值，转为普通数组                      var innerArgs = Array.prototype.slice.call(arguments); //将之前绑定的参数值和新传入的参数值，拼接为完整参数之列表                var allArgs = args.concat(innerArgs)                    //调用原始函数fun，替换this为obj，传入所有参数                fun.apply(obj, allArgs);            &#125;        &#125;    &#125;&lt;/script&gt;</div></pre></td></tr></table></figure>
+<h2 id="3-创建对象前导"><a href="#3-创建对象前导" class="headerlink" title="3. 创建对象前导"></a>3. 创建对象前导</h2><h3 id="1-关于new"><a href="#1-关于new" class="headerlink" title="(1) 关于new"></a>(1) 关于new</h3><ol>
+<li>创建一个空对象，并赋值给this</li>
+<li>返回this</li>
+</ol>
+<h3 id="2-关于this"><a href="#2-关于this" class="headerlink" title="(2) 关于this"></a>(2) 关于this</h3><p>当前方法属于谁，this就是谁<br><strong>this默认属于window</strong></p>
+<p><strong>this的优先级</strong>：</p>
+<ol>
+<li>new -&gt; object</li>
+<li>定时器 -&gt; window</li>
+<li>事件 -&gt; 事件对象</li>
+<li>方法 -&gt; 方法对象</li>
+</ol>
+<blockquote>
+<p><strong>多包一层时优先级失效</strong></p>
+</blockquote>
+<p>哈哈，关于this的坑详见后面的坑集合！</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    function show() &#123;        console.log(this);    &#125;    var arr = [1, 2];    arr.show = show;    document.onclick = arr.show; // 点击时 document    new arr.show(); // 1. object    new show(); // 2. object    new document.onclick(); // 3. object    setTimeout(show, 1000); // 9. window    setTimeout(arr.show, 1000); // 10. window    setTimeout(new arr.show, 1000); // 4. object **在上两个行执行前先弹出    var oDate = new Date();    oDate.show = show;    document.show = show;    document.onclick = show;    setTimeout(function() &#123; // setTimeout多包一层优先级失效        oDate.show(); // 5. oDate时间        new oDate.show(); // 6. object        document.show(); // 7. document        document.onclick(); // 8. document    &#125;, 100);&lt;/script&gt;</div></pre></td></tr></table></figure>
+<h4 id="强制改变this指向"><a href="#强制改变this指向" class="headerlink" title="强制改变this指向"></a>强制改变this指向</h4><ul>
+<li><p>call</p>
+</li>
+<li><ul>
+<li><code>fn.call(a);</code> 改变this指向，指向a</li>
+<li><code>fn.call(a, p1, p2);</code> 改变this指向并传参p1, p2</li>
+</ul>
+</li>
+<li><p>apply</p>
+</li>
+<li><ul>
+<li><code>fn.apply(a, [p1, p2]);</code> 改变this指向并传入参数数组</li>
+<li><code>fn.apply(a, arguments);</code> 改变this指向并传入当前方法(非fn)的参数数组</li>
+</ul>
+</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;1-面向对象&quot;&gt;&lt;a href=&quot;#1-面向对象&quot; class=&quot;headerlink&quot; title=&quot;1. 面向对象&quot;&gt;&lt;/a&gt;1. 面向对象&lt;/h2&gt;&lt;h3 id=&quot;1-对象组成&quot;&gt;&lt;a href=&quot;#1-对象组成&quot; class=&quot;headerlink&quot; ti
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>前端知识点：前端知识点：面向对象(上)</title>
+    <link href="http://yoursite.com/2016/02/10/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9%EF%BC%9A%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9%EF%BC%9A%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1(%E4%B8%8A)/"/>
+    <id>http://yoursite.com/2016/02/10/前端知识点/前端知识点：前端知识点：面向对象(上)/</id>
+    <published>2016-02-09T17:34:15.000Z</published>
+    <updated>2017-03-31T14:50:49.885Z</updated>
+    
+    <content type="html"><![CDATA[<p>1.面向过程编程:注重解决问题的步骤,分析问题需要的每一步,实现函数依次调用。</p>
+<p>2.面向对象编程:注重问题中的对象,分析问题中对象的联系,实现对象间的通讯解决问题.面向对象编程淡化过程,强调对象 更贴近我们人日常处理问题的方式。</p>
+<p>3.面向过程:所有功能都是在需要使用的时候才开发,相当于去餐馆点菜,现点现做,需要等。</p>
+<p>4.面向对象:在正式开发之前,就先把所有需要使用的功能都开发好,并以属性或者方法的形式存放</p>
+<p>在一个对象中,在实际开发的时候根据需要来调用写好的功能。相当于去快餐店吃快餐,菜都是</p>
+<p>事先已经炒好的,去了就可以吃。</p>
+<a id="more"></a>
+<h2 id="1-面向对象"><a href="#1-面向对象" class="headerlink" title="1. 面向对象"></a>1. 面向对象</h2><h3 id="1-对象组成"><a href="#1-对象组成" class="headerlink" title="(1) 对象组成"></a>(1) 对象组成</h3><ol>
+<li><strong>属性(变量)</strong></li>
+<li><strong>方法(函数)</strong></li>
+</ol>
+<h3 id="2-面向对象特征"><a href="#2-面向对象特征" class="headerlink" title="(2) 面向对象特征"></a>(2) 面向对象特征</h3><ol>
+<li><strong>封装</strong></li>
+<li><strong>继承</strong><br>子级可以继承父级的一切东西</li>
+<li><strong>多态</strong><br>子级可以继承多个父级</li>
+</ol>
+<h3 id="3-对象相关方法"><a href="#3-对象相关方法" class="headerlink" title="(3) 对象相关方法"></a>(3) 对象相关方法</h3><ul>
+<li><p>instanceof 判断是否属于该类型</p>
+</li>
+<li><ul>
+<li>true 属于</li>
+<li>false 不属于<br>eg: <code>arr instanceof Array;</code> // true</li>
+</ul>
+</li>
+<li><p>constructor 查找对象的父级<br>eg: <code>arr.constructor == Array;</code> // true</p>
+</li>
+</ul>
+<blockquote>
+<p><strong>JSON不是一个类型，其父类型就是Object</strong><br><code>json.constructor == JSON;</code> // false<br><code>json.constructor == Object;</code> // true</p>
+</blockquote>
+<h4 id="执念"><a href="#执念" class="headerlink" title="执念"></a>执念</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    var arr = [1, 2];    var json = &#123;&#125;;    var oDate = new Date();    console.log(arr.constructor == Array); // true    console.log(json.constructor == JSON); // false    console.log(json.constructor == Object); // true    console.log(typeof oDate); // object    console.log(oDate instanceof Date); // true    console.log(typeof Date); // function    console.log(Date instanceof Function); // true    console.log(oDate instanceof Function); // false    console.log(typeof Image); // function    console.log(Image instanceof Function); // true    // 开始划重点    console.log(Function instanceof Object); // true    console.log(Object instanceof Function); // true    console.log(Object instanceof Object); // true    console.log(Function instanceof Function); // true    console.log(arr instanceof Array); // true    console.log(Array instanceof Object); // true    console.log(arr instanceof Object); // *true    console.log(arr instanceof Array); // true    console.log(Array instanceof Function); // true    console.log(arr instanceof Function); // *false    Object.prototype.run = 7;    var run = 5;    var arr2 = [];    console.log(run); // 5    console.log(typeof run); // number    console.log(run instanceof Number); // false    console.log(Number instanceof Object); // true    console.log(Boolean instanceof Object); // true    console.log(run instanceof Object); // false    console.log(arr2.run); // 7&lt;/script&gt;</div></pre></td></tr></table></figure>
+<h2 id="2-引用类型"><a href="#2-引用类型" class="headerlink" title="2. 引用类型"></a>2. 引用类型</h2><ul>
+<li><p>Object类型</p>
+</li>
+<li><p>Array类型</p>
+</li>
+<li><p>Date类型</p>
+</li>
+<li><p>RegExp类型</p>
+</li>
+<li><p>Function类型</p>
+</li>
+<li><p>基本包装类型</p>
+</li>
+<li><ul>
+<li>Boolean类型</li>
+<li>String类型</li>
+</ul>
+</li>
+<li><p>内置对象</p>
+</li>
+<li><ul>
+<li>Global对象</li>
+<li>Math对象</li>
+</ul>
+</li>
+</ul>
+<h3 id="Array-sum实现原理"><a href="#Array-sum实现原理" class="headerlink" title="Array.sum实现原理"></a>Array.sum实现原理</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    var arr = [1, 2, 3];    // sum的实现原理    Array.prototype.sum = function() &#123;        var sum = 0;        for(var i = 0; i &lt; this.length; i++) &#123;            sum += this[i];        &#125;        return sum;    &#125;    console.log(arr.sum());&lt;/script&gt;</div></pre></td></tr></table></figure>
+<h3 id="Array-forEach实现原理"><a href="#Array-forEach实现原理" class="headerlink" title="Array.forEach实现原理"></a>Array.forEach实现原理</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    // forEach实现原理    if (!Array.prototype.forEach) &#123;        Array.prototype.forEach = function(fn) &#123;            for (var i = 0; i &lt; this.length; i++) &#123;                fn(this[i], i, this);            &#125;        &#125;;    &#125;    [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;].forEach(function(value, index, array) &#123;        assert(value, &quot;Is in position &quot; + index + &quot; out of &quot; + (array.length - 1));    &#125;);&lt;/script&gt;</div></pre></td></tr></table></figure>
+<h3 id="Array-every实现原理"><a href="#Array-every实现原理" class="headerlink" title="Array.every实现原理"></a>Array.every实现原理</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    if (Array.prototype.every === undefined) &#123;        Array.prototype.every = function(fun) &#123;            //遍历当前数组中每个元素            for (var i = 0; i &lt; this.length; i++) &#123;                if (this[i] !== undefined) &#123;                    //调用fun,依次传入当前元素值,位置i,当前数组作为参数  ，将返回值，保存在变量r中                    var r = fun(this[i], i, this);                    if (r == false) &#123; //如果r为false                        return false; //返回false                    &#125;                &#125;            &#125; //(遍历结束)            return true; //返回true        &#125;    &#125;&lt;/script&gt;</div></pre></td></tr></table></figure>
+<h3 id="Array-some原理"><a href="#Array-some原理" class="headerlink" title="Array.some原理"></a>Array.some原理</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    if (Array.prototype.some === undefined) &#123;        Array.prototype.some = function(fun) &#123;            for (var i = 0; i &lt; this.length; i++) &#123;                if (this[i] !== unefined) &#123;                    var r = fun(this[i], i, this);                    if (r == true) &#123;                        return true;                    &#125;                &#125;            &#125;            return false;        &#125;    &#125;&lt;/script&gt;</div></pre></td></tr></table></figure>
+<h3 id="Array-map原理"><a href="#Array-map原理" class="headerlink" title="Array.map原理"></a>Array.map原理</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    if (Array.prototype.map === undefined) &#123;        Array.prototype.map = function(fun) &#123;            //创建空数组: newArr            var newArr = [];            //遍历当前数组中每个元素            for (var i = 0; i &lt; this.length; i++) &#123;                //如果当前元素不是undefined                if (this[i] !== undefined) &#123; //判断稀疏数组                    //调用fun传入当前元素值，位置i，当前数组，将结果保存在r中                    //将newArr的i位置赋值为r                    var r = fun(this[i], i, this);                    newArr[i] = r;                &#125;            &#125; //(遍历结束)            return newArr; //返回newArr        &#125;    &#125;&lt;/script&gt;</div></pre></td></tr></table></figure>
+<h3 id="Array-reduce原理"><a href="#Array-reduce原理" class="headerlink" title="Array.reduce原理"></a>Array.reduce原理</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    if (Array.prototype.reduce === undefined) &#123;        Array.prototype.reduce = function(fun, base) &#123;            base === undefined &amp;&amp; (base = 0);            for (var i = 0; i &lt; this.length; i++) &#123;                if (this[i] !== undefined) &#123;                    base = fun(base, this[i], i, this);                &#125;            &#125;            return base;        &#125;    &#125;&lt;/script&gt;</div></pre></td></tr></table></figure>
+<h3 id="Function-bind原理"><a href="#Function-bind原理" class="headerlink" title="Function.bind原理"></a>Function.bind原理</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    if (Function.prototype.bind === undefined) &#123;        Function.prototype.bind = function(obj /*，参数列表*/ ) &#123;            var fun = this; //留住this            //*****将类数组对象，转化为普通数组            var args = Array.prototype.slice.call(arguments, 1);            //args保存的就是提前绑定的参数列表            /*function slice(1)&#123;               var sub=[];               for(var i=0;i&lt;length;i++)&#123;                sub.push(arguments[i]);               &#125;               return sub;            &#125;*/            return function() &#123;                //将后传入的参数值，转为普通数组                      var innerArgs = Array.prototype.slice.call(arguments); //将之前绑定的参数值和新传入的参数值，拼接为完整参数之列表                var allArgs = args.concat(innerArgs)                    //调用原始函数fun，替换this为obj，传入所有参数                fun.apply(obj, allArgs);            &#125;        &#125;    &#125;&lt;/script&gt;</div></pre></td></tr></table></figure>
+<h2 id="3-创建对象前导"><a href="#3-创建对象前导" class="headerlink" title="3. 创建对象前导"></a>3. 创建对象前导</h2><h3 id="1-关于new"><a href="#1-关于new" class="headerlink" title="(1) 关于new"></a>(1) 关于new</h3><ol>
+<li>创建一个空对象，并赋值给this</li>
+<li>返回this</li>
+</ol>
+<h3 id="2-关于this"><a href="#2-关于this" class="headerlink" title="(2) 关于this"></a>(2) 关于this</h3><p>当前方法属于谁，this就是谁<br><strong>this默认属于window</strong></p>
+<p><strong>this的优先级</strong>：</p>
+<ol>
+<li>new -&gt; object</li>
+<li>定时器 -&gt; window</li>
+<li>事件 -&gt; 事件对象</li>
+<li>方法 -&gt; 方法对象</li>
+</ol>
+<blockquote>
+<p><strong>多包一层时优先级失效</strong></p>
+</blockquote>
+<p>哈哈，关于this的坑详见后面的坑集合！</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    function show() &#123;        console.log(this);    &#125;    var arr = [1, 2];    arr.show = show;    document.onclick = arr.show; // 点击时 document    new arr.show(); // 1. object    new show(); // 2. object    new document.onclick(); // 3. object    setTimeout(show, 1000); // 9. window    setTimeout(arr.show, 1000); // 10. window    setTimeout(new arr.show, 1000); // 4. object **在上两个行执行前先弹出    var oDate = new Date();    oDate.show = show;    document.show = show;    document.onclick = show;    setTimeout(function() &#123; // setTimeout多包一层优先级失效        oDate.show(); // 5. oDate时间        new oDate.show(); // 6. object        document.show(); // 7. document        document.onclick(); // 8. document    &#125;, 100);&lt;/script&gt;</div></pre></td></tr></table></figure>
+<h4 id="强制改变this指向"><a href="#强制改变this指向" class="headerlink" title="强制改变this指向"></a>强制改变this指向</h4><ul>
+<li><p>call</p>
+</li>
+<li><ul>
+<li><code>fn.call(a);</code> 改变this指向，指向a</li>
+<li><code>fn.call(a, p1, p2);</code> 改变this指向并传参p1, p2</li>
+</ul>
+</li>
+<li><p>apply</p>
+</li>
+<li><ul>
+<li><code>fn.apply(a, [p1, p2]);</code> 改变this指向并传入参数数组</li>
+<li><code>fn.apply(a, arguments);</code> 改变this指向并传入当前方法(非fn)的参数数组</li>
+</ul>
+</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;1.面向过程编程:注重解决问题的步骤,分析问题需要的每一步,实现函数依次调用。&lt;/p&gt;
+&lt;p&gt;2.面向对象编程:注重问题中的对象,分析问题中对象的联系,实现对象间的通讯解决问题.面向对象编程淡化过程,强调对象 更贴近我们人日常处理问题的方式。&lt;/p&gt;
+&lt;p&gt;3.面向过程:所有功能都是在需要使用的时候才开发,相当于去餐馆点菜,现点现做,需要等。&lt;/p&gt;
+&lt;p&gt;4.面向对象:在正式开发之前,就先把所有需要使用的功能都开发好,并以属性或者方法的形式存放&lt;/p&gt;
+&lt;p&gt;在一个对象中,在实际开发的时候根据需要来调用写好的功能。相当于去快餐店吃快餐,菜都是&lt;/p&gt;
+&lt;p&gt;事先已经炒好的,去了就可以吃。&lt;/p&gt;
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>前端知识点：前端知识点：性能优化篇</title>
+    <link href="http://yoursite.com/2016/01/09/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9%EF%BC%9A%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9%EF%BC%9A%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E7%AF%87/"/>
+    <id>http://yoursite.com/2016/01/09/前端知识点/前端知识点：前端知识点：性能优化篇/</id>
+    <published>2016-01-09T09:44:15.000Z</published>
+    <updated>2017-03-31T14:39:17.661Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="雅虎规则"><a href="#雅虎规则" class="headerlink" title="雅虎规则"></a>雅虎规则</h1><p>熟悉网站优化的开发者应该都知道，只要提到网页性能优化，就绕不开雅虎军规。<a href="https://github.com/creeperyang/blog/issues/1" target="_blank" rel="external">优化规则</a>&amp;&amp;<a href="https://developer.yahoo.com/performance/rules.html" target="_blank" rel="external">原文</a>，仔细阅读这些规则，可以总结到3个方面：</p>
+<a id="more"></a>
+<p><img src="/images/优化/1.png" alt="img">   </p>
+<ul>
+<li><p>网页内容</p>
+</li>
+<li><ul>
+<li>减少 http请求次数</li>
+<li>减少 DNS查询次数</li>
+<li>避免页面跳转</li>
+<li>缓存 Ajax</li>
+<li>延迟加载</li>
+<li>提前加载</li>
+<li>减少 DOM元素数量</li>
+<li>根据域名划分内容</li>
+<li>减少iframe数量</li>
+<li>避免 404</li>
+</ul>
+</li>
+<li><p>服务器</p>
+</li>
+<li><ul>
+<li>使用CDN(内容分发网络)</li>
+<li>添加Expires或Cache-Control报文头</li>
+<li>Gzip压缩传输文件</li>
+<li>配置ETags</li>
+<li>尽早flush(刷新输出)缓冲</li>
+<li>使用GET来完成AJAX请求</li>
+<li>避免空的图片src</li>
+</ul>
+</li>
+<li><p>Cookie</p>
+</li>
+<li><ul>
+<li>减少Cookie大小</li>
+<li>页面内容使用无cookie域名</li>
+</ul>
+</li>
+<li><p>CSS</p>
+</li>
+<li><ul>
+<li>将样式表置顶</li>
+<li>避免使用CSS表达式(Expression)</li>
+<li>用<link>代替@import</li>
+<li>避免使用Filters(滤镜)</li>
+</ul>
+</li>
+<li><p>JavaScript</p>
+</li>
+<li><ul>
+<li>把脚本置于页面底部</li>
+<li>使用外部JavaScript和CSS</li>
+<li>精简JavaScript和CSS</li>
+<li>去除重复脚本</li>
+<li>减少DOM访问</li>
+<li>开发智能事件处理程序</li>
+</ul>
+</li>
+<li><p>图片</p>
+</li>
+<li><ul>
+<li>优化图像</li>
+<li>优化CSS Spirite</li>
+<li>不要在HTML中缩放图片</li>
+<li>favicon.ico要小而且可缓存</li>
+</ul>
+</li>
+<li><p>移动客户端</p>
+</li>
+<li><ul>
+<li>保持单个内容小于25KB</li>
+<li>打包组建成复合文档</li>
+</ul>
+</li>
+</ul>
+<p>再来一张晚上搜的的移动端性能优化图：</p>
+<p><img src="/images/优化/2.webp" alt="img">   </p>
+<h2 id="1-性能优化"><a href="#1-性能优化" class="headerlink" title="1. 性能优化"></a>1. 性能优化</h2><p>项目讲求：</p>
+<ol>
+<li>稳定性</li>
+<li>可维护性</li>
+<li>性能优化</li>
+</ol>
+<p>性能分类：</p>
+<ul>
+<li>执行性能</li>
+<li>网络性能</li>
+</ul>
+<h2 id="2-重排-amp-amp-重绘"><a href="#2-重排-amp-amp-重绘" class="headerlink" title="2. 重排 &amp;&amp; 重绘"></a>2. 重排 &amp;&amp; 重绘</h2><p>简单-页面性能优化</p>
+<h3 id="1-重排-reflow"><a href="#1-重排-reflow" class="headerlink" title="(1) 重排(reflow)"></a>(1) 重排(reflow)</h3><p>即重新生成布局，<strong>重排必然导致重绘</strong>。</p>
+<p>会触发重排的属性：</p>
+<ul>
+<li><p>盒子模型相关属性</p>
+</li>
+<li><ul>
+<li>width</li>
+<li>height</li>
+<li>padding</li>
+<li>margin</li>
+<li>display</li>
+<li>border-width</li>
+<li>border</li>
+<li>min-height</li>
+</ul>
+</li>
+<li><p>定位属性及浮动</p>
+</li>
+<li><ul>
+<li>top</li>
+<li>bottom</li>
+<li>left</li>
+<li>right</li>
+<li>position</li>
+<li>float</li>
+<li>clear</li>
+</ul>
+</li>
+<li><p>改变节点内部文字结构</p>
+</li>
+<li><ul>
+<li>text-align</li>
+<li>overflow-y</li>
+<li>font-weight</li>
+<li>overflow</li>
+<li>font-family</li>
+<li>line-height</li>
+<li>vertival-align</li>
+<li>white-space</li>
+<li>font-size</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-重绘"><a href="#2-重绘" class="headerlink" title="(2) 重绘"></a>(2) 重绘</h3><p>即重新绘制，<strong>重绘不一定需要重排</strong>。</p>
+<p>会触发重绘的属性：</p>
+<ul>
+<li>color</li>
+<li>border-style</li>
+<li>border-radius</li>
+<li>visibility</li>
+<li>text-decoration</li>
+<li>background</li>
+<li>background-image</li>
+<li>background-position</li>
+<li>background-repeat</li>
+<li>background-size</li>
+<li>outline-color</li>
+<li>outline</li>
+<li>outline-style</li>
+<li>outline-width</li>
+<li>box-shadow</li>
+</ul>
+<h2 id="3-图层"><a href="#3-图层" class="headerlink" title="3. 图层"></a>3. 图层</h2><p>浏览器layout和paint是在每一个图层上进行的，当有一个元素经常变化，为了减少这个元素对页面的影响，我们可以为这个元素创建一个单独的图层，来提供页面的性能。</p>
+<ul>
+<li><p>什么时候会创建图层</p>
+</li>
+<li><ul>
+<li>3D或透视变换（perspective transform）CSS属性（例如translateZ(0)/translate3d(0,0,0)）</li>
+<li>使用加速视频解码的<video>节点</video></li>
+<li>拥有3D（WebGL）上下文或加速的2D上下文的<canvas>节点</canvas></li>
+<li>混合插件（如Flash）</li>
+<li>对自己的opacity做CSS动画或使用一个动画webkit变换的元素</li>
+<li>拥有加速CSS过滤器的元素</li>
+<li>元素有一个包含复合层的后代节点（一个元素拥有一个子元素，该子元素在自己的层里）</li>
+<li>元素有一个z-index较低且包含一个复合层的兄弟元素（换句话说就是该元素在复合层上面渲染）</li>
+<li>position为fixed也会创建图层，而absolute则不会</li>
+</ul>
+</li>
+</ul>
+<p>利用GPU来加速页面渲染(硬件加速)</p>
+<ul>
+<li><p>触发CSS硬件加速</p>
+</li>
+<li><ul>
+<li>translate3d(0,0,0)</li>
+<li>rotate3d(0,0,0,0)</li>
+<li>scale3d(0,0,0)</li>
+<li>translateZ(0)【可能】</li>
+</ul>
+</li>
+</ul>
+<h2 id="4-执行性能优化"><a href="#4-执行性能优化" class="headerlink" title="4. 执行性能优化"></a>4. 执行性能优化</h2><p>建议：</p>
+<ol>
+<li>不用的东西删除</li>
+<li>尽量不用全局变量(命名冲突，耗资源)</li>
+<li>能用系统自带的一定不用自己写的(eg:getByClass)</li>
+<li>尽量使用正则操作字符串</li>
+<li>DOM操作耗性能，尽量减少DOM操作</li>
+<li>属性用的越多，性能越低</li>
+<li>css耗性能属性：expression、filter、border-radius、box-shadow、gradients</li>
+</ol>
+<blockquote>
+<ol>
+<li>Math.floor比parseInt快</li>
+<li>变量性能消耗：属性 &gt; 全局变量 &gt; 局部变量</li>
+</ol>
+</blockquote>
+<h2 id="5-网络性能优化"><a href="#5-网络性能优化" class="headerlink" title="5. 网络性能优化"></a>5. 网络性能优化</h2><h3 id="查看网络性能-F12-gt-network"><a href="#查看网络性能-F12-gt-network" class="headerlink" title="查看网络性能 F12 -&gt; network"></a>查看网络性能 F12 -&gt; network</h3><ul>
+<li><p>Status 状态码</p>
+</li>
+<li><p>Type 资源类型</p>
+</li>
+<li><ul>
+<li>主类型/次类型</li>
+<li>text/html</li>
+<li>text/css</li>
+<li>image/png/gif</li>
+</ul>
+</li>
+<li><p>Initiator 发起人</p>
+</li>
+<li><p>Size 资源大小</p>
+</li>
+<li><p>Time 请求耗时</p>
+</li>
+<li><p>Timeline 时间轴</p>
+</li>
+<li><ul>
+<li>Queueing 排队</li>
+<li>Stalled 停滞</li>
+<li>Request sent 请求发送</li>
+<li>Waiting 等待</li>
+<li>Content Download 内容下载</li>
+</ul>
+</li>
+</ul>
+<h4 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h4><p>FF -&gt; firebug -&gt; yslow(网站评分)<br>Chrome -&gt; Audits(查看网络性能)</p>
+<h3 id="网络性能提升方法"><a href="#网络性能提升方法" class="headerlink" title="网络性能提升方法"></a>网络性能提升方法</h3><ol>
+<li><p>减少http请求 -&gt; 合并</p>
+</li>
+<li><ul>
+<li>js -&gt; 合并</li>
+<li>css -&gt; 合并，避免<code>@import</code>方式引入css文件</li>
+<li>图片 -&gt; css sprites</li>
+</ul>
+</li>
+<li><p>http请求越小越好 -&gt; 压缩</p>
+</li>
+<li><ul>
+<li>在线工具 —— 开源中国社区</li>
+<li>HTML格式化 、HTML压缩- 站长工具</li>
+<li>前端自动化工具</li>
+</ul>
+</li>
+</ol>
+<ol>
+<li><ul>
+<li>css值缩写(margin,border等)</li>
+<li>省略值为0的单位</li>
+<li>色值用最短的表示</li>
+</ul>
+</li>
+</ol>
+<ol>
+<li><ul>
+<li>js -&gt; 压缩</li>
+<li>css -&gt; 压缩</li>
+<li>图片 -&gt; 压缩<br>工具</li>
+</ul>
+</li>
+<li><p>图片延迟加载</p>
+</li>
+<li><p>CDN(Content Delivery Network, 内容分发网络)加速</p>
+</li>
+<li><p>加载顺序</p>
+</li>
+<li><ul>
+<li>阻塞加载(同步加载)<br>js<br><strong>解决</strong>：引用其他网站的js放在body最后</li>
+<li>非阻塞加载(异步加载，并行加载)<br>css、html、图片</li>
+</ul>
+</li>
+</ol>
+<h2 id="6-垃圾回收-GC-Gabage-Collection"><a href="#6-垃圾回收-GC-Gabage-Collection" class="headerlink" title="6. 垃圾回收 GC(Gabage Collection)"></a>6. 垃圾回收 GC(Gabage Collection)</h2><ul>
+<li>js中的垃圾回收：(宿主环境)<br>浏览器会自动回收垃圾</li>
+<li>底层语言不会自动回收垃圾</li>
+</ul>
+<p>垃圾的评判标准：<strong>生存周期</strong></p>
+<p>生存周期：作用域</p>
+<ol>
+<li>全局变量：生存周期长，直到浏览器关闭时清除 <strong>占资源</strong></li>
+<li>局部变量：生存周期短，方法调用完即清除</li>
+<li>闭包(子函数可以使用父函数的全局变量)<br>子函数若没有释放，整条作用域链上的局部变量都会保留<br>作用域链：从内一级一级往外找，知道全局</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    // 作用域链    function show1() &#123;        var a = 12;        function show2() &#123;            var b = 1;            function show3() &#123;                var c = 2;                document.onclick = function() &#123;                    var d = 3;                    alert(a);                &#125;            &#125;            show3();        &#125;        show2();    &#125;    show1();&lt;/script&gt;</div></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;雅虎规则&quot;&gt;&lt;a href=&quot;#雅虎规则&quot; class=&quot;headerlink&quot; title=&quot;雅虎规则&quot;&gt;&lt;/a&gt;雅虎规则&lt;/h1&gt;&lt;p&gt;熟悉网站优化的开发者应该都知道，只要提到网页性能优化，就绕不开雅虎军规。&lt;a href=&quot;https://github.com/creeperyang/blog/issues/1&quot;&gt;优化规则&lt;/a&gt;&amp;amp;&amp;amp;&lt;a href=&quot;https://developer.yahoo.com/performance/rules.html&quot;&gt;原文&lt;/a&gt;，仔细阅读这些规则，可以总结到3个方面：&lt;/p&gt;
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
     <title>前端知识点：前端知识点：布局大全</title>
     <link href="http://yoursite.com/2015/11/09/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9%EF%BC%9A%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9%EF%BC%9A%E5%B8%83%E5%B1%80%E5%A4%A7%E5%85%A8/"/>
     <id>http://yoursite.com/2015/11/09/前端知识点/前端知识点：前端知识点：布局大全/</id>
@@ -1046,6 +2021,43 @@
   </entry>
   
   <entry>
+    <title>前端知识点：数组应用</title>
+    <link href="http://yoursite.com/2015/06/05/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9%EF%BC%9A%E6%95%B0%E7%BB%84%E5%BA%94%E7%94%A8/"/>
+    <id>http://yoursite.com/2015/06/05/前端知识点/前端知识点：数组应用/</id>
+    <published>2015-06-05T11:37:15.000Z</published>
+    <updated>2017-03-31T12:44:26.723Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="1-数组翻转方法2"><a href="#1-数组翻转方法2" class="headerlink" title="1. 数组翻转方法2"></a>1. 数组翻转方法2</h3><p>eg:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    var arr=[1,2,3,4];    var arr2=[];    while(arr.length) &#123;        var num=arr.pop();</div><div class="line">        arr2.push(num);</div><div class="line">    &#125;</div><div class="line">    alert(arr2);&lt;/script&gt;</div></pre></td></tr></table></figure>
+<h3 id="2-首字母大写"><a href="#2-首字母大写" class="headerlink" title="2. 首字母大写"></a>2. 首字母大写</h3><p>eg:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    var str = &apos;welcome to china&apos;;    var arr = str.split(&apos; &apos;);    var arr2 = [];    for(var i = 0; i &lt; arr.length; i++) &#123;        var first = arr[i].charAt(0).toUpperCase();        var other = arr[i].substring(1);</div><div class="line">        arr2.push(first + other);</div><div class="line">    &#125;</div><div class="line">    alert(arr2.join(&apos; &apos;));    //正则写法</div><div class="line">    var str2 = str.replace(/\w+/g, function(s) &#123;        return s.charAt(0).toUpperCase().substring();</div><div class="line">    &#125;)</div><div class="line">    alert(str2);&lt;/script&gt;</div></pre></td></tr></table></figure>
+<h3 id="3-快速清空数组"><a href="#3-快速清空数组" class="headerlink" title="3.快速清空数组"></a>3.快速清空数组</h3><ol>
+<li>length=0;</li>
+<li>arr=[];</li>
+<li>arr.splice(0,arr.length);</li>
+<li>循环pop或shift</li>
+</ol>
+<h3 id="4-数组排序方法"><a href="#4-数组排序方法" class="headerlink" title="4. 数组排序方法"></a>4. 数组排序方法</h3><p>更多方法见后续排序算法篇</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    function findMinIndex(arr, start) &#123;        var iMin = arr[start];        var iMinIndex = start;        for(var i = start + 1; i &lt; arr.length; i++) &#123;            if(iMin &gt; arr[i]) &#123;</div><div class="line">                iMin = arr[i];</div><div class="line">                iMinIndex = i;</div><div class="line">            &#125;</div><div class="line">        &#125;        return iMinIndex;</div><div class="line">    &#125;    for(var i = 0; i &lt; arr.length; i++) &#123;        var iMinIndex = findMinIndex(arr, i);        var temp;</div><div class="line">        temp = arr[iMinIndex];</div><div class="line">        arr[iMinIndex] = arr[i];</div><div class="line">        arr[i] = temp;</div><div class="line">    &#125;</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
+<h3 id="5-数组内查找元素是否存在"><a href="#5-数组内查找元素是否存在" class="headerlink" title="5. 数组内查找元素是否存在"></a>5. 数组内查找元素是否存在</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    function findInArr(item, arr) &#123;        for(var i = 0; i &lt; arr.length; i++) &#123;            if(item == arr[i]) &#123;                return true;</div><div class="line">            &#125; else &#123;                return false;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
+<h3 id="6-数组去重的多种方法"><a href="#6-数组去重的多种方法" class="headerlink" title="6. 数组去重的多种方法"></a>6. 数组去重的多种方法</h3><h4 id="1-findInArr"><a href="#1-findInArr" class="headerlink" title="(1)findInArr"></a>(1)findInArr</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;   </div><div class="line">	 var arr=[1,2,3,2,5,5,6,7,8,7,6]</div><div class="line">	 var n=[];</div><div class="line">	 var ok=true;</div><div class="line">	 arr.map((v)=&gt;&#123;</div><div class="line">		n.map((v2)=&gt;&#123;</div><div class="line">	 		if(v2===v)&#123;ok=false&#125;</div><div class="line">	 	&#125;)</div><div class="line">	 	if(ok)&#123;</div><div class="line">	 		n.push(v);</div><div class="line">	 	&#125;</div><div class="line">	 	ok=true;</div><div class="line">	 &#125;)</div><div class="line"></div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
+<h4 id="2-json-自动从小到大排序"><a href="#2-json-自动从小到大排序" class="headerlink" title="(2)json(自动从小到大排序)"></a>(2)json(自动从小到大排序)</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    var json = &#123;&#125;;    var arr2 = [];    for(var i = 0; i &lt; arr.length; i++) &#123;</div><div class="line">        json[arr[i]] = &apos;xxx&apos;;</div><div class="line">    &#125;    for(var name in json) &#123;</div><div class="line">        arr2.push(name);</div><div class="line">    &#125;</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
+<h4 id="3-sort"><a href="#3-sort" class="headerlink" title="(3)sort()"></a>(3)sort()</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;</div><div class="line">    arr.sort();    for(var i = 0; i &lt; arr.length; i++) &#123;        if(arr[i] == arr[i+1]) &#123;</div><div class="line">            arr.splice(i, 1);</div><div class="line">            i--;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
+<h4 id="4-indexOf"><a href="#4-indexOf" class="headerlink" title="(4) indexOf"></a>(4) indexOf</h4><p>这个方法是在前端公众号偶然看到的，数组的indexOf方法第一次用到</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    for(var i = 0; i &lt; arr.length; i++) &#123;        if(arr2.indexOf(arr[i] &lt; 0)) &#123;</div><div class="line">            arr2.push(arr[i]);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;1-数组翻转方法2&quot;&gt;&lt;a href=&quot;#1-数组翻转方法2&quot; class=&quot;headerlink&quot; title=&quot;1. 数组翻转方法2&quot;&gt;&lt;/a&gt;1. 数组翻转方法2&lt;/h3&gt;&lt;p&gt;eg:&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
     <title>前端知识点：原生篇(5)</title>
     <link href="http://yoursite.com/2015/04/13/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9%EF%BC%9A%E5%8E%9F%E7%94%9F%E7%AF%87(5)/"/>
     <id>http://yoursite.com/2015/04/13/前端知识点/前端知识点：原生篇(5)/</id>
@@ -1295,618 +2307,6 @@
     
     </summary>
     
-    
-  </entry>
-  
-  <entry>
-    <title>前端知识点：原生篇(3)</title>
-    <link href="http://yoursite.com/2015/04/10/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9%EF%BC%9A%E5%8E%9F%E7%94%9F%E7%AF%87(3)/"/>
-    <id>http://yoursite.com/2015/04/10/前端知识点/前端知识点：原生篇(3)/</id>
-    <published>2015-04-10T07:15:42.000Z</published>
-    <updated>2017-03-31T10:24:44.659Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="1-返回值问题-return"><a href="#1-返回值问题-return" class="headerlink" title="1. 返回值问题(return)"></a>1. 返回值问题(return)</h2><ol>
-<li>return语句后面的代码不执行</li>
-<li><strong>函数若没有写return，则默认返回undefined</strong></li>
-<li><strong>函数返回语句为return; 也返回undefined</strong></li>
-<li><strong>return必须写在函数function内</strong></li>
-</ol>
-<h2 id="2-undefined出现的情况"><a href="#2-undefined出现的情况" class="headerlink" title="2. undefined出现的情况"></a>2. undefined出现的情况</h2><ol>
-<li>函数没有返回值或只有return;</li>
-<li>定义了一个变量，但没有赋值</li>
-</ol>
-<blockquote>
-<p>eg: var a; // undefined<br>​     function show(a) {}<br>​     show();    // undefined</p>
-</blockquote>
-<ol>
-<li>访问不存在的属性</li>
-</ol>
-<blockquote>
-<p>eg: oDiv.aaa;    // undefined</p>
-</blockquote>
-<h2 id="3-eval-字符串"><a href="#3-eval-字符串" class="headerlink" title="3. eval(字符串)"></a>3. eval(字符串)</h2><blockquote>
-<p>虽然这个不建议使用，但还是聊聊这个东西是怎么用的吧</p>
-</blockquote>
-<p>eval能把字符串里面的代码转换成js能理解的程序，把引号中的拿出来运行</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    var a = &apos;[1, 2, 3]&apos;;    //字符串</div><div class="line">    alert(eval(a));        // 1, 2, 3  &apos;[1, 2, 3]&apos; -&gt; [1, 2, 3]&lt;/script&gt;</div></pre></td></tr></table></figure>
-<h2 id="4-数字小于10的补零函数"><a href="#4-数字小于10的补零函数" class="headerlink" title="4. 数字小于10的补零函数"></a>4. 数字小于10的补零函数</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    function toTen(num) &#123;        if(num &lt; 10) &#123;            return &apos;0&apos; + num;</div><div class="line">        &#125; else &#123;            return &apos;&apos; + num;    // 函数的返回类型最好保持一致</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
-<p>简化</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    function toTen(num) &#123;        return num &lt; 10 ? &apos;0&apos; + num : &apos;&apos; + num;</div><div class="line">    &#125;</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
-<h2 id="5-定时器"><a href="#5-定时器" class="headerlink" title="5. 定时器"></a>5. 定时器</h2><ol>
-<li>Interval(每过一段时间执行一次，循环执行)</li>
-</ol>
-<ul>
-<li>开启定时器<br>setInterval(函数/函数名, 时间);</li>
-</ul>
-<blockquote>
-<p>时间单位是毫秒</p>
-</blockquote>
-<ul>
-<li>关闭定时器<br>clearInterval(定时器的名字);</li>
-</ul>
-<ol>
-<li>Timeout(过一段时间执行一次，只执行一次)</li>
-</ol>
-<ul>
-<li>开启定时器<br>setTimeout(函数/函数名, 时间);</li>
-</ul>
-<blockquote>
-<p>时间单位是毫秒</p>
-</blockquote>
-<ul>
-<li>关闭定时器<br>clearTimeout(定时器的名字);</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;        // 定时器先关后开</div><div class="line">    var bSin = false;        var timer = setInterval(function() &#123;            if(bSin) &#123;                return;</div><div class="line">        &#125;</div><div class="line">        bSin = true;</div><div class="line">    &#125;, 30);        function clear() &#123;</div><div class="line">        clearInterval(timer);</div><div class="line">        bSin = false;</div><div class="line">    &#125;</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
-<h2 id="6-日期对象"><a href="#6-日期对象" class="headerlink" title="6. 日期对象"></a>6. 日期对象</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    // 获取时间</div><div class="line">    var oDate = new Date();</div><div class="line">    oDate.getFullYear();    // 获取年</div><div class="line">    oDate.getMonth();        // 获取月，从0开始，获取+1，设置-1 !important</div><div class="line">    oDate.getDate();        // 获取日</div><div class="line">    oDate.getDay();            // 获取星期，星期天 -&gt; 0，星期一 ~ 星期六 -&gt; 1 ~ 6</div><div class="line"></div><div class="line">    oDate.getHours();        // 获取小时，记得加s，下同 !important</div><div class="line">    oDate.getMinutes();        // 获取分钟</div><div class="line">    oDate.getSeconds();        // 获取秒</div><div class="line">    oDate.getMillseconds();    // 获取毫秒</div><div class="line">    oDate.getTime();         // 时间戳 当前时间距离1970/1/1凌晨的毫秒数&lt;/script&gt;</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    // 设置时间</div><div class="line">    var oDate = new Date();</div><div class="line">    oDate.setFulllYear(2017, 11, 13);    // 设置年、月、日  月份设置时-1</div><div class="line">    oDate.setHours(0, 0, 0, 0);            // 设置时、分、秒、毫秒</div><div class="line"></div><div class="line">    // 获得时间戳</div><div class="line">    oDate.getTime();    // 设置后的时间距离1970/1/1凌晨的毫秒数&lt;/script&gt;</div></pre></td></tr></table></figure>
-<h2 id="7-日期对象应用"><a href="#7-日期对象应用" class="headerlink" title="7. 日期对象应用"></a>7. 日期对象应用</h2><blockquote>
-<p>oDate.setDate(31); // 假设本月有30天会跑到下个月的第一天 会自动进位<br>oDate.setDate(0); // 会跑到上个月的最后一天</p>
-</blockquote>
-<h3 id="本月有多少天"><a href="#本月有多少天" class="headerlink" title="本月有多少天"></a>本月有多少天</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    var oDate = new Date();</div><div class="line">    oDate.setMonth(oDate.getMonth() + 1); // 当前月份+1</div><div class="line">    oDate.setDate(0);    // setDate(0);</div><div class="line">    alert(oDate.getDate());&lt;/script&gt;</div></pre></td></tr></table></figure>
-<h3 id="本月第一天是周几"><a href="#本月第一天是周几" class="headerlink" title="本月第一天是周几"></a>本月第一天是周几</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    var oDate = new Date();</div><div class="line">    oDate.setDate(1);    // setDate(1);</div><div class="line">    alert(oDate.getDay());&lt;/script&gt;</div></pre></td></tr></table></figure>
-<h3 id="本月最后一天是周几"><a href="#本月最后一天是周几" class="headerlink" title="本月最后一天是周几"></a>本月最后一天是周几</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    var oDate = new Date();</div><div class="line">    oDate.setMonth(oDate.getMonth()+1);    // 当前月份+1</div><div class="line">    oDate.setDate(0);    // setDate(0);</div><div class="line">    alert(oDate.getDay());&lt;/script&gt;</div></pre></td></tr></table></figure>
-<h2 id="8-事件函数相同可以合并"><a href="#8-事件函数相同可以合并" class="headerlink" title="8. 事件函数相同可以合并"></a>8. 事件函数相同可以合并</h2><p>eg: oDiv1.onmouseout = oDiv2.onmouseout = function() {};</p>
-<h2 id="9-this"><a href="#9-this" class="headerlink" title="9. this"></a>9. this</h2><p>this: 当前方法属于谁，this就是谁<br><strong>this默认属于window</strong></p>
-<p>定时器里的this不能直接使用，原因：this指向了window</p>
-<p>1.定时器中的this不指向元素，指向window<br>解决：在定时器外保存this<br>oBtn.onclick = function() {<br>   var _this = this;<br>   setTimeout(function(){<br>​       _this.style.background = ‘#f00’;<br>   },1000);<br>}<br>2.调用封装函数使用this，this不指向元素，指向window<br>3.(低级浏览器attachEvent)事件绑定里面的this 报错</p>
-<h2 id="10-闭包"><a href="#10-闭包" class="headerlink" title="10. 闭包"></a>10. 闭包</h2><p>用处：</p>
-<ol>
-<li>解决变量名冲突</li>
-<li>解决循环添加事件，事件中的循环变量不能用的问题</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    function clickEg() &#123;        //获取一组按钮    ps:js一组元素不能一起改变样式或设置事件</div><div class="line">        var aBtn = document.getElementsByTagName(&apos;button&apos;);        for(var i = 0; i &lt; 3; i++) &#123;</div><div class="line">            aBtn[i].onclick = function() &#123;                //循环中的i变量此时已自增至3</div><div class="line">                //aBtn[i].style.background = &apos;#f00&apos;;</div><div class="line"></div><div class="line">                //当前事件发生的对象 aBtn[i]为this</div><div class="line">                this.style.background = &apos;f00&apos;;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
-<p>闭包写法：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    function clickEg() &#123;        //获取一组按钮    ps:js一组元素不能一起改变样式或设置事件</div><div class="line">        var aBtn = document.getElementsByTagName(&apos;button&apos;);        for(var i = 0; i &lt; 3; i++) &#123;</div><div class="line">            (function(index) &#123;</div><div class="line">                aBtn[i].onclick = function() &#123;</div><div class="line">                    aBtn[index].style.background = &apos;f00&apos;;</div><div class="line">                &#125;</div><div class="line">            &#125;)(i);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    for(var i=0; i&lt;2; i++) &#123;</div><div class="line">        setTimeout(function()&#123;</div><div class="line">            alert(i);</div><div class="line">        &#125;, 2000);</div><div class="line">    &#125;    // 结果：两秒后alert两次2，两秒后i已为2，然后执行两次循环&lt;/script&gt;</div></pre></td></tr></table></figure>
-<p>闭包写法：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    for(var i=0; i&lt;2; i++) &#123;</div><div class="line">        (function(a)&#123;</div><div class="line">            setTimeout(function()&#123;</div><div class="line">                alert(a);</div><div class="line">            &#125;,2000);</div><div class="line">        &#125;)(i);</div><div class="line">    &#125;    // 结果：两秒后alert 0、1&lt;/script&gt;</div></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;1-返回值问题-return&quot;&gt;&lt;a href=&quot;#1-返回值问题-return&quot; class=&quot;headerlink&quot; title=&quot;1. 返回值问题(return)&quot;&gt;&lt;/a&gt;1. 返回值问题(return)&lt;/h2&gt;&lt;ol&gt;
-&lt;li&gt;return语句后面的代
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>前端知识点：原生篇(2)</title>
-    <link href="http://yoursite.com/2015/04/07/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9%EF%BC%9A%E5%8E%9F%E7%94%9F%E7%AF%87(2)/"/>
-    <id>http://yoursite.com/2015/04/07/前端知识点/前端知识点：原生篇(2)/</id>
-    <published>2015-04-07T09:38:20.000Z</published>
-    <updated>2017-03-31T10:21:09.167Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="1-js操作元素属性"><a href="#1-js操作元素属性" class="headerlink" title="1. js操作元素属性"></a>1. js操作元素属性</h2><ul>
-<li><strong>.</strong> 属性操作符(不可以接收变量)</li>
-<li><strong>[]</strong> 中括号可以操作属性也可以接收变量</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    function setValue() &#123;        //省略获取元素oBtn, oBtn2的伪代码</div><div class="line">        oBtn.value = &apos;bbb&apos;;</div><div class="line">        oBtn2[&apos;value&apos;] = &apos;bbb&apos;;</div><div class="line"></div><div class="line">    &#125;</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
-<blockquote>
-<p>凡是<strong>.</strong> 出现的地方都可以用中括号替代</p>
-</blockquote>
-<h2 id="2-js设置复杂样式"><a href="#2-js设置复杂样式" class="headerlink" title="2. js设置复杂样式"></a>2. js设置复杂样式</h2><blockquote>
-<p>非首单词的首字母大写并去掉-符</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;style&gt;</div><div class="line">    .complex &#123;</div><div class="line">        margin-left: 10px;</div><div class="line">    &#125;</div><div class="line">&lt;/style&gt;</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    function setStyle() &#123;        var oC = document.getElementsByClassName(&apos;complex&apos;)[0];</div><div class="line">        oC.style.marginLeft = &apos;10px&apos;;</div><div class="line">    &#125;</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
-<h2 id="3-物体从中心放大"><a href="#3-物体从中心放大" class="headerlink" title="3. 物体从中心放大"></a>3. 物体从中心放大</h2><blockquote>
-<ul>
-<li>margin-top: -变化的高度/2</li>
-<li>margin-left: -变化的宽度/2</li>
-</ul>
-</blockquote>
-<h2 id="4-a链接防止刷新"><a href="#4-a链接防止刷新" class="headerlink" title="4. a链接防止刷新"></a>4. a链接防止刷新</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;a href=&quot;#&quot;&gt;点击会刷新页面&lt;/a&gt;</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&lt;a href=&quot;javascript:;&quot;&gt;点击不会刷新页面！(推荐使用)&lt;/a&gt;</div><div class="line">&lt;!-- javascript:;相当于一个伪协议 --&gt;</div></pre></td></tr></table></figure>
-<h2 id="5-循环添加事件，事件中的循环变量不能用"><a href="#5-循环添加事件，事件中的循环变量不能用" class="headerlink" title="5. 循环添加事件，事件中的循环变量不能用"></a>5. 循环添加事件，事件中的循环变量不能用</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    function clickEg() &#123;        //获取一组按钮    ps:js一组元素不能一起改变样式或设置事件</div><div class="line">        var aBtn = document.getElementsByTagName(&apos;button&apos;);        for(var i = 0; i &lt; 3; i++) &#123;</div><div class="line">            aBtn[i].onclick = function() &#123;                //循环中的i变量此时已自增至3</div><div class="line">                //aBtn[i].style.background = &apos;#f00&apos;;</div><div class="line"></div><div class="line">                //当前事件发生的对象 aBtn[i]为this</div><div class="line">                this.style.background = &apos;f00&apos;;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
-<h2 id="6-浏览器加载的过程"><a href="#6-浏览器加载的过程" class="headerlink" title="6. 浏览器加载的过程"></a>6. 浏览器加载的过程</h2><p>1.加载整个页面的标签和属性<br>2.过滤不符合W3C标准的标签和属性(高级浏览器)<br>3.执行js -&gt; window.onload</p>
-<h2 id="7-DOM获取元素方法"><a href="#7-DOM获取元素方法" class="headerlink" title="7. DOM获取元素方法"></a>7. DOM获取元素方法</h2><h3 id="1-document-getElementById-‘id’"><a href="#1-document-getElementById-‘id’" class="headerlink" title="1.document.getElementById(‘id’);"></a>1.document.getElementById(‘id’);</h3><h3 id="2-document-obj-getElementsByTagName-‘TagName’"><a href="#2-document-obj-getElementsByTagName-‘TagName’" class="headerlink" title="2.document/obj.getElementsByTagName(‘TagName’);"></a>2.document/obj.getElementsByTagName(‘TagName’);</h3><h3 id="3-document-obj-getElementsByClassName-‘ClassName’"><a href="#3-document-obj-getElementsByClassName-‘ClassName’" class="headerlink" title="3.document/obj.getElementsByClassName(‘ClassName’);"></a>3.document/obj.getElementsByClassName(‘ClassName’);</h3><p>兼容：Chrome、FF、IE9+</p>
-<p>obj.getElementsByClassName</p>
-<ul>
-<li><p>高级浏览器 -&gt; function</p>
-</li>
-<li><p>IE8- -&gt; undefined</p>
-<h4 id="兼容写法"><a href="#兼容写法" class="headerlink" title="兼容写法"></a>兼容写法</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;  function getByClass(obj, sClass) &#123;    // obj为从哪个父级下面查找类为sClass的元素</div><div class="line">          if(obj.getElementsByClassName) &#123;    // IE8- -&gt; undefined  高级浏览器 -&gt; function</div><div class="line">              return obj.getElementsByClassName(sClass);    // 高级浏览器</div><div class="line">          &#125; else &#123;    // IE8</div><div class="line">              var aEle = document.getElementsByTagName(&apos;*&apos;);              var arr = [];              for(var i=0; i&lt;aEle.length; i++)&#123;                  var temp = aEle[i].className.split(&apos; &apos;);                  if(findInArr(sClass, temp)) &#123;</div><div class="line">                      arr.push(aEle[i]);</div><div class="line">                  &#125;</div><div class="line">              &#125;              return arr;</div><div class="line">          &#125;</div><div class="line">      &#125;</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<blockquote>
-<ul>
-<li>getElementById只能从document下获取<br> var oDiv = document.getElementById(‘id’);</li>
-<li>getElementsByTagName/getElementsByClassName可以从document下获取，也可以从父级下获取<br> var oDiv2 = document.getElementsByClassName(‘ClassName’)[0];<br> var oDiv3 = oBox.getElementsByTagName(‘TagName’)[0];</li>
-</ul>
-</blockquote>
-<h2 id="8-js中的真假"><a href="#8-js中的真假" class="headerlink" title="8. js中的真假"></a>8. js中的真假</h2><ul>
-<li>真：非0数字，非空字符串，true，非空对象</li>
-<li>假：0，空字符串(‘’)，false，空对象(null)，undefined，NaN</li>
-</ul>
-<h2 id="9-获取元素当前样式-兼容"><a href="#9-获取元素当前样式-兼容" class="headerlink" title="9. 获取元素当前样式(兼容)"></a>9. 获取元素当前样式(兼容)</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    function getStyle(obj, name)&#123;    //元素，样式名称</div><div class="line">        if(obj.currentStyle) &#123;    // Chrome、FF -&gt; undefined    IE -&gt; object</div><div class="line">            // IE系</div><div class="line">            return obj.currentStyle[name];    // 兼容IE系</div><div class="line">        &#125; else &#123;            // Chrome、FF</div><div class="line">            return getComputedStyle(obj, false)[name];    // 兼容高级浏览器(Chrome、FF、IE9+)</div><div class="line">        &#125;</div><div class="line"></div><div class="line">    &#125;</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
-<p>简化</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    function getStyle(obj, name)&#123;    //元素，样式名称</div><div class="line">        return (obj.currentStyle || getComputedStyle(obj, false))[name];</div><div class="line">    &#125;    // 调用</div><div class="line">    console.log(parseInt(getStyle(oDiv, &apos;heihgt&apos;)));&lt;/script&gt;</div></pre></td></tr></table></figure>
-<h2 id="10-获取一个n-m之间的随机数-n-lt-m，且不包括m"><a href="#10-获取一个n-m之间的随机数-n-lt-m，且不包括m" class="headerlink" title="10. 获取一个n~m之间的随机数(n&lt;m，且不包括m)"></a>10. 获取一个n~m之间的随机数(n&lt;m，且不包括m)</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    function rnd(n, m) &#123;        return parseInt(Math.random() * (m - n) + n);</div><div class="line">    &#125;</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
-<blockquote>
-<p>应用：随机变色</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&gt; &lt;script&gt;    // rgb色值范围[0, 255]</div><div class="line">&gt;     oDiv.style.background = &apos;rgb(&apos; + rnd(0, 256) + &apos;,&apos; + rnd(0, 256) + &apos;,&apos; + rnd(0, 256) + &apos;)&apos;;&lt;/script&gt;</div><div class="line">&gt;</div></pre></td></tr></table></figure></blockquote>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;1-js操作元素属性&quot;&gt;&lt;a href=&quot;#1-js操作元素属性&quot; class=&quot;headerlink&quot; title=&quot;1. js操作元素属性&quot;&gt;&lt;/a&gt;1. js操作元素属性&lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;.&lt;/strong&gt; 属性操作符(不可以接收
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>前端知识点：原生篇(1)</title>
-    <link href="http://yoursite.com/2015/04/07/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9%EF%BC%9A%E5%8E%9F%E7%94%9F%E7%AF%87(1)/"/>
-    <id>http://yoursite.com/2015/04/07/前端知识点/前端知识点：原生篇(1)/</id>
-    <published>2015-04-07T01:10:46.000Z</published>
-    <updated>2017-03-31T10:19:06.112Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="1-js六大数据类型"><a href="#1-js六大数据类型" class="headerlink" title="1. js六大数据类型"></a>1. js六大数据类型</h2><blockquote>
-<p>这里的数据类型是按照typeof返回来分类，也不是很懂有些教程写数据类型还有null，求解答数据类型应该是哪几类？</p>
-</blockquote>
-<h3 id="基本数据类型"><a href="#基本数据类型" class="headerlink" title="基本数据类型"></a>基本数据类型</h3><ul>
-<li>number    数字</li>
-<li>string    字符串</li>
-<li>boolean   布尔</li>
-<li>undefined 未定义</li>
-<li>function  函数</li>
-</ul>
-<h3 id="复杂数据类型"><a href="#复杂数据类型" class="headerlink" title="复杂数据类型"></a>复杂数据类型</h3><ul>
-<li>object    对象(可拆分为多种数据类型)</li>
-</ul>
-<h2 id="2-数据类型补充"><a href="#2-数据类型补充" class="headerlink" title="2. 数据类型补充"></a>2. 数据类型补充</h2><ul>
-<li>null空对象 -&gt; 数据类型(object)</li>
-<li>NaN 非数字 -&gt; 数据类型(number)</li>
-</ul>
-<blockquote>
-<p>NaN和任何数据类型都不相等，包括自己</p>
-</blockquote>
-<h2 id="3-数字相关判断方法"><a href="#3-数字相关判断方法" class="headerlink" title="3. 数字相关判断方法"></a>3. 数字相关判断方法</h2><ul>
-<li><h3 id="是否是数字"><a href="#是否是数字" class="headerlink" title="是否是数字"></a>是否是数字</h3><p>isNaN() 非数字-&gt;true  数字-&gt;false</p>
-</li>
-<li><h3 id="是否是整数"><a href="#是否是整数" class="headerlink" title="是否是整数"></a>是否是整数</h3><p>if(num == parseInt(num))</p>
-</li>
-</ul>
-<h2 id="4-变量"><a href="#4-变量" class="headerlink" title="4. 变量"></a>4. 变量</h2><ol>
-<li><h3 id="全局变量"><a href="#全局变量" class="headerlink" title="全局变量"></a>全局变量</h3></li>
-<li><h3 id="局部变量"><a href="#局部变量" class="headerlink" title="局部变量"></a>局部变量</h3></li>
-<li><h3 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h3><p>子函数可以使用父函数的全局变量</p>
-</li>
-</ol>
-<blockquote>
-<p>变量的遮蔽<br> 全局变量和局部变量同名<br> 就近原则-&gt;在函数里优先使用自己的变量</p>
-</blockquote>
-<h2 id="5-运算符"><a href="#5-运算符" class="headerlink" title="5. 运算符"></a>5. 运算符</h2><ol>
-<li><h3 id="算术运算符"><a href="#算术运算符" class="headerlink" title="算术运算符"></a>算术运算符</h3></li>
-<li><h3 id="比较运算符"><a href="#比较运算符" class="headerlink" title="比较运算符"></a>比较运算符</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">== -&gt; !=    === -&gt; !==</div></pre></td></tr></table></figure>
-</li>
-<li><h3 id="赋值运算符"><a href="#赋值运算符" class="headerlink" title="赋值运算符"></a>赋值运算符</h3></li>
-<li><h3 id="逻辑运算符"><a href="#逻辑运算符" class="headerlink" title="逻辑运算符"></a>逻辑运算符</h3></li>
-</ol>
-<h2 id="6-常见变量命名前缀"><a href="#6-常见变量命名前缀" class="headerlink" title="6. 常见变量命名前缀"></a>6. 常见变量命名前缀</h2><table>
-<thead>
-<tr>
-<th>前缀</th>
-<th>全称</th>
-<th>含义</th>
-<th>示例</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>o</td>
-<td>object</td>
-<td>一个对象，一个元素</td>
-<td>oDiv</td>
-</tr>
-<tr>
-<td>a</td>
-<td>array</td>
-<td>一组元素</td>
-<td>aLi</td>
-</tr>
-<tr>
-<td>s</td>
-<td>string</td>
-<td>字符串</td>
-<td>sUserName</td>
-</tr>
-<tr>
-<td>i</td>
-<td>integer</td>
-<td>整数</td>
-<td>iCount</td>
-</tr>
-<tr>
-<td>f</td>
-<td>float</td>
-<td>浮点数</td>
-<td>fPrice</td>
-</tr>
-<tr>
-<td>b</td>
-<td>boolean</td>
-<td>布尔</td>
-<td>bOk</td>
-</tr>
-<tr>
-<td>fn</td>
-<td>function</td>
-<td>函数</td>
-<td>fnSucc</td>
-</tr>
-<tr>
-<td>re</td>
-<td>RegExp</td>
-<td>正则</td>
-<td>reMailCheck</td>
-</tr>
-</tbody>
-</table>
-<h2 id="7-字符串转化为数字"><a href="#7-字符串转化为数字" class="headerlink" title="7. 字符串转化为数字"></a>7. 字符串转化为数字</h2><h3 id="parseInt"><a href="#parseInt" class="headerlink" title="parseInt()"></a>parseInt()</h3><ul>
-<li>从左往右开始找，找到第一个非数字(包含小数点)就停止，如果第一个数不是数字，则返回NaN</li>
-<li>eg: ‘12.5’ -&gt; 12    ‘12abc’ -&gt; 12    ‘abc’ -&gt; NaN</li>
-</ul>
-<h3 id="parseFloat"><a href="#parseFloat" class="headerlink" title="parseFloat()"></a>parseFloat()</h3><ul>
-<li>从左往右开始找，找到第一个非数字(不包含小数点)就停止，如果第一个数不是数字，则返回NaN</li>
-<li>eg: ‘12.5’ -&gt; 12.5    ‘12abc’ -&gt; 12    ‘abc’ -&gt; NaN</li>
-</ul>
-<h3 id="Number"><a href="#Number" class="headerlink" title="Number()"></a>Number()</h3><ul>
-<li>既能处理整数，也能处理小数，但只能处理数字</li>
-<li>eg: ‘12.5’ -&gt; 12.5     ‘12’ -&gt; 12         ‘12abc’ -&gt; NaN     ‘abc’ -&gt; NaN</li>
-</ul>
-<h2 id="8-数字转化为字符串"><a href="#8-数字转化为字符串" class="headerlink" title="8. 数字转化为字符串"></a>8. 数字转化为字符串</h2><p>number + ‘’</p>
-<blockquote>
-<p>eg：12 + ‘’ -&gt; ‘12’</p>
-</blockquote>
-<h2 id="9-if语句变形"><a href="#9-if语句变形" class="headerlink" title="9. if语句变形"></a>9. if语句变形</h2><ol>
-<li>条件 &amp;&amp; 语句; (条件为真时执行)</li>
-<li>条件 || 语句; (条件为假时执行)</li>
-<li>三目运算  条件? 语句1: 语句2;</li>
-</ol>
-<h2 id="10-js及事件的概念"><a href="#10-js及事件的概念" class="headerlink" title="10. js及事件的概念"></a>10. <strong>js</strong>及<strong>事件</strong>的概念</h2><ul>
-<li>js：修改样式</li>
-<li>事件：用户的操作</li>
-</ul>
-<blockquote>
-<p>任何标签都可以添加事件，任何属性都可以修改</p>
-</blockquote>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;1-js六大数据类型&quot;&gt;&lt;a href=&quot;#1-js六大数据类型&quot; class=&quot;headerlink&quot; title=&quot;1. js六大数据类型&quot;&gt;&lt;/a&gt;1. js六大数据类型&lt;/h2&gt;&lt;blockquote&gt;
-&lt;p&gt;这里的数据类型是按照typeof返回来分类，也
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>javascript逻辑运算符“||”和“&amp;&amp;”</title>
-    <link href="http://yoursite.com/2015/03/07/js%E7%B1%BB/javascript%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97%E7%AC%A6%E4%B8%8E%E6%88%96%E9%9D%9E/"/>
-    <id>http://yoursite.com/2015/03/07/js类/javascript逻辑运算符与或非/</id>
-    <published>2015-03-07T13:00:20.000Z</published>
-    <updated>2017-03-31T09:35:50.582Z</updated>
-    
-    <content type="html"><![CDATA[<p>#一、先来说说||（逻辑或）,从字面上来说，只有前后都是false的时候才返回false，否则返回true。</p>
-<p>alert(true||false);    // true<br>alert(false||true);    // true<br>alert(true||true);        // true<br>alert(false||false);    // false</p>
-<p>##二、但是，从深层意义上来说的话，却有另一番天地，试下面代码</p>
-<p>alert(0||1);</p>
-<p>显然，我们知道，前面0意味着false,而后面1意味着true,那么上面的结果应该是true,而事实返回的结果是1。再看下面代码：</p>
-<p>alert(2||1);</p>
-<p>我们知道，前面2是true,后面1也是true,那返回结果又是什么呢？测试结果是2,继续看：</p>
-<p>alert(‘a’||1);</p>
-<p>同样，前面’a’是true，后面1也是true;测试结果是’a’,下面</p>
-<p>alert(‘’||1);</p>
-<p>由上，我们知道前面’’是false,后面1是true,而返回结果是1。再看下面</p>
-<p>alert(‘a’||0);</p>
-<p> 前面’a’是true，而后面0是false,返回结果是’a’，继续下面</p>
-<p>alert(‘a’||’b’);</p>
-<p> 前面’a’是true,后面’b’是false,返回结果是’a’，我们继续下面</p>
-<p>alert(‘’||0);</p>
-<p> 前面’’是false,后面0同样是false,返回结果是0</p>
-<p>alert(0||’’);</p>
-<p>前面0是false，后面’’是false，返回结果是’’</p>
-<p>这就意味</p>
-<p>1、只要“||”前面为false,不管“||”后面是true还是false，都返回“||”后面的值。</p>
-<p>2、只要“||”前面为true,不管“||”后面是true还是false，都返回“||”前面的值。<br>二、下面说说&amp;&amp;（逻辑与）,从字面上来说，只有前后都是true的时候才返回true，否则返回false。</p>
-<p>alert(true&amp;&amp;false);    // false<br>alert(true&amp;&amp;true);    // true<br>alert(false&amp;&amp;false);    // false<br>alert(false&amp;&amp;true);    // false</p>
-<p>然后，根据上面经验，我们看看“&amp;&amp;”号前后，不单单是布尔类型的情况。</p>
-<p>alert(‘’&amp;&amp;1);</p>
-<p>结是返回’’,“&amp;&amp;”前面’’是false,后面是1是true。</p>
-<p>alert(‘’&amp;&amp;0);</p>
-<p>结是返回’’,“&amp;&amp;”前面’’是false,后面是0也是false。</p>
-<p>alert(‘a’&amp;&amp;1);</p>
-<p>结是返回1,“&amp;&amp;”前面’’a是true,后面是1也是true。</p>
-<p>alert(‘a’&amp;&amp;0);</p>
-<p>结是返回0,“&amp;&amp;”前面’’a是true,后面是0是false。</p>
-<p>alert(‘a’&amp;&amp;’’);</p>
-<p>结是返回’’,“&amp;&amp;”前面’’a是true,后面是’’是false。</p>
-<p>alert(0&amp;&amp;’a’);</p>
-<p>结是返回0,“&amp;&amp;”前面’’0是false,后面是’a’是true。</p>
-<p>alert(0&amp;&amp;’’);</p>
-<p>结是返回0,“&amp;&amp;”前面’’0是false,后面是’’也是false。 </p>
-<p>这意味着</p>
-<p>1、只要“&amp;&amp;”前面是false，无论“&amp;&amp;”后面是true还是false，结果都将返“&amp;&amp;”前面的值;</p>
-<p>2、只要“&amp;&amp;”前面是true，无论“&amp;&amp;”后面是true还是false，结果都将返“&amp;&amp;”后面的值;</p>
-<p>让我们总结一下：</p>
-<p>1、只要“||”前面为false，无论“||”后面是true还是false，结果都返回“||”后面的值。</p>
-<p>2、只要“||”前面为true，无论“||”后面是true还是false，结果都返回“||”前面的值。</p>
-<p>3、只要“&amp;&amp;”前面是false，无论“&amp;&amp;”后面是true还是false，结果都将返“&amp;&amp;”前面的值;</p>
-<p>4、只要“&amp;&amp;”前面是true，无论“&amp;&amp;”后面是true还是false，结果都将返“&amp;&amp;”后面的值;</p>
-<p>由上两个测试可知，逻辑运算符，“||”和“&amp;&amp;”都是遵行短路原则，只要确定符号前面的真假，既可确定返回值。</p>
-<p>需要说明的是“&amp;&amp;”的优先级是高于“||”的，下面测试：</p>
-<p>alert(1||’a’&amp;&amp;2);</p>
-<p>返回结果是1。</p>
-<p>根据反证原理，我们假设“||”的优先级不低于“&amp;&amp;”（这里只所以用“不低于”，是为了同时证明等级相同的情况）。</p>
-<p>根据上面我们得出的结论（1），（1||’a’）将返回前面的值1，(1&amp;&amp;2)根据结论(4)应该返回后面的值2。这显然不对，由此可知“&amp;&amp;”的优先级是高于“||”的。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;#一、先来说说||（逻辑或）,从字面上来说，只有前后都是false的时候才返回false，否则返回true。&lt;/p&gt;
-&lt;p&gt;alert(true||false);    // true&lt;br&gt;alert(false||true);    // true&lt;br&gt;alert(t
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>js运算符的优先级</title>
-    <link href="http://yoursite.com/2015/03/07/js%E7%B1%BB/js%E8%BF%90%E7%AE%97%E7%AC%A6%E7%9A%84%E4%BC%98%E5%85%88%E7%BA%A7/"/>
-    <id>http://yoursite.com/2015/03/07/js类/js运算符的优先级/</id>
-    <published>2015-03-07T09:00:44.000Z</published>
-    <updated>2017-03-31T09:44:34.313Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="1-1-操作符种类"><a href="#1-1-操作符种类" class="headerlink" title="1.1 操作符种类"></a>1.1 <strong>操作符种类</strong></h2><p>一、算数运算符（+—*/…）</p>
-<p>a) 一元运算符：正号、负号、++、–、平方等一个变量就能运算</p>
-<p>b) 二元运算符：+-*/%等两个变量才能运算</p>
-<p>c) 三元运算符：    值1？值2：值3；</p>
-<p>二、逻辑运算符（ |&amp; ! ）（或且非）</p>
-<p>三、比较运算符（&lt;、&gt;、==、&gt;=…）</p>
-<p>四、赋值运算符（=、+=、-=、*=、/=、%=）</p>
-<h2 id="1-2-优先级"><a href="#1-2-优先级" class="headerlink" title="1.2 优先级**"></a>1.2 <strong>优先级<em>**</em></strong></h2><p><img src="file:///C:\Users\LIUXIA~1\AppData\Local\Temp\ksohtml\wps436F.tmp.jpg" alt="![img](file:///C:/Users/LIUXIA~1/AppData/Local/Temp/ksohtml/wps436F.tmp.jpg?lastModify=1490953363)![img](file:///C:/Users/LIUXIA~1/AppData/Local/Temp/ksohtml/wps436F.tmp.jpg?lastModify=1490953363)img"></p>
-<p>1 () </p>
-<p>2 !、-（负数）、++、– （正数省略+）（一元运算）</p>
-<p>3 *、/、% </p>
-<p>4 +、- （加，减）（二元运算）</p>
-<p>5 &lt;、&lt;=、&lt;、&gt;= （一级逻辑运算）</p>
-<p>6 ==、!=、===、!==、 （二级逻辑运算）</p>
-<p>7 &amp;&amp; （三级级逻辑运算）</p>
-<p>8 || </p>
-<p>9?: （三元运算）</p>
-<p>10 =、+=、-=、*=、/=、%= （赋值运算）</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;1-1-操作符种类&quot;&gt;&lt;a href=&quot;#1-1-操作符种类&quot; class=&quot;headerlink&quot; title=&quot;1.1 操作符种类&quot;&gt;&lt;/a&gt;1.1 &lt;strong&gt;操作符种类&lt;/strong&gt;&lt;/h2&gt;&lt;p&gt;一、算数运算符（+—*/…）&lt;/p&gt;
-&lt;p&gt;a) 
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>null和undefined</title>
-    <link href="http://yoursite.com/2015/02/09/js%E7%B1%BB/undefine%E5%92%8C%E6%88%96null%E5%8C%BA%E5%88%AB/"/>
-    <id>http://yoursite.com/2015/02/09/js类/undefine和或null区别/</id>
-    <published>2015-02-09T07:07:27.000Z</published>
-    <updated>2017-03-31T08:06:59.000Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="javascript中的null和undefined"><a href="#javascript中的null和undefined" class="headerlink" title="javascript中的null和undefined"></a>javascript中的null和undefined</h1><h2 id="null和undefined在JavaScript中的含义"><a href="#null和undefined在JavaScript中的含义" class="headerlink" title="null和undefined在JavaScript中的含义"></a>null和undefined在JavaScript中的含义</h2><p>在JavaScript中，将一个变量赋值为undefined或null，老实说，几乎没区别。</p>
-<h3 id="null的含义"><a href="#null的含义" class="headerlink" title="null的含义"></a>null的含义</h3><ul>
-<li><code>null</code>是JavaScript的关键字，常用来描述“空值”。</li>
-<li>在浏览器的控制台对<code>null</code>用<code>typeof</code>函数<code>typeof(null)</code></li>
-</ul>
-<p>1</p>
-<p>返回的是<code>object</code>，可以认为<code>null</code>是一个特殊的对象值，含义是“无对象”。</p>
-<ul>
-<li>对<code>null</code>使用<code>Number</code>函数<code>Number(null);10+null;</code></li>
-</ul>
-<p>2</p>
-<p>返回0,说明在装换为数字的时候识别为0</p>
-<ul>
-<li><p>在转为布尔型的时候</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">if(!null)</div><div class="line">console.log(&quot;null is false&quot;);</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>3</p>
-<p>语句执行，说明<code>null</code>在转换为布尔值的时候是’false’</p>
-<h3 id="undefined的含义"><a href="#undefined的含义" class="headerlink" title="undefined的含义"></a>undefined的含义</h3><ul>
-<li><code>undefined</code>不是JavaScript的关键字，用未定义的值表示更深层次的“空值”。<code>undefined</code>是预定义的全局变量，它的值就是“未定义”.</li>
-<li>对<code>undefined</code>使用<code>typeof</code>函数<code>typeof(undefined);</code></li>
-</ul>
-<p>3</p>
-<p>返回的还是<code>undefined</code>，表明这个值是这个类型的唯一成员。</p>
-<ul>
-<li>使用<code>Number</code>函数<code>Number(undefined);</code></li>
-</ul>
-<p>4</p>
-<p>返回值是<code>NaN</code>，说明转化为数字的时候是<code>NaN</code></p>
-<ul>
-<li><p>转化为布尔值的时候</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">if(!undefined)</div><div class="line">console.log(&quot;undefined is false&quot;);</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>5</p>
-<p>转为布尔值的时候表示为<code>false</code></p>
-<h2 id="null和undefined的差别"><a href="#null和undefined的差别" class="headerlink" title="null和undefined的差别"></a>null和undefined的差别</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">if(null==undefined)</div><div class="line">console.log(&quot;相等&quot;);</div><div class="line">else</div><div class="line">console.log(&quot;不相等&quot;);</div></pre></td></tr></table></figure>
-<p>6</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">if(null===undefined)</div><div class="line">console.log(&quot;相等&quot;);</div><div class="line">else</div><div class="line">console.log(&quot;不相等&quot;);</div></pre></td></tr></table></figure>
-<p>7</p>
-<p>通过<code>==</code>和<code>===</code>的判断，<code>null</code>和<code>undefined</code>本质上是不相等的，<code>==</code>判断的情况下是因为<code>==</code>在判断之前先进行类型的转换，转为布尔型之后都是false相等。而<code>===</code>没有进行类型转换的比较。</p>
-<h3 id="当前null和undefined的用法"><a href="#当前null和undefined的用法" class="headerlink" title="当前null和undefined的用法"></a>当前null和undefined的用法</h3><p>上面这样的区分，在实践中会被证明不可行。目前，null和undefined基本是同义的，只有一些细微的差别。</p>
-<blockquote>
-<p>null表示”没有对象”，即该处不应该有值。典型用法是：</p>
-<ul>
-<li><p>作为函数的参数，表示该函数的参数不是对象。</p>
-</li>
-<li><p>作为对象原型链的终点。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&gt;   Object.getPrototypeOf(Object.prototype)</div><div class="line">&gt;   // null</div><div class="line">&gt;</div></pre></td></tr></table></figure>
-</li>
-</ul>
-</blockquote>
-<hr>
-<blockquote>
-<p>undefined表示”缺少值”，就是此处应该有一个值，但是还没有定义。典型用法是：</p>
-<ul>
-<li>变量被声明了，但没有赋值时，就等于undefined。</li>
-<li>调用函数时，应该提供的参数没有提供，该参数等于undefined。</li>
-<li>对象没有赋值的属性，该属性的值为undefined。</li>
-<li>数组元素没有被赋值</li>
-<li>函数没有返回值时，默认返回undefined。</li>
-</ul>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">var i;</div><div class="line">i // undefined</div><div class="line"></div><div class="line">function f(x)&#123;console.log(x)&#125;</div><div class="line">f() // undefined</div><div class="line"></div><div class="line">var  o = new Object();</div><div class="line">o.p // undefined</div><div class="line"></div><div class="line">var x = f();</div><div class="line">x // undefined</div></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;javascript中的null和undefined&quot;&gt;&lt;a href=&quot;#javascript中的null和undefined&quot; class=&quot;headerlink&quot; title=&quot;javascript中的null和undefined&quot;&gt;&lt;/a&gt;javascri
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>IE盒子模型和标准W3C盒子模型</title>
-    <link href="http://yoursite.com/2015/02/07/css%E7%B1%BB/CSS%E5%91%BD%E5%90%8D%E8%A7%84%E8%8C%83/"/>
-    <id>http://yoursite.com/2015/02/07/css类/CSS命名规范/</id>
-    <published>2015-02-07T03:08:43.000Z</published>
-    <updated>2017-03-31T07:48:34.628Z</updated>
-    
-    <content type="html"><![CDATA[<p><strong>IE盒子模型和标准W3C盒子模型 </strong></p>
-<p>盒子模型是CSS中一个重要的概念，理解了盒子模型才能更好的排版。其实盒子模型有两种，分别是 IE 盒子模型和标准 W3C 盒子模型。他们对盒子模型的解释各不相同，先来看看我们熟悉的标准盒子模型：</p>
-<p><a href="http://b37.photo.store.qq.com/http_imgload.cgi?/rurl4_b=aa67b94eca21e0280b825b731719d55336fd198939b9c825ceda71a63fe39444f9d5c89334566ec4ef93e7b2758245ad4ab4920ba2023a3f2423a7e1a71d8765fb87632ee194307a5fd0081fc81f87a9d064711f&amp;a=44&amp;b=37" target="_blank" rel="external"><img src="http://a2.qpic.cn/psu?/43a6ab06-24cc-485a-8bd1-d0bba679cb9e/Ej5AL.cSwgkFeA6DqLvDQLv2nEhKzNk14iZlSy8oa.A!/b/Yfm*TRpPTwAAYh6sJBa1sgAA&amp;ek=1&amp;kp=1&amp;pt=0&amp;su=1202516422&amp;tm=1490943600&amp;sce=0-12-12&amp;rf=2-9" alt="图片"></a></p>
-<p>从上图可以看到标准 W3C 盒子模型的范围包括 margin、border、padding、content，并且 content 部分不包含其他部分。</p>
-<p>IE 盒子模型</p>
-<p><a href="http://b44.photo.store.qq.com/http_imgload.cgi?/rurl4_b=aa67b94eca21e0280b825b731719d553d535af5205b67d379a42c21f005e3665b779a51deaebeb44f52845269d186987dc744d8b8177fcf2d74b8b5748dd0d6ba08fbb8b83dc07fd036d94f0c8ff125882a4f830&amp;a=43&amp;b=44" target="_blank" rel="external"><img src="http://a1.qpic.cn/psu?/43a6ab06-24cc-485a-8bd1-d0bba679cb9e/xhWhAT.5tNev43WIiPIXHQ3Ej*Cl4J9vsh09xdwr9IU!/b/YQNbpBmKiwAAYvXwPBpZTgAA&amp;ek=1&amp;kp=1&amp;pt=0&amp;su=1264009744&amp;tm=1490943600&amp;sce=0-12-12&amp;rf=2-9" alt="图片"></a></p>
-<p>从上图可以看到 IE 盒子模型的范围也包括 margin、border、padding、content，和标准 W3C 盒子模型不同的是：IE 盒子模型的 <strong>content 部分包含了 border 和 pading。</strong></p>
-<p>从上图可以看到 IE 盒子模型的范围也包括 margin、border、padding、content，和标准 W3C 盒子模型不同的是：IE 盒子模型的 content 部分包含了 border 和 pading。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">45.CSS的盒子模型？</div><div class="line">（1）两种， IE 盒子模型、标准 W3C 盒子模型；`IE 的content部分包含了 border 和 pading;`</div><div class="line">（2）盒模型： 内容(content)、填充(padding)、边界(margin)、 边框(border)</div></pre></td></tr></table></figure>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;strong&gt;IE盒子模型和标准W3C盒子模型 &lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;盒子模型是CSS中一个重要的概念，理解了盒子模型才能更好的排版。其实盒子模型有两种，分别是 IE 盒子模型和标准 W3C 盒子模型。他们对盒子模型的解释各不相同，先来看看我们熟悉的标准盒子模
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Div+CSS命名规范大全</title>
-    <link href="http://yoursite.com/2015/01/02/css%E7%B1%BB/Div+CSS%E5%91%BD%E5%90%8D%E8%A7%84%E8%8C%83%E5%A4%A7%E5%85%A8/"/>
-    <id>http://yoursite.com/2015/01/02/css类/Div+CSS命名规范大全/</id>
-    <published>2015-01-02T04:00:20.000Z</published>
-    <updated>2017-03-31T07:39:17.263Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="Div-CSS命名规范大全"><a href="#Div-CSS命名规范大全" class="headerlink" title="Div+CSS命名规范大全"></a>Div+CSS命名规范大全</h1><p>工作中，写页面经常会出现我们起class名的时候，词穷！！！甚至有些词舍不得用，比如说left，right，center，等词语，一直舍不得用，等到页面写完了，发现还是没有用上。。。<br>　　css命名这个也是很重要的，毕竟我们写的代码不是给自己看的，毕竟工作中写页面都是分模块来写，每个人负责不同区域，但是后期还是都要放一起看的，先不说你名字太俗，先的脸面不好看。<br>　　主要是后期别的同事来添加修改编写效果等都要看的，如果别人看不懂，，那就耽误事了，要一点一点看你的布局。<br>　　特别是后期的线上项目维护，如果你class命名写的太那啥，，，别人看不懂，就非常麻烦，所有今天就发一些常用命名以及规范吧。不啰嗦，直接正题。<br>　　当然，如果你时候，你体格强壮，抗揍，那我服，，，你可以随便起：比如aaa，，bjnh。。等等，</p>
-<h4 id="class命名："><a href="#class命名：" class="headerlink" title="class命名："></a>class命名：</h4><p>头：header　　<br>内容：content/container　　<br>尾：footer　　<br>导航：nav　　<br>侧栏：sidebar<br>栏目：column　　<br>页面外围控制整体布局宽度：wrapper　　<br>左右中：left right center　　<br>登录条：loginbar　　<br>标志：logo　　<br>抽奖：raffle<br>广告：banner　　<br>页面主体：main　　<br>热点：hot　　<br>新闻：news<br>下载：download　　<br>子导航：subnav　　<br>菜单：menu　　<br>子菜单：submenu　　<br>搜索：search　　<br>友情链接：friendlink　　<br>页脚：footer　　<br>版权：copyright　　<br>滚动：scroll　　<br>内容：content<br>标签页：tab<br>文章列表：list<br>提示信息：msg<br>小技巧：tips<br>栏目标题：title<br>加入：joinus<br>指南：guild<br>服务：service<br>注册：regsiter<br>状态态：status<br>投票：vote<br>合作伙伴：partner</p>
-<h4 id="id的命名"><a href="#id的命名" class="headerlink" title="id的命名"></a>id的命名</h4><p>容器: container<br>页头：header<br>内容：content/container<br>页面主体：main<br>页尾：footer<br>导航：nav<br>侧栏：sidebar<br>栏目：column<br>页面外围控制整体布局宽度：wrapper<br>左右中：left right center</p>
-<p><strong>页面结构 </strong><br>容器: container<br>页头：header<br>内容：content/container<br>页面主体：main<br>页尾：footer<br>导航：nav<br>侧栏：sidebar<br>栏目：column<br>页面外围控制整体布局宽度：wrapper<br>左右中：left right center</p>
-<p><strong>导航 </strong><br>导航：nav<br>主导航：mainbav<br>子导航：subnav<br>顶导航：topnav<br>边导航：sidebar<br>左导航：leftsidebar<br>右导航：rightsidebar<br>菜单：menu<br>子菜单：submenu<br>标题: title<br>摘要: summary</p>
-<p><strong>功能 </strong><br>标志：logo<br>广告：banner<br>登陆：login<br>登录条：loginbar<br>注册：regsiter<br>搜索：search<br>功能区：shop<br>标题：title<br>加入：joinus<br>状态：status<br>按钮：btn<br>滚动：scroll<br>标签页：tab<br>文章列表：list<br>提示信息：msg<br>当前的: current<br>小技巧：tips<br>图标: icon<br>注释：note<br>指南：guild<br>服务：service<br>热点：hot<br>新闻：news<br>下载：download<br>投票：vote<br>合作伙伴：partner<br>友情链接：link<br>版权：copyright</p>
-<h4 id="class的命名规范"><a href="#class的命名规范" class="headerlink" title="class的命名规范"></a>class的命名规范</h4><p><strong>(1)</strong>颜色:使用颜色的名称或者16进制代码,如<br>.red { color: red; }<br>.f60 { color: #f60; }<br>.ff8600 { color: #ff8600; }</p>
-<p><strong>(2)</strong>字体大小,直接使用”font+字体大小”作为名称,如<br>.font12px { font-size: 12px; }<br>.font9pt {font-size: 9pt; }</p>
-<p><strong>(3)</strong>对齐样式,使用对齐目标的英文名称,如</p>
-<p>.left { float:left; }<br>.bottom { float:bottom; }</p>
-<p><strong>(4)</strong>标题栏样式,使用”类别+功能”的方式命名,如<br>.barnews { }<br>.barproduct { }</p>
-<h4 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h4><p>1.一律小写;<br>2.尽量用英文;<br>3.尽量不缩写，除非一看就明白的单词.<br>主要的 master.css<br>模块 module.css<br>基本共用 base.css<br>布局，版面 layout.css<br>主题 themes.css<br>专栏 columns.css<br>文字 font.css<br>表单 forms.css<br>补丁 mend.css<br>打印 print.css</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;Div-CSS命名规范大全&quot;&gt;&lt;a href=&quot;#Div-CSS命名规范大全&quot; class=&quot;headerlink&quot; title=&quot;Div+CSS命名规范大全&quot;&gt;&lt;/a&gt;Div+CSS命名规范大全&lt;/h1&gt;&lt;p&gt;工作中，写页面经常会出现我们起class名的时候，词
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>eslint配置</title>
-    <link href="http://yoursite.com/2014/12/08/%E5%B7%A5%E5%85%B7%E7%B1%BB/eslint%E9%85%8D%E7%BD%AE/"/>
-    <id>http://yoursite.com/2014/12/08/工具类/eslint配置/</id>
-    <published>2014-12-08T07:02:02.000Z</published>
-    <updated>2017-03-31T07:02:00.407Z</updated>
-    
-    <content type="html"><![CDATA[<p>EsLint帮助我们检查Javascript编程时的语法错误。比如：在Javascript应用中，你很难找到你漏泄的变量或者方法。EsLint能够帮助我们分析JS代码，找到bug并确保一定程度的JS语法书写的正确性。<br>EsLint是建立在Esprima(ECMAScript解析架构)的基础上的。Esprima支持ES5.1,本身也是用ECMAScript编写的，用于多用途分析。EsLint不但提供一些默认的规则（可扩展），也提供用户自定义规则来约束我们写的Javascript代码。<br><a id="more"></a></p>
-<p>我们在全局安装<code>npm install eslint -g</code></p>
-<p>然后再初始化eslint<code>eslint --init</code></p>
-<p>然后我们配置的时候<br>第一种初始化方式<br><img src="/images/eslint-1.png" alt="img"><br><img src="/images/eslint-1.png" alt="img"><br><img src="/images/eslint-1.png" alt="img"></p>
-<p><img src="/images/eslint-4.png" alt="img"></p>
-<p>第二种初始化方式<br><img src="/images/eslint-5.png" alt="img"></p>
-<p>然后就可以了  重启我们的vscode就可以进行代码风格检查了</p>
-<ul>
-<li>文档 &lt;<a href="http://eslint.cn/docs/user-guide/configuring" target="_blank" rel="external">http://eslint.cn/docs/user-guide/configuring</a><a href="http://eslint.cn/docs/user-guide/configuring" target="_blank" rel="external">http://eslint.cn/docs/user-guide/configuring</a>ESLint的2种配置:<strong>Configuration Comments</strong> - 使用 JavaScript 注释把配置信息直接嵌入到一个文件。<strong>Configuration Files</strong> - 使用 JavaScript、JSON 或者 YAML 文件为整个目录和它的子目录指定配置信息。可以用 .eslintrc.* 文件或者在 package.json 文件里的 eslintConfig 字段这两种方式进行配置，ESLint 会查找和自动读取它们，再者，你可以在命令行指定一个配置文件。</li>
-</ul>
-<blockquote>
-<blockquote>
-<p>有很多配置信息:</p>
-<ul>
-<li><strong>Environments</strong> -指定脚本的运行环境 每种环境都有一组特定的预定义全局变量</li>
-<li><strong>Globals</strong> -脚本在执行期间访问的额外全局变量</li>
-<li><strong>Rules</strong> -启用的规则及各自的错误级别</li>
-</ul>
-</blockquote>
-</blockquote>
-<h3 id="Configuring-Rules-配置规则"><a href="#Configuring-Rules-配置规则" class="headerlink" title="Configuring Rules 配置规则"></a>Configuring Rules 配置规则</h3><p>ESLint 附带有大量的规则。你可以使用注释或配置文件修改你项目中要使用哪些规则。改变一个规则设置，你必须设置规则 ID 等于这些值之一：</p>
-<ul>
-<li>“off”或0 -关闭规则</li>
-<li>“warn” 或1 - 开启规则, 使用警告 程序不会退出</li>
-<li>“error”或2 - 开启规则, 使用错误 程序退出</li>
-</ul>
-<p>为了在文件注释里配置规则，使用以下格式的注释：</p>
-<p><code>/* eslint eqeqeq: &quot;off&quot;, curly: &quot;error&quot; */</code><br>在这个例子里，eqeqeq 规则被关闭，curly 规则被打开，定义为错误级别。你也可以使用对应的数字定义规则严重程度：</p>
-<p><code>/* eslint eqeqeq: 0, curly: 2 */</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&quot;rules&quot;: &#123;</div><div class="line">    &quot;eqeqeq&quot;: &quot;off&quot;,</div><div class="line">    &quot;curly&quot;: &quot;error&quot;,</div><div class="line">    &quot;quotes&quot;: [&quot;error&quot;, &quot;double&quot;],</div><div class="line">    &quot;plugin1/rule1&quot;: &quot;error&quot;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="临时禁止规则出现警告"><a href="#临时禁止规则出现警告" class="headerlink" title="临时禁止规则出现警告"></a>临时禁止规则出现警告</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* eslint-disable */</span></div><div class="line">alert(<span class="string">'foo'</span>);</div><div class="line"><span class="comment">/* eslint-enable */</span></div></pre></td></tr></table></figure>
-<h3 id="rule解释"><a href="#rule解释" class="headerlink" title="rule解释"></a>rule解释</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div><div class="line">172</div><div class="line">173</div><div class="line">174</div></pre></td><td class="code"><pre><div class="line"><span class="string">"no-alert"</span>: <span class="number">0</span>,<span class="comment">//禁止使用alert confirm prompt</span></div><div class="line"><span class="string">"no-array-constructor"</span>: <span class="number">2</span>,<span class="comment">//禁止使用数组构造器</span></div><div class="line"><span class="string">"no-bitwise"</span>: <span class="number">0</span>,<span class="comment">//禁止使用按位运算符</span></div><div class="line"><span class="string">"no-caller"</span>: <span class="number">1</span>,<span class="comment">//禁止使用arguments.caller或arguments.callee</span></div><div class="line"><span class="string">"no-catch-shadow"</span>: <span class="number">2</span>,<span class="comment">//禁止catch子句参数与外部作用域变量同名</span></div><div class="line"><span class="string">"no-class-assign"</span>: <span class="number">2</span>,<span class="comment">//禁止给类赋值</span></div><div class="line"><span class="string">"no-cond-assign"</span>: <span class="number">2</span>,<span class="comment">//禁止在条件表达式中使用赋值语句</span></div><div class="line"><span class="string">"no-console"</span>: <span class="number">2</span>,<span class="comment">//禁止使用console</span></div><div class="line"><span class="string">"no-const-assign"</span>: <span class="number">2</span>,<span class="comment">//禁止修改const声明的变量</span></div><div class="line"><span class="string">"no-constant-condition"</span>: <span class="number">2</span>,<span class="comment">//禁止在条件中使用常量表达式 if(true) if(1)</span></div><div class="line"><span class="string">"no-continue"</span>: <span class="number">0</span>,<span class="comment">//禁止使用continue</span></div><div class="line"><span class="string">"no-control-regex"</span>: <span class="number">2</span>,<span class="comment">//禁止在正则表达式中使用控制字符</span></div><div class="line"><span class="string">"no-debugger"</span>: <span class="number">2</span>,<span class="comment">//禁止使用debugger</span></div><div class="line"><span class="string">"no-delete-var"</span>: <span class="number">2</span>,<span class="comment">//不能对var声明的变量使用delete操作符</span></div><div class="line"><span class="string">"no-div-regex"</span>: <span class="number">1</span>,<span class="comment">//不能使用看起来像除法的正则表达式/=foo/</span></div><div class="line"><span class="string">"no-dupe-keys"</span>: <span class="number">2</span>,<span class="comment">//在创建对象字面量时不允许键重复 &#123;a:1,a:1&#125;</span></div><div class="line"><span class="string">"no-dupe-args"</span>: <span class="number">2</span>,<span class="comment">//函数参数不能重复</span></div><div class="line"><span class="string">"no-duplicate-case"</span>: <span class="number">2</span>,<span class="comment">//switch中的case标签不能重复</span></div><div class="line"><span class="string">"no-else-return"</span>: <span class="number">2</span>,<span class="comment">//如果if语句里面有return,后面不能跟else语句</span></div><div class="line"><span class="string">"no-empty"</span>: <span class="number">2</span>,<span class="comment">//块语句中的内容不能为空</span></div><div class="line"><span class="string">"no-empty-character-class"</span>: <span class="number">2</span>,<span class="comment">//正则表达式中的[]内容不能为空</span></div><div class="line"><span class="string">"no-empty-label"</span>: <span class="number">2</span>,<span class="comment">//禁止使用空label</span></div><div class="line"><span class="string">"no-eq-null"</span>: <span class="number">2</span>,<span class="comment">//禁止对null使用==或!=运算符</span></div><div class="line"><span class="string">"no-eval"</span>: <span class="number">1</span>,<span class="comment">//禁止使用eval</span></div><div class="line"><span class="string">"no-ex-assign"</span>: <span class="number">2</span>,<span class="comment">//禁止给catch语句中的异常参数赋值</span></div><div class="line"><span class="string">"no-extend-native"</span>: <span class="number">2</span>,<span class="comment">//禁止扩展native对象</span></div><div class="line"><span class="string">"no-extra-bind"</span>: <span class="number">2</span>,<span class="comment">//禁止不必要的函数绑定</span></div><div class="line"><span class="string">"no-extra-boolean-cast"</span>: <span class="number">2</span>,<span class="comment">//禁止不必要的bool转换</span></div><div class="line"><span class="string">"no-extra-parens"</span>: <span class="number">2</span>,<span class="comment">//禁止非必要的括号</span></div><div class="line"><span class="string">"no-extra-semi"</span>: <span class="number">2</span>,<span class="comment">//禁止多余的冒号</span></div><div class="line"><span class="string">"no-fallthrough"</span>: <span class="number">1</span>,<span class="comment">//禁止switch穿透</span></div><div class="line"><span class="string">"no-floating-decimal"</span>: <span class="number">2</span>,<span class="comment">//禁止省略浮点数中的0 .5 3.</span></div><div class="line"><span class="string">"no-func-assign"</span>: <span class="number">2</span>,<span class="comment">//禁止重复的函数声明</span></div><div class="line"><span class="string">"no-implicit-coercion"</span>: <span class="number">1</span>,<span class="comment">//禁止隐式转换</span></div><div class="line"><span class="string">"no-implied-eval"</span>: <span class="number">2</span>,<span class="comment">//禁止使用隐式eval</span></div><div class="line"><span class="string">"no-inline-comments"</span>: <span class="number">0</span>,<span class="comment">//禁止行内备注</span></div><div class="line"><span class="string">"no-inner-declarations"</span>: [<span class="number">2</span>, <span class="string">"functions"</span>],<span class="comment">//禁止在块语句中使用声明（变量或函数）</span></div><div class="line"><span class="string">"no-invalid-regexp"</span>: <span class="number">2</span>,<span class="comment">//禁止无效的正则表达式</span></div><div class="line"><span class="string">"no-invalid-this"</span>: <span class="number">2</span>,<span class="comment">//禁止无效的this，只能用在构造器，类，对象字面量</span></div><div class="line"><span class="string">"no-irregular-whitespace"</span>: <span class="number">2</span>,<span class="comment">//不能有不规则的空格</span></div><div class="line"><span class="string">"no-iterator"</span>: <span class="number">2</span>,<span class="comment">//禁止使用__iterator__ 属性</span></div><div class="line"><span class="string">"no-label-var"</span>: <span class="number">2</span>,<span class="comment">//label名不能与var声明的变量名相同</span></div><div class="line"><span class="string">"no-labels"</span>: <span class="number">2</span>,<span class="comment">//禁止标签声明</span></div><div class="line"><span class="string">"no-lone-blocks"</span>: <span class="number">2</span>,<span class="comment">//禁止不必要的嵌套块</span></div><div class="line"><span class="string">"no-lonely-if"</span>: <span class="number">2</span>,<span class="comment">//禁止else语句内只有if语句</span></div><div class="line"><span class="string">"no-loop-func"</span>: <span class="number">1</span>,<span class="comment">//禁止在循环中使用函数（如果没有引用外部变量不形成闭包就可以）</span></div><div class="line"><span class="string">"no-mixed-requires"</span>: [<span class="number">0</span>, <span class="literal">false</span>],<span class="comment">//声明时不能混用声明类型</span></div><div class="line"><span class="string">"no-mixed-spaces-and-tabs"</span>: [<span class="number">2</span>, <span class="literal">false</span>],<span class="comment">//禁止混用tab和空格</span></div><div class="line"><span class="string">"linebreak-style"</span>: [<span class="number">0</span>, <span class="string">"windows"</span>],<span class="comment">//换行风格</span></div><div class="line"><span class="string">"no-multi-spaces"</span>: <span class="number">0</span>,<span class="comment">//不能用多余的空格</span></div><div class="line"><span class="string">"no-multi-str"</span>: <span class="number">2</span>,<span class="comment">//字符串不能用\换行</span></div><div class="line"><span class="string">"no-multiple-empty-lines"</span>: [<span class="number">1</span>, &#123;<span class="string">"max"</span>: <span class="number">3</span>&#125;],<span class="comment">//空行最多不能超过2行</span></div><div class="line"><span class="string">"no-native-reassign"</span>: <span class="number">2</span>,<span class="comment">//不能重写native对象</span></div><div class="line"><span class="string">"no-negated-in-lhs"</span>: <span class="number">2</span>,<span class="comment">//in 操作符的左边不能有!</span></div><div class="line"><span class="string">"no-nested-ternary"</span>: <span class="number">0</span>,<span class="comment">//禁止使用嵌套的三目运算</span></div><div class="line"><span class="string">"no-new"</span>: <span class="number">1</span>,<span class="comment">//禁止在使用new构造一个实例后不赋值</span></div><div class="line"><span class="string">"no-new-func"</span>: <span class="number">1</span>,<span class="comment">//禁止使用new Function</span></div><div class="line"><span class="string">"no-new-object"</span>: <span class="number">2</span>,<span class="comment">//禁止使用new Object()</span></div><div class="line"><span class="string">"no-new-require"</span>: <span class="number">2</span>,<span class="comment">//禁止使用new require</span></div><div class="line"><span class="string">"no-new-wrappers"</span>: <span class="number">2</span>,<span class="comment">//禁止使用new创建包装实例，new String new Boolean new Number</span></div><div class="line"><span class="string">"no-obj-calls"</span>: <span class="number">2</span>,<span class="comment">//不能调用内置的全局对象，比如Math() JSON()</span></div><div class="line"><span class="string">"no-octal"</span>: <span class="number">2</span>,<span class="comment">//禁止使用八进制数字</span></div><div class="line"><span class="string">"no-octal-escape"</span>: <span class="number">2</span>,<span class="comment">//禁止使用八进制转义序列</span></div><div class="line"><span class="string">"no-param-reassign"</span>: <span class="number">2</span>,<span class="comment">//禁止给参数重新赋值</span></div><div class="line"><span class="string">"no-path-concat"</span>: <span class="number">0</span>,<span class="comment">//node中不能使用__dirname或__filename做路径拼接</span></div><div class="line"><span class="string">"no-plusplus"</span>: <span class="number">0</span>,<span class="comment">//禁止使用++，--</span></div><div class="line"><span class="string">"no-process-env"</span>: <span class="number">0</span>,<span class="comment">//禁止使用process.env</span></div><div class="line"><span class="string">"no-process-exit"</span>: <span class="number">0</span>,<span class="comment">//禁止使用process.exit()</span></div><div class="line"><span class="string">"no-proto"</span>: <span class="number">2</span>,<span class="comment">//禁止使用__proto__属性</span></div><div class="line"><span class="string">"no-redeclare"</span>: <span class="number">2</span>,<span class="comment">//禁止重复声明变量</span></div><div class="line"><span class="string">"no-regex-spaces"</span>: <span class="number">2</span>,<span class="comment">//禁止在正则表达式字面量中使用多个空格 /foo bar/</span></div><div class="line"><span class="string">"no-restricted-modules"</span>: <span class="number">0</span>,<span class="comment">//如果禁用了指定模块，使用就会报错</span></div><div class="line"><span class="string">"no-return-assign"</span>: <span class="number">1</span>,<span class="comment">//return 语句中不能有赋值表达式</span></div><div class="line"><span class="string">"no-script-url"</span>: <span class="number">0</span>,<span class="comment">//禁止使用javascript:void(0)</span></div><div class="line"><span class="string">"no-self-compare"</span>: <span class="number">2</span>,<span class="comment">//不能比较自身</span></div><div class="line"><span class="string">"no-sequences"</span>: <span class="number">0</span>,<span class="comment">//禁止使用逗号运算符</span></div><div class="line"><span class="string">"no-shadow"</span>: <span class="number">2</span>,<span class="comment">//外部作用域中的变量不能与它所包含的作用域中的变量或参数同名</span></div><div class="line"><span class="string">"no-shadow-restricted-names"</span>: <span class="number">2</span>,<span class="comment">//严格模式中规定的限制标识符不能作为声明时的变量名使用</span></div><div class="line"><span class="string">"no-spaced-func"</span>: <span class="number">2</span>,<span class="comment">//函数调用时 函数名与()之间不能有空格</span></div><div class="line"><span class="string">"no-sparse-arrays"</span>: <span class="number">2</span>,<span class="comment">//禁止稀疏数组， [1,,2]</span></div><div class="line"><span class="string">"no-sync"</span>: <span class="number">0</span>,<span class="comment">//nodejs 禁止同步方法</span></div><div class="line"><span class="string">"no-ternary"</span>: <span class="number">0</span>,<span class="comment">//禁止使用三目运算符</span></div><div class="line"><span class="string">"no-trailing-spaces"</span>: <span class="number">1</span>,<span class="comment">//一行结束后面不要有空格</span></div><div class="line"><span class="string">"no-this-before-super"</span>: <span class="number">0</span>,<span class="comment">//在调用super()之前不能使用this或super</span></div><div class="line"><span class="string">"no-throw-literal"</span>: <span class="number">2</span>,<span class="comment">//禁止抛出字面量错误 throw "error";</span></div><div class="line"><span class="string">"no-undef"</span>: <span class="number">2</span>,<span class="comment">//不能有未定义的变量</span></div><div class="line"><span class="string">"no-undef-init"</span>: <span class="number">2</span>,<span class="comment">//变量初始化时不能直接给它赋值为undefined</span></div><div class="line"><span class="string">"no-undefined"</span>: <span class="number">2</span>,<span class="comment">//不能使用undefined</span></div><div class="line"><span class="string">"no-unexpected-multiline"</span>: <span class="number">2</span>,<span class="comment">//避免多行表达式</span></div><div class="line"><span class="string">"no-underscore-dangle"</span>: <span class="number">1</span>,<span class="comment">//标识符不能以_开头或结尾</span></div><div class="line"><span class="string">"no-unneeded-ternary"</span>: <span class="number">2</span>,<span class="comment">//禁止不必要的嵌套 var isYes = answer === 1 ? true : false;</span></div><div class="line"><span class="string">"no-unreachable"</span>: <span class="number">2</span>,<span class="comment">//不能有无法执行的代码</span></div><div class="line"><span class="string">"no-unused-expressions"</span>: <span class="number">2</span>,<span class="comment">//禁止无用的表达式</span></div><div class="line"><span class="string">"no-unused-vars"</span>: [<span class="number">2</span>, &#123;<span class="string">"vars"</span>: <span class="string">"all"</span>, <span class="string">"args"</span>: <span class="string">"after-used"</span>&#125;],<span class="comment">//不能有声明后未被使用的变量或参数</span></div><div class="line"><span class="string">"no-use-before-define"</span>: <span class="number">2</span>,<span class="comment">//未定义前不能使用</span></div><div class="line"><span class="string">"no-useless-call"</span>: <span class="number">2</span>,<span class="comment">//禁止不必要的call和apply</span></div><div class="line"><span class="string">"no-void"</span>: <span class="number">2</span>,<span class="comment">//禁用void操作符</span></div><div class="line"><span class="string">"no-var"</span>: <span class="number">0</span>,<span class="comment">//禁用var，用let和const代替</span></div><div class="line"><span class="string">"no-warning-comments"</span>: [<span class="number">1</span>, &#123; <span class="string">"terms"</span>: [<span class="string">"todo"</span>, <span class="string">"fixme"</span>, <span class="string">"xxx"</span>], <span class="string">"location"</span>: <span class="string">"start"</span> &#125;],<span class="comment">//不能有警告备注</span></div><div class="line"><span class="string">"no-with"</span>: <span class="number">2</span>,<span class="comment">//禁用with</span></div><div class="line"></div><div class="line"><span class="string">"array-bracket-spacing"</span>: [<span class="number">2</span>, <span class="string">"never"</span>],<span class="comment">//是否允许非空数组里面有多余的空格</span></div><div class="line"><span class="string">"arrow-parens"</span>: <span class="number">0</span>,<span class="comment">//箭头函数用小括号括起来</span></div><div class="line"><span class="string">"arrow-spacing"</span>: <span class="number">0</span>,<span class="comment">//=&gt;的前/后括号</span></div><div class="line"><span class="string">"accessor-pairs"</span>: <span class="number">0</span>,<span class="comment">//在对象中使用getter/setter</span></div><div class="line"><span class="string">"block-scoped-var"</span>: <span class="number">0</span>,<span class="comment">//块语句中使用var</span></div><div class="line"><span class="string">"brace-style"</span>: [<span class="number">1</span>, <span class="string">"1tbs"</span>],<span class="comment">//大括号风格</span></div><div class="line"><span class="string">"callback-return"</span>: <span class="number">1</span>,<span class="comment">//避免多次调用回调什么的</span></div><div class="line"><span class="string">"camelcase"</span>: <span class="number">2</span>,<span class="comment">//强制驼峰法命名</span></div><div class="line"><span class="string">"comma-dangle"</span>: [<span class="number">2</span>, <span class="string">"never"</span>],<span class="comment">//对象字面量项尾不能有逗号</span></div><div class="line"><span class="string">"comma-spacing"</span>: <span class="number">0</span>,<span class="comment">//逗号前后的空格</span></div><div class="line"><span class="string">"comma-style"</span>: [<span class="number">2</span>, <span class="string">"last"</span>],<span class="comment">//逗号风格，换行时在行首还是行尾</span></div><div class="line"><span class="string">"complexity"</span>: [<span class="number">0</span>, <span class="number">11</span>],<span class="comment">//循环复杂度</span></div><div class="line"><span class="string">"computed-property-spacing"</span>: [<span class="number">0</span>, <span class="string">"never"</span>],<span class="comment">//是否允许计算后的键名什么的</span></div><div class="line"><span class="string">"consistent-return"</span>: <span class="number">0</span>,<span class="comment">//return 后面是否允许省略</span></div><div class="line"><span class="string">"consistent-this"</span>: [<span class="number">2</span>, <span class="string">"that"</span>],<span class="comment">//this别名</span></div><div class="line"><span class="string">"constructor-super"</span>: <span class="number">0</span>,<span class="comment">//非派生类不能调用super，派生类必须调用super</span></div><div class="line"><span class="string">"curly"</span>: [<span class="number">2</span>, <span class="string">"all"</span>],<span class="comment">//必须使用 if()&#123;&#125; 中的&#123;&#125;</span></div><div class="line"><span class="string">"default-case"</span>: <span class="number">2</span>,<span class="comment">//switch语句最后必须有default</span></div><div class="line"><span class="string">"dot-location"</span>: <span class="number">0</span>,<span class="comment">//对象访问符的位置，换行的时候在行首还是行尾</span></div><div class="line"><span class="string">"dot-notation"</span>: [<span class="number">0</span>, &#123; <span class="string">"allowKeywords"</span>: <span class="literal">true</span> &#125;],<span class="comment">//避免不必要的方括号</span></div><div class="line"><span class="string">"eol-last"</span>: <span class="number">0</span>,<span class="comment">//文件以单一的换行符结束</span></div><div class="line"><span class="string">"eqeqeq"</span>: <span class="number">0</span>,<span class="comment">//必须使用全等</span></div><div class="line"><span class="string">"func-names"</span>: <span class="number">0</span>,<span class="comment">//函数表达式必须有名字</span></div><div class="line"><span class="string">"func-style"</span>: [<span class="number">0</span>, <span class="string">"declaration"</span>],<span class="comment">//函数风格，规定只能使用函数声明/函数表达式</span></div><div class="line"><span class="string">"generator-star-spacing"</span>: <span class="number">0</span>,<span class="comment">//生成器函数*的前后空格</span></div><div class="line"><span class="string">"guard-for-in"</span>: <span class="number">0</span>,<span class="comment">//for in循环要用if语句过滤</span></div><div class="line"><span class="string">"handle-callback-err"</span>: <span class="number">0</span>,<span class="comment">//nodejs 处理错误</span></div><div class="line"><span class="string">"id-length"</span>: <span class="number">0</span>,<span class="comment">//变量名长度</span></div><div class="line"><span class="string">"indent"</span>: [<span class="number">2</span>, <span class="number">2</span>],<span class="comment">//缩进风格</span></div><div class="line"><span class="string">"init-declarations"</span>: <span class="number">0</span>,<span class="comment">//声明时必须赋初值</span></div><div class="line"><span class="string">"key-spacing"</span>: [<span class="number">0</span>, &#123; <span class="string">"beforeColon"</span>: <span class="literal">false</span>, <span class="string">"afterColon"</span>: <span class="literal">true</span> &#125;],<span class="comment">//对象字面量中冒号的前后空格</span></div><div class="line"><span class="string">"lines-around-comment"</span>: <span class="number">0</span>,<span class="comment">//行前/行后备注</span></div><div class="line"><span class="string">"max-depth"</span>: [<span class="number">0</span>, <span class="number">4</span>],<span class="comment">//嵌套块深度</span></div><div class="line"><span class="string">"max-len"</span>: [<span class="number">0</span>, <span class="number">80</span>, <span class="number">4</span>],<span class="comment">//字符串最大长度</span></div><div class="line"><span class="string">"max-nested-callbacks"</span>: [<span class="number">0</span>, <span class="number">2</span>],<span class="comment">//回调嵌套深度</span></div><div class="line"><span class="string">"max-params"</span>: [<span class="number">0</span>, <span class="number">3</span>],<span class="comment">//函数最多只能有3个参数</span></div><div class="line"><span class="string">"max-statements"</span>: [<span class="number">0</span>, <span class="number">10</span>],<span class="comment">//函数内最多有几个声明</span></div><div class="line"><span class="string">"new-cap"</span>: <span class="number">2</span>,<span class="comment">//函数名首行大写必须使用new方式调用，首行小写必须用不带new方式调用</span></div><div class="line"><span class="string">"new-parens"</span>: <span class="number">2</span>,<span class="comment">//new时必须加小括号</span></div><div class="line"><span class="string">"newline-after-var"</span>: <span class="number">2</span>,<span class="comment">//变量声明后是否需要空一行</span></div><div class="line"><span class="string">"object-curly-spacing"</span>: [<span class="number">0</span>, <span class="string">"never"</span>],<span class="comment">//大括号内是否允许不必要的空格</span></div><div class="line"><span class="string">"object-shorthand"</span>: <span class="number">0</span>,<span class="comment">//强制对象字面量缩写语法</span></div><div class="line"><span class="string">"one-var"</span>: <span class="number">1</span>,<span class="comment">//连续声明</span></div><div class="line"><span class="string">"operator-assignment"</span>: [<span class="number">0</span>, <span class="string">"always"</span>],<span class="comment">//赋值运算符 += -=什么的</span></div><div class="line"><span class="string">"operator-linebreak"</span>: [<span class="number">2</span>, <span class="string">"after"</span>],<span class="comment">//换行时运算符在行尾还是行首</span></div><div class="line"><span class="string">"padded-blocks"</span>: <span class="number">0</span>,<span class="comment">//块语句内行首行尾是否要空行</span></div><div class="line"><span class="string">"prefer-const"</span>: <span class="number">0</span>,<span class="comment">//首选const</span></div><div class="line"><span class="string">"prefer-spread"</span>: <span class="number">0</span>,<span class="comment">//首选展开运算</span></div><div class="line"><span class="string">"prefer-reflect"</span>: <span class="number">0</span>,<span class="comment">//首选Reflect的方法</span></div><div class="line"><span class="string">"quotes"</span>: [<span class="number">1</span>, <span class="string">"single"</span>],<span class="comment">//引号类型 `` "" ''</span></div><div class="line"><span class="string">"quote-props"</span>:[<span class="number">2</span>, <span class="string">"always"</span>],<span class="comment">//对象字面量中的属性名是否强制双引号</span></div><div class="line"><span class="string">"radix"</span>: <span class="number">2</span>,<span class="comment">//parseInt必须指定第二个参数</span></div><div class="line"><span class="string">"id-match"</span>: <span class="number">0</span>,<span class="comment">//命名检测</span></div><div class="line"><span class="string">"require-yield"</span>: <span class="number">0</span>,<span class="comment">//生成器函数必须有yield</span></div><div class="line"><span class="string">"semi"</span>: [<span class="number">2</span>, <span class="string">"always"</span>],<span class="comment">//语句强制分号结尾</span></div><div class="line"><span class="string">"semi-spacing"</span>: [<span class="number">0</span>, &#123;<span class="string">"before"</span>: <span class="literal">false</span>, <span class="string">"after"</span>: <span class="literal">true</span>&#125;],<span class="comment">//分号前后空格</span></div><div class="line"><span class="string">"sort-vars"</span>: <span class="number">0</span>,<span class="comment">//变量声明时排序</span></div><div class="line"><span class="string">"space-after-keywords"</span>: [<span class="number">0</span>, <span class="string">"always"</span>],<span class="comment">//关键字后面是否要空一格</span></div><div class="line"><span class="string">"space-before-blocks"</span>: [<span class="number">0</span>, <span class="string">"always"</span>],<span class="comment">//不以新行开始的块&#123;前面要不要有空格</span></div><div class="line"><span class="string">"space-before-function-paren"</span>: [<span class="number">0</span>, <span class="string">"always"</span>],<span class="comment">//函数定义时括号前面要不要有空格</span></div><div class="line"><span class="string">"space-in-parens"</span>: [<span class="number">0</span>, <span class="string">"never"</span>],<span class="comment">//小括号里面要不要有空格</span></div><div class="line"><span class="string">"space-infix-ops"</span>: <span class="number">0</span>,<span class="comment">//中缀操作符周围要不要有空格</span></div><div class="line"><span class="string">"space-return-throw-case"</span>: <span class="number">2</span>,<span class="comment">//return throw case后面要不要加空格</span></div><div class="line"><span class="string">"space-unary-ops"</span>: [<span class="number">0</span>, &#123; <span class="string">"words"</span>: <span class="literal">true</span>, <span class="string">"nonwords"</span>: <span class="literal">false</span> &#125;],<span class="comment">//一元运算符的前/后要不要加空格</span></div><div class="line"><span class="string">"spaced-comment"</span>: <span class="number">0</span>,<span class="comment">//注释风格要不要有空格什么的</span></div><div class="line"><span class="string">"strict"</span>: <span class="number">2</span>,<span class="comment">//使用严格模式</span></div><div class="line"><span class="string">"use-isnan"</span>: <span class="number">2</span>,<span class="comment">//禁止比较时使用NaN，只能用isNaN()</span></div><div class="line"><span class="string">"valid-jsdoc"</span>: <span class="number">0</span>,<span class="comment">//jsdoc规则</span></div><div class="line"><span class="string">"valid-typeof"</span>: <span class="number">2</span>,<span class="comment">//必须使用合法的typeof的值</span></div><div class="line"><span class="string">"vars-on-top"</span>: <span class="number">2</span>,<span class="comment">//var必须放在作用域顶部</span></div><div class="line"><span class="string">"wrap-iife"</span>: [<span class="number">2</span>, <span class="string">"inside"</span>],<span class="comment">//立即执行函数表达式的小括号风格</span></div><div class="line"><span class="string">"wrap-regex"</span>: <span class="number">0</span>,<span class="comment">//正则表达式字面量用小括号包起来</span></div><div class="line"><span class="string">"yoda"</span>: [<span class="number">2</span>, <span class="string">"never"</span>]<span class="comment">//禁止尤达条件</span></div></pre></td></tr></table></figure>
-<p>vue 2.0 自定义规则如下</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div><div class="line">172</div><div class="line">173</div><div class="line">174</div><div class="line">175</div><div class="line">176</div><div class="line">177</div><div class="line">178</div><div class="line">179</div><div class="line">180</div><div class="line">181</div><div class="line">182</div><div class="line">183</div><div class="line">184</div><div class="line">185</div><div class="line">186</div><div class="line">187</div><div class="line">188</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">  <span class="attr">root</span>: <span class="literal">true</span>,</div><div class="line">  <span class="attr">parser</span>: <span class="string">'babel-eslint'</span>,</div><div class="line">  <span class="attr">parserOptions</span>: &#123;</div><div class="line">    <span class="attr">sourceType</span>: <span class="string">'module'</span></div><div class="line">  &#125;,</div><div class="line">  <span class="comment">// required to lint *.vue files</span></div><div class="line">  plugins: [</div><div class="line">    <span class="string">'html'</span></div><div class="line">  ],</div><div class="line">  <span class="comment">// add your custom rules here</span></div><div class="line">  <span class="string">'rules'</span>: &#123;</div><div class="line">    <span class="comment">// allow debugger during development</span></div><div class="line">    <span class="string">'no-debugger'</span>: process.env.NODE_ENV === <span class="string">'production'</span> ? <span class="number">2</span> : <span class="number">0</span>,</div><div class="line">    <span class="string">"no-alert"</span>: <span class="number">0</span>,<span class="comment">//禁止使用alert confirm prompt</span></div><div class="line">    <span class="string">"no-array-constructor"</span>: <span class="number">2</span>,<span class="comment">//禁止使用数组构造器</span></div><div class="line">    <span class="string">"no-bitwise"</span>: <span class="number">0</span>,<span class="comment">//禁止使用按位运算符</span></div><div class="line">    <span class="string">"no-caller"</span>: <span class="number">1</span>,<span class="comment">//禁止使用arguments.caller或arguments.callee</span></div><div class="line">    <span class="string">"no-catch-shadow"</span>: <span class="number">2</span>,<span class="comment">//禁止catch子句参数与外部作用域变量同名</span></div><div class="line">    <span class="string">"no-class-assign"</span>: <span class="number">2</span>,<span class="comment">//禁止给类赋值</span></div><div class="line">    <span class="string">"no-cond-assign"</span>: <span class="number">2</span>,<span class="comment">//禁止在条件表达式中使用赋值语句</span></div><div class="line">    <span class="string">"no-console"</span>: <span class="number">2</span>,<span class="comment">//禁止使用console</span></div><div class="line">    <span class="string">"no-const-assign"</span>: <span class="number">2</span>,<span class="comment">//禁止修改const声明的变量</span></div><div class="line">    <span class="string">"no-constant-condition"</span>: <span class="number">2</span>,<span class="comment">//禁止在条件中使用常量表达式 if(true) if(1)</span></div><div class="line">    <span class="string">"no-continue"</span>: <span class="number">0</span>,<span class="comment">//禁止使用continue</span></div><div class="line">    <span class="string">"no-control-regex"</span>: <span class="number">2</span>,<span class="comment">//禁止在正则表达式中使用控制字符</span></div><div class="line">    <span class="string">"no-debugger"</span>: <span class="number">2</span>,<span class="comment">//禁止使用debugger</span></div><div class="line">    <span class="string">"no-delete-var"</span>: <span class="number">2</span>,<span class="comment">//不能对var声明的变量使用delete操作符</span></div><div class="line">    <span class="string">"no-div-regex"</span>: <span class="number">1</span>,<span class="comment">//不能使用看起来像除法的正则表达式/=foo/</span></div><div class="line">    <span class="string">"no-dupe-keys"</span>: <span class="number">2</span>,<span class="comment">//在创建对象字面量时不允许键重复 &#123;a:1,a:1&#125;</span></div><div class="line">    <span class="string">"no-dupe-args"</span>: <span class="number">2</span>,<span class="comment">//函数参数不能重复</span></div><div class="line">    <span class="string">"no-duplicate-case"</span>: <span class="number">2</span>,<span class="comment">//switch中的case标签不能重复</span></div><div class="line">    <span class="string">"no-else-return"</span>: <span class="number">2</span>,<span class="comment">//如果if语句里面有return,后面不能跟else语句</span></div><div class="line">    <span class="string">"no-empty"</span>: <span class="number">0</span>,<span class="comment">//块语句中的内容不能为空</span></div><div class="line">    <span class="string">"no-empty-character-class"</span>: <span class="number">2</span>,<span class="comment">//正则表达式中的[]内容不能为空</span></div><div class="line">    <span class="string">"no-eq-null"</span>: <span class="number">2</span>,<span class="comment">//禁止对null使用==或!=运算符</span></div><div class="line">    <span class="string">"no-eval"</span>: <span class="number">1</span>,<span class="comment">//禁止使用eval</span></div><div class="line">    <span class="string">"no-ex-assign"</span>: <span class="number">2</span>,<span class="comment">//禁止给catch语句中的异常参数赋值</span></div><div class="line">    <span class="string">"no-extend-native"</span>: <span class="number">2</span>,<span class="comment">//禁止扩展native对象</span></div><div class="line">    <span class="string">"no-extra-bind"</span>: <span class="number">2</span>,<span class="comment">//禁止不必要的函数绑定</span></div><div class="line">    <span class="string">"no-extra-boolean-cast"</span>: <span class="number">2</span>,<span class="comment">//禁止不必要的bool转换</span></div><div class="line">    <span class="string">"no-extra-parens"</span>: <span class="number">2</span>,<span class="comment">//禁止非必要的括号</span></div><div class="line">    <span class="string">"no-extra-semi"</span>: <span class="number">2</span>,<span class="comment">//禁止多余的冒号</span></div><div class="line">    <span class="string">"no-fallthrough"</span>: <span class="number">1</span>,<span class="comment">//禁止switch穿透</span></div><div class="line">    <span class="string">"no-floating-decimal"</span>: <span class="number">2</span>,<span class="comment">//禁止省略浮点数中的0 .5 3.</span></div><div class="line">    <span class="string">"no-func-assign"</span>: <span class="number">2</span>,<span class="comment">//禁止重复的函数声明</span></div><div class="line">    <span class="string">"no-implicit-coercion"</span>: <span class="number">1</span>,<span class="comment">//禁止隐式转换</span></div><div class="line">    <span class="string">"no-implied-eval"</span>: <span class="number">2</span>,<span class="comment">//禁止使用隐式eval</span></div><div class="line">    <span class="string">"no-inline-comments"</span>: <span class="number">0</span>,<span class="comment">//禁止行内备注</span></div><div class="line">    <span class="string">"no-inner-declarations"</span>: [<span class="number">2</span>, <span class="string">"functions"</span>],<span class="comment">//禁止在块语句中使用声明（变量或函数）</span></div><div class="line">    <span class="string">"no-invalid-regexp"</span>: <span class="number">2</span>,<span class="comment">//禁止无效的正则表达式</span></div><div class="line">    <span class="string">"no-invalid-this"</span>: <span class="number">2</span>,<span class="comment">//禁止无效的this，只能用在构造器，类，对象字面量</span></div><div class="line">    <span class="string">"no-irregular-whitespace"</span>: <span class="number">2</span>,<span class="comment">//不能有不规则的空格</span></div><div class="line">    <span class="string">"no-iterator"</span>: <span class="number">2</span>,<span class="comment">//禁止使用__iterator__ 属性</span></div><div class="line">    <span class="string">"no-label-var"</span>: <span class="number">2</span>,<span class="comment">//label名不能与var声明的变量名相同</span></div><div class="line">    <span class="string">"no-labels"</span>: <span class="number">0</span>,<span class="comment">//禁止标签声明</span></div><div class="line">    <span class="string">"no-lone-blocks"</span>: <span class="number">2</span>,<span class="comment">//禁止不必要的嵌套块</span></div><div class="line">    <span class="string">"no-lonely-if"</span>: <span class="number">2</span>,<span class="comment">//禁止else语句内只有if语句</span></div><div class="line">    <span class="string">"no-loop-func"</span>: <span class="number">1</span>,<span class="comment">//禁止在循环中使用函数（如果没有引用外部变量不形成闭包就可以）</span></div><div class="line">    <span class="string">"no-mixed-requires"</span>: [<span class="number">0</span>, <span class="literal">false</span>],<span class="comment">//声明时不能混用声明类型</span></div><div class="line">    <span class="string">"no-mixed-spaces-and-tabs"</span>: [<span class="number">2</span>, <span class="literal">false</span>],<span class="comment">//禁止混用tab和空格</span></div><div class="line">    <span class="string">"linebreak-style"</span>: [<span class="number">0</span>, <span class="string">"windows"</span>],<span class="comment">//换行风格</span></div><div class="line">    <span class="string">"no-multi-spaces"</span>: <span class="number">0</span>,<span class="comment">//不能用多余的空格</span></div><div class="line">    <span class="string">"no-multi-str"</span>: <span class="number">2</span>,<span class="comment">//字符串不能用\换行</span></div><div class="line">    <span class="string">"no-multiple-empty-lines"</span>: [<span class="number">1</span>, &#123;<span class="string">"max"</span>: <span class="number">3</span>&#125;],<span class="comment">//空行最多不能超过2行</span></div><div class="line">    <span class="string">"no-native-reassign"</span>: <span class="number">2</span>,<span class="comment">//不能重写native对象</span></div><div class="line">    <span class="string">"no-negated-in-lhs"</span>: <span class="number">2</span>,<span class="comment">//in 操作符的左边不能有!</span></div><div class="line">    <span class="string">"no-nested-ternary"</span>: <span class="number">0</span>,<span class="comment">//禁止使用嵌套的三目运算</span></div><div class="line">    <span class="string">"no-new"</span>: <span class="number">1</span>,<span class="comment">//禁止在使用new构造一个实例后不赋值</span></div><div class="line">    <span class="string">"no-new-func"</span>: <span class="number">1</span>,<span class="comment">//禁止使用new Function</span></div><div class="line">    <span class="string">"no-new-object"</span>: <span class="number">2</span>,<span class="comment">//禁止使用new Object()</span></div><div class="line">    <span class="string">"no-new-require"</span>: <span class="number">2</span>,<span class="comment">//禁止使用new require</span></div><div class="line">    <span class="string">"no-new-wrappers"</span>: <span class="number">2</span>,<span class="comment">//禁止使用new创建包装实例，new String new Boolean new Number</span></div><div class="line">    <span class="string">"no-obj-calls"</span>: <span class="number">2</span>,<span class="comment">//不能调用内置的全局对象，比如Math() JSON()</span></div><div class="line">    <span class="string">"no-octal"</span>: <span class="number">2</span>,<span class="comment">//禁止使用八进制数字</span></div><div class="line">    <span class="string">"no-octal-escape"</span>: <span class="number">2</span>,<span class="comment">//禁止使用八进制转义序列</span></div><div class="line">    <span class="string">"no-param-reassign"</span>: <span class="number">2</span>,<span class="comment">//禁止给参数重新赋值</span></div><div class="line">    <span class="string">"no-path-concat"</span>: <span class="number">0</span>,<span class="comment">//node中不能使用__dirname或__filename做路径拼接</span></div><div class="line">    <span class="string">"no-plusplus"</span>: <span class="number">0</span>,<span class="comment">//禁止使用++，--</span></div><div class="line">    <span class="string">"no-process-env"</span>: <span class="number">0</span>,<span class="comment">//禁止使用process.env</span></div><div class="line">    <span class="string">"no-process-exit"</span>: <span class="number">0</span>,<span class="comment">//禁止使用process.exit()</span></div><div class="line">    <span class="string">"no-proto"</span>: <span class="number">2</span>,<span class="comment">//禁止使用__proto__属性</span></div><div class="line">    <span class="string">"no-redeclare"</span>: <span class="number">2</span>,<span class="comment">//禁止重复声明变量</span></div><div class="line">    <span class="string">"no-regex-spaces"</span>: <span class="number">2</span>,<span class="comment">//禁止在正则表达式字面量中使用多个空格 /foo bar/</span></div><div class="line">    <span class="string">"no-restricted-modules"</span>: <span class="number">0</span>,<span class="comment">//如果禁用了指定模块，使用就会报错</span></div><div class="line">    <span class="string">"no-return-assign"</span>: <span class="number">1</span>,<span class="comment">//return 语句中不能有赋值表达式</span></div><div class="line">    <span class="string">"no-script-url"</span>: <span class="number">0</span>,<span class="comment">//禁止使用javascript:void(0)</span></div><div class="line">    <span class="string">"no-self-compare"</span>: <span class="number">2</span>,<span class="comment">//不能比较自身</span></div><div class="line">    <span class="string">"no-sequences"</span>: <span class="number">0</span>,<span class="comment">//禁止使用逗号运算符</span></div><div class="line">    <span class="string">"no-shadow"</span>: <span class="number">2</span>,<span class="comment">//外部作用域中的变量不能与它所包含的作用域中的变量或参数同名</span></div><div class="line">    <span class="string">"no-shadow-restricted-names"</span>: <span class="number">2</span>,<span class="comment">//严格模式中规定的限制标识符不能作为声明时的变量名使用</span></div><div class="line">    <span class="string">"no-spaced-func"</span>: <span class="number">2</span>,<span class="comment">//函数调用时 函数名与()之间不能有空格</span></div><div class="line">    <span class="string">"no-sparse-arrays"</span>: <span class="number">2</span>,<span class="comment">//禁止稀疏数组， [1,,2]</span></div><div class="line">    <span class="string">"no-sync"</span>: <span class="number">0</span>,<span class="comment">//nodejs 禁止同步方法</span></div><div class="line">    <span class="string">"no-ternary"</span>: <span class="number">0</span>,<span class="comment">//禁止使用三目运算符</span></div><div class="line">    <span class="string">"no-trailing-spaces"</span>: <span class="number">1</span>,<span class="comment">//一行结束后面不要有空格</span></div><div class="line">    <span class="string">"no-this-before-super"</span>: <span class="number">0</span>,<span class="comment">//在调用super()之前不能使用this或super</span></div><div class="line">    <span class="string">"no-throw-literal"</span>: <span class="number">2</span>,<span class="comment">//禁止抛出字面量错误 throw "error";</span></div><div class="line">    <span class="string">"no-undef"</span>: <span class="number">2</span>,<span class="comment">//不能有未定义的变量</span></div><div class="line">    <span class="string">"no-undef-init"</span>: <span class="number">2</span>,<span class="comment">//变量初始化时不能直接给它赋值为undefined</span></div><div class="line">    <span class="string">"no-undefined"</span>: <span class="number">2</span>,<span class="comment">//不能使用undefined</span></div><div class="line">    <span class="string">"no-unexpected-multiline"</span>: <span class="number">2</span>,<span class="comment">//避免多行表达式</span></div><div class="line">    <span class="string">"no-underscore-dangle"</span>: <span class="number">1</span>,<span class="comment">//标识符不能以_开头或结尾</span></div><div class="line">    <span class="string">"no-unneeded-ternary"</span>: <span class="number">2</span>,<span class="comment">//禁止不必要的嵌套 var isYes = answer === 1 ? true : false;</span></div><div class="line">    <span class="string">"no-unreachable"</span>: <span class="number">2</span>,<span class="comment">//不能有无法执行的代码</span></div><div class="line">    <span class="string">"no-unused-expressions"</span>: <span class="number">2</span>,<span class="comment">//禁止无用的表达式</span></div><div class="line">    <span class="string">"no-unused-vars"</span>: [<span class="number">2</span>, &#123;<span class="string">"vars"</span>: <span class="string">"all"</span>, <span class="string">"args"</span>: <span class="string">"after-used"</span>&#125;],<span class="comment">//不能有声明后未被使用的变量或参数</span></div><div class="line">    <span class="string">"no-use-before-define"</span>: <span class="number">2</span>,<span class="comment">//未定义前不能使用</span></div><div class="line">    <span class="string">"no-useless-call"</span>: <span class="number">2</span>,<span class="comment">//禁止不必要的call和apply</span></div><div class="line">    <span class="string">"no-void"</span>: <span class="number">2</span>,<span class="comment">//禁用void操作符</span></div><div class="line">    <span class="string">"no-var"</span>: <span class="number">0</span>,<span class="comment">//禁用var，用let和const代替</span></div><div class="line">    <span class="string">"no-warning-comments"</span>: [<span class="number">1</span>, &#123; <span class="string">"terms"</span>: [<span class="string">"todo"</span>, <span class="string">"fixme"</span>, <span class="string">"xxx"</span>], <span class="string">"location"</span>: <span class="string">"start"</span> &#125;],<span class="comment">//不能有警告备注</span></div><div class="line">    <span class="string">"no-with"</span>: <span class="number">2</span>,<span class="comment">//禁用with</span></div><div class="line"></div><div class="line">    <span class="string">"array-bracket-spacing"</span>: [<span class="number">2</span>, <span class="string">"never"</span>],<span class="comment">//是否允许非空数组里面有多余的空格</span></div><div class="line">    <span class="string">"arrow-parens"</span>: <span class="number">0</span>,<span class="comment">//箭头函数用小括号括起来</span></div><div class="line">    <span class="string">"arrow-spacing"</span>: <span class="number">0</span>,<span class="comment">//=&gt;的前/后括号</span></div><div class="line">    <span class="string">"accessor-pairs"</span>: <span class="number">0</span>,<span class="comment">//在对象中使用getter/setter</span></div><div class="line">    <span class="string">"block-scoped-var"</span>: <span class="number">0</span>,<span class="comment">//块语句中使用var</span></div><div class="line">    <span class="string">"brace-style"</span>: [<span class="number">1</span>, <span class="string">"1tbs"</span>],<span class="comment">//大括号风格</span></div><div class="line">    <span class="string">"callback-return"</span>: <span class="number">1</span>,<span class="comment">//避免多次调用回调什么的</span></div><div class="line">    <span class="string">"camelcase"</span>: <span class="number">2</span>,<span class="comment">//强制驼峰法命名</span></div><div class="line">    <span class="string">"comma-dangle"</span>: [<span class="number">2</span>, <span class="string">"never"</span>],<span class="comment">//对象字面量项尾不能有逗号</span></div><div class="line">    <span class="string">"comma-spacing"</span>: <span class="number">0</span>,<span class="comment">//逗号前后的空格</span></div><div class="line">    <span class="string">"comma-style"</span>: [<span class="number">2</span>, <span class="string">"last"</span>],<span class="comment">//逗号风格，换行时在行首还是行尾</span></div><div class="line">    <span class="string">"complexity"</span>: [<span class="number">0</span>, <span class="number">11</span>],<span class="comment">//循环复杂度</span></div><div class="line">    <span class="string">"computed-property-spacing"</span>: [<span class="number">0</span>, <span class="string">"never"</span>],<span class="comment">//是否允许计算后的键名什么的</span></div><div class="line">    <span class="string">"consistent-return"</span>: <span class="number">0</span>,<span class="comment">//return 后面是否允许省略</span></div><div class="line">    <span class="string">"consistent-this"</span>: [<span class="number">2</span>, <span class="string">"that"</span>],<span class="comment">//this别名</span></div><div class="line">    <span class="string">"constructor-super"</span>: <span class="number">0</span>,<span class="comment">//非派生类不能调用super，派生类必须调用super</span></div><div class="line">    <span class="string">"curly"</span>: [<span class="number">2</span>, <span class="string">"all"</span>],<span class="comment">//必须使用 if()&#123;&#125; 中的&#123;&#125;</span></div><div class="line">    <span class="string">"default-case"</span>: <span class="number">2</span>,<span class="comment">//switch语句最后必须有default</span></div><div class="line">    <span class="string">"dot-location"</span>: <span class="number">0</span>,<span class="comment">//对象访问符的位置，换行的时候在行首还是行尾</span></div><div class="line">    <span class="string">"dot-notation"</span>: [<span class="number">0</span>, &#123; <span class="string">"allowKeywords"</span>: <span class="literal">true</span> &#125;],<span class="comment">//避免不必要的方括号</span></div><div class="line">    <span class="string">"eol-last"</span>: <span class="number">0</span>,<span class="comment">//文件以单一的换行符结束</span></div><div class="line">    <span class="string">"eqeqeq"</span>: <span class="number">0</span>,<span class="comment">//必须使用全等</span></div><div class="line">    <span class="string">"func-names"</span>: <span class="number">0</span>,<span class="comment">//函数表达式必须有名字</span></div><div class="line">    <span class="string">"func-style"</span>: [<span class="number">0</span>, <span class="string">"declaration"</span>],<span class="comment">//函数风格，规定只能使用函数声明/函数表达式</span></div><div class="line">    <span class="string">"generator-star-spacing"</span>: <span class="number">0</span>,<span class="comment">//生成器函数*的前后空格</span></div><div class="line">    <span class="string">"guard-for-in"</span>: <span class="number">0</span>,<span class="comment">//for in循环要用if语句过滤</span></div><div class="line">    <span class="string">"handle-callback-err"</span>: <span class="number">0</span>,<span class="comment">//nodejs 处理错误</span></div><div class="line">    <span class="string">"id-length"</span>: <span class="number">0</span>,<span class="comment">//变量名长度</span></div><div class="line">    <span class="string">"indent"</span>: [<span class="number">2</span>, <span class="number">2</span>],<span class="comment">//缩进风格</span></div><div class="line">    <span class="string">"init-declarations"</span>: <span class="number">0</span>,<span class="comment">//声明时必须赋初值</span></div><div class="line">    <span class="string">"key-spacing"</span>: [<span class="number">0</span>, &#123; <span class="string">"beforeColon"</span>: <span class="literal">false</span>, <span class="string">"afterColon"</span>: <span class="literal">true</span> &#125;],<span class="comment">//对象字面量中冒号的前后空格</span></div><div class="line">    <span class="string">"lines-around-comment"</span>: <span class="number">0</span>,<span class="comment">//行前/行后备注</span></div><div class="line">    <span class="string">"max-depth"</span>: [<span class="number">0</span>, <span class="number">4</span>],<span class="comment">//嵌套块深度</span></div><div class="line">    <span class="string">"max-len"</span>: [<span class="number">0</span>, <span class="number">80</span>, <span class="number">4</span>],<span class="comment">//字符串最大长度</span></div><div class="line">    <span class="string">"max-nested-callbacks"</span>: [<span class="number">0</span>, <span class="number">2</span>],<span class="comment">//回调嵌套深度</span></div><div class="line">    <span class="string">"max-params"</span>: [<span class="number">0</span>, <span class="number">3</span>],<span class="comment">//函数最多只能有3个参数</span></div><div class="line">    <span class="string">"max-statements"</span>: [<span class="number">0</span>, <span class="number">10</span>],<span class="comment">//函数内最多有几个声明</span></div><div class="line">    <span class="string">"new-cap"</span>: <span class="number">2</span>,<span class="comment">//函数名首行大写必须使用new方式调用，首行小写必须用不带new方式调用</span></div><div class="line">    <span class="string">"new-parens"</span>: <span class="number">2</span>,<span class="comment">//new时必须加小括号</span></div><div class="line">    <span class="string">"newline-after-var"</span>: <span class="number">2</span>,<span class="comment">//变量声明后是否需要空一行</span></div><div class="line">    <span class="string">"object-curly-spacing"</span>: [<span class="number">0</span>, <span class="string">"never"</span>],<span class="comment">//大括号内是否允许不必要的空格</span></div><div class="line">    <span class="string">"object-shorthand"</span>: <span class="number">0</span>,<span class="comment">//强制对象字面量缩写语法</span></div><div class="line">    <span class="string">"one-var"</span>: <span class="number">1</span>,<span class="comment">//连续声明</span></div><div class="line">    <span class="string">"operator-assignment"</span>: [<span class="number">0</span>, <span class="string">"always"</span>],<span class="comment">//赋值运算符 += -=什么的</span></div><div class="line">    <span class="string">"operator-linebreak"</span>: [<span class="number">2</span>, <span class="string">"after"</span>],<span class="comment">//换行时运算符在行尾还是行首</span></div><div class="line">    <span class="string">"padded-blocks"</span>: <span class="number">0</span>,<span class="comment">//块语句内行首行尾是否要空行</span></div><div class="line">    <span class="string">"prefer-const"</span>: <span class="number">0</span>,<span class="comment">//首选const</span></div><div class="line">    <span class="string">"prefer-spread"</span>: <span class="number">0</span>,<span class="comment">//首选展开运算</span></div><div class="line">    <span class="string">"prefer-reflect"</span>: <span class="number">0</span>,<span class="comment">//首选Reflect的方法</span></div><div class="line">    <span class="string">"quotes"</span>: [<span class="number">0</span>, <span class="string">"single"</span>],<span class="comment">//引号类型 `` "" ''</span></div><div class="line">    <span class="string">"quote-props"</span>:[<span class="number">0</span>, <span class="string">"always"</span>],<span class="comment">//对象字面量中的属性名是否强制双引号</span></div><div class="line">    <span class="string">"radix"</span>: <span class="number">2</span>,<span class="comment">//parseInt必须指定第二个参数</span></div><div class="line">    <span class="string">"id-match"</span>: <span class="number">0</span>,<span class="comment">//命名检测</span></div><div class="line">    <span class="string">"require-yield"</span>: <span class="number">0</span>,<span class="comment">//生成器函数必须有yield</span></div><div class="line">    <span class="string">"semi"</span>: [<span class="number">0</span>, <span class="string">"always"</span>],<span class="comment">//语句强制分号结尾</span></div><div class="line">    <span class="string">"semi-spacing"</span>: [<span class="number">0</span>, &#123;<span class="string">"before"</span>: <span class="literal">false</span>, <span class="string">"after"</span>: <span class="literal">false</span>&#125;],<span class="comment">//分号前后空格</span></div><div class="line">    <span class="string">"sort-vars"</span>: <span class="number">0</span>,<span class="comment">//变量声明时排序</span></div><div class="line">    <span class="string">"space-after-keywords"</span>: [<span class="number">0</span>, <span class="string">"always"</span>],<span class="comment">//关键字后面是否要空一格</span></div><div class="line">    <span class="string">"space-before-blocks"</span>: [<span class="number">0</span>, <span class="string">"always"</span>],<span class="comment">//不以新行开始的块&#123;前面要不要有空格</span></div><div class="line">    <span class="string">"space-before-function-paren"</span>: [<span class="number">0</span>, <span class="string">"always"</span>],<span class="comment">//函数定义时括号前面要不要有空格</span></div><div class="line">    <span class="string">"space-in-parens"</span>: [<span class="number">0</span>, <span class="string">"never"</span>],<span class="comment">//小括号里面要不要有空格</span></div><div class="line">    <span class="string">"space-infix-ops"</span>: <span class="number">0</span>,<span class="comment">//中缀操作符周围要不要有空格</span></div><div class="line">    <span class="string">"space-unary-ops"</span>: [<span class="number">0</span>, &#123; <span class="string">"words"</span>: <span class="literal">true</span>, <span class="string">"nonwords"</span>: <span class="literal">false</span> &#125;],<span class="comment">//一元运算符的前/后要不要加空格</span></div><div class="line">    <span class="string">"spaced-comment"</span>: <span class="number">0</span>,<span class="comment">//注释风格要不要有空格什么的</span></div><div class="line">    <span class="string">"strict"</span>: <span class="number">2</span>,<span class="comment">//使用严格模式</span></div><div class="line">    <span class="string">"use-isnan"</span>: <span class="number">2</span>,<span class="comment">//禁止比较时使用NaN，只能用isNaN()</span></div><div class="line">    <span class="string">"valid-jsdoc"</span>: <span class="number">0</span>,<span class="comment">//jsdoc规则</span></div><div class="line">    <span class="string">"valid-typeof"</span>: <span class="number">2</span>,<span class="comment">//必须使用合法的typeof的值</span></div><div class="line">    <span class="string">"vars-on-top"</span>: <span class="number">2</span>,<span class="comment">//var必须放在作用域顶部</span></div><div class="line">    <span class="string">"wrap-iife"</span>: [<span class="number">2</span>, <span class="string">"inside"</span>],<span class="comment">//立即执行函数表达式的小括号风格</span></div><div class="line">    <span class="string">"wrap-regex"</span>: <span class="number">0</span>,<span class="comment">//正则表达式字面量用小括号包起来</span></div><div class="line">    <span class="string">"yoda"</span>: [<span class="number">2</span>, <span class="string">"never"</span>]<span class="comment">//禁止尤达条件</span></div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;EsLint帮助我们检查Javascript编程时的语法错误。比如：在Javascript应用中，你很难找到你漏泄的变量或者方法。EsLint能够帮助我们分析JS代码，找到bug并确保一定程度的JS语法书写的正确性。&lt;br&gt;EsLint是建立在Esprima(ECMAScript解析架构)的基础上的。Esprima支持ES5.1,本身也是用ECMAScript编写的，用于多用途分析。EsLint不但提供一些默认的规则（可扩展），也提供用户自定义规则来约束我们写的Javascript代码。&lt;br&gt;
-    
-    </summary>
-    
-    
-      <category term="主要讲解eslint配置方法" scheme="http://yoursite.com/tags/%E4%B8%BB%E8%A6%81%E8%AE%B2%E8%A7%A3eslint%E9%85%8D%E7%BD%AE%E6%96%B9%E6%B3%95/"/>
     
   </entry>
   
