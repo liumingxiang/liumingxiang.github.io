@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-03-07T02:14:25.000Z</updated>
+  <updated>2017-03-31T10:46:24.539Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,33 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title></title>
+    <link href="http://yoursite.com/2017/03/31/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9%EF%BC%9Aoffset%E4%B8%8Estyle%E7%B3%BB%E5%88%97/"/>
+    <id>http://yoursite.com/2017/03/31/前端知识点/前端知识点：offset与style系列/</id>
+    <published>2017-03-31T10:46:24.538Z</published>
+    <updated>2017-03-31T10:46:24.539Z</updated>
+    
+    <content type="html"><![CDATA[<hr>
+<p>title: 前端知识点：offset与style系列<br>date: 2015-7-17 19:39:15</p>
+<h2 id="tags"><a href="#tags" class="headerlink" title="tags:"></a>tags:</h2><p>offset系类与style系类区分<br>首先offset系类，offset有left、top、width、height、四个值即offsetLeft,offsetTop,offsetHeight,offsetWidth<img src="index_files/590643125.png" alt="img"><br><img src="index_files/590413718.png" alt="img"> offset系类与style系类区别就是:1 style系类只能获取行内的样式，如果样式没写，或写到了别处则无法获取。2 offset系类只读，style系类能读也能设置。3 offset系类值是数值，style系类值是字符串，需加+“px”。4 如果没有加定位，style可能获取的值可能是无效的。5 两者最大的区别在于offsetLeft以border左上角为基准，而styleLeft以margin左上角为基准。（如下图）<img src="index_files/590436046.png" alt="img"><br>offsetParent:返回该对象距离最近的带有定位的父级，如果当前的父级元素都没有设置定位，offsetParent为body,如果当前父级元素设置了定位，offsetParent为那个父级元素。<br><strong>scroll系类：</strong>主要分为scrollTop,scrollLeft,scrollWidth,scrollHeight四个。<img src="index_files/590483296.png" alt="img"><br><strong>client系类：</strong>clientLeft和clientTop没用，他们就是borderTop和borderLeft。clientWidth和clientHeight：可视区域的宽度和高度不包括边框。</p>
+<p><img src="index_files/590519375.png" alt="img"> <img src="index_files/12084031.png" alt="img"> </p>
+<p>事件对象<br><img src="index_files/590538968.png" alt="img"> </p>
+<p> 其中三个重要的坐标：</p>
+<p><img src="index_files/590585687.png" alt="img"><br><img src="index_files/590631171.png" alt="img"> </p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;hr&gt;
+&lt;p&gt;title: 前端知识点：offset与style系列&lt;br&gt;date: 2015-7-17 19:39:15&lt;/p&gt;
+&lt;h2 id=&quot;tags&quot;&gt;&lt;a href=&quot;#tags&quot; class=&quot;headerlink&quot; title=&quot;tags:&quot;&gt;&lt;/a&gt;tags:
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>MongoDB的安装以及自启动详细教程</title>
@@ -134,6 +161,82 @@
     <summary type="html">
     
       &lt;p&gt;github pages是一种提供免费托管静态页面的工具，可以免费作为我们的个人主页进行使用&lt;br&gt;
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>前端知识点：各种宽高距离篇</title>
+    <link href="http://yoursite.com/2015/07/15/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9%EF%BC%9A%E5%90%84%E7%A7%8D%E5%AE%BD%E9%AB%98%E8%B7%9D%E7%A6%BB%E7%AF%87/"/>
+    <id>http://yoursite.com/2015/07/15/前端知识点/前端知识点：各种宽高距离篇/</id>
+    <published>2015-07-15T08:32:15.000Z</published>
+    <updated>2017-03-31T10:45:31.328Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="1-滚动距离"><a href="#1-滚动距离" class="headerlink" title="1. 滚动距离"></a>1. 滚动距离</h2><p><strong>html简写：document.documentElement</strong></p>
+<ul>
+<li>document.body.scrollTop<br> 兼容：Chrome<br> 其他 -&gt; 0</li>
+<li>document.documentElement.scrollTop<br> 兼容：IE、FF<br> 其他 -&gt; 0</li>
+</ul>
+<p><strong>兼容写法</strong><br>纵向：var scrollT = document.documentElement.scrollTop || document.body.scrollTop;<br>横向：var scrollL = document.documentElement.scrollLeft || document.body.scrollLeft;</p>
+<h2 id="2-滚动高度"><a href="#2-滚动高度" class="headerlink" title="2. 滚动高度"></a>2. 滚动高度</h2><p>obj.scrollHeight</p>
+<ul>
+<li>内容高度 &gt; 盒模型高度    取内容高度</li>
+<li>盒模型高度 &gt; 内容高度    去盒模型高度</li>
+</ul>
+<h2 id="3-可视区高度"><a href="#3-可视区高度" class="headerlink" title="3. 可视区高度"></a>3. 可视区高度</h2><ul>
+<li>可视区高度：var clientH = document.documentElement.clientHeight;</li>
+<li>可视区宽度：var clientW = document.documentElement.clientWidth;</li>
+</ul>
+<p>兼容：全兼容</p>
+<h2 id="4-物体高度"><a href="#4-物体高度" class="headerlink" title="4. 物体高度"></a>4. 物体高度</h2><p><strong>获取的是盒模型大小 = width/height + padding + border;</strong></p>
+<ul>
+<li>物体的高度：var oH = obj.offsetHeight;</li>
+<li>物体的宽度：var oW = obj.offsetWidth;</li>
+</ul>
+<blockquote>
+<p>注意：offsetWidth/height只有append进body后才有，创建时获取不到盒模型的大小。</p>
+</blockquote>
+<h2 id="5-offsetHeight-amp-amp-getStyle"><a href="#5-offsetHeight-amp-amp-getStyle" class="headerlink" title="5. offsetHeight &amp;&amp; getStyle()"></a>5. offsetHeight &amp;&amp; getStyle()</h2><table>
+<thead>
+<tr>
+<th></th>
+<th>offsetHeight</th>
+<th>getStyle()</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>返回值</td>
+<td>数字</td>
+<td>字符串</td>
+</tr>
+<tr>
+<td>获取值</td>
+<td>获取的是盒模型的大小(width/height+padding+border)</td>
+<td>获取的是纯width/height</td>
+</tr>
+<tr>
+<td>display:none后</td>
+<td>0</td>
+<td>仍可以获取</td>
+</tr>
+</tbody>
+</table>
+<h2 id="6-物体的相对距离"><a href="#6-物体的相对距离" class="headerlink" title="6. 物体的相对距离"></a>6. 物体的相对距离</h2><ul>
+<li>物体距离定位父级左边距离：var oL = obj.offsetLeft;</li>
+<li>物体距离定位父级上边距离：var oT = obj.offsetTop;</li>
+</ul>
+<h2 id="7-关于父级"><a href="#7-关于父级" class="headerlink" title="7. 关于父级"></a>7. 关于父级</h2><ul>
+<li>结构父级 obj.parentNode    根：document</li>
+<li>定位父级 obj.offsetParent  根：body</li>
+</ul>
+<h2 id="8-封装一个物体距离左边-上边的绝对位置的函数"><a href="#8-封装一个物体距离左边-上边的绝对位置的函数" class="headerlink" title="8. 封装一个物体距离左边/上边的绝对位置的函数"></a>8. 封装一个物体距离左边/上边的绝对位置的函数</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    function getPos(obj) &#123;        var l = 0;    // 距离左边的绝对距离</div><div class="line">        var t = 0;    // 距离上边的绝对距离</div><div class="line">        while(obj) &#123;</div><div class="line">            l += obj.offsetLeft;</div><div class="line">            t += obj.offsetTop;</div><div class="line">            obj = obj.offsetParent;    // 继续查找上一层定位父级</div><div class="line">        &#125;        return &#123;left: l, top: t&#125;;</div><div class="line">    &#125;</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;1-滚动距离&quot;&gt;&lt;a href=&quot;#1-滚动距离&quot; class=&quot;headerlink&quot; title=&quot;1. 滚动距离&quot;&gt;&lt;/a&gt;1. 滚动距离&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;html简写：document.documentElement&lt;/strong&gt;&lt;/p&gt;
     
     </summary>
     

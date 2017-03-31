@@ -1,0 +1,59 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> 前端知识点：各种宽高距离篇 · 刘小窝</title><meta name="description" content="前端知识点：各种宽高距离篇 - John Doe"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="http://yoursite.com/atom.xml" title="刘小窝"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">博客</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">文章列表</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">前端知识点：各种宽高距离篇</h1><div class="post-info">Jul 15, 2015</div><div class="post-content"><h2 id="1-滚动距离"><a href="#1-滚动距离" class="headerlink" title="1. 滚动距离"></a>1. 滚动距离</h2><p><strong>html简写：document.documentElement</strong></p>
+<ul>
+<li>document.body.scrollTop<br> 兼容：Chrome<br> 其他 -&gt; 0</li>
+<li>document.documentElement.scrollTop<br> 兼容：IE、FF<br> 其他 -&gt; 0</li>
+</ul>
+<p><strong>兼容写法</strong><br>纵向：var scrollT = document.documentElement.scrollTop || document.body.scrollTop;<br>横向：var scrollL = document.documentElement.scrollLeft || document.body.scrollLeft;</p>
+<h2 id="2-滚动高度"><a href="#2-滚动高度" class="headerlink" title="2. 滚动高度"></a>2. 滚动高度</h2><p>obj.scrollHeight</p>
+<ul>
+<li>内容高度 &gt; 盒模型高度    取内容高度</li>
+<li>盒模型高度 &gt; 内容高度    去盒模型高度</li>
+</ul>
+<h2 id="3-可视区高度"><a href="#3-可视区高度" class="headerlink" title="3. 可视区高度"></a>3. 可视区高度</h2><ul>
+<li>可视区高度：var clientH = document.documentElement.clientHeight;</li>
+<li>可视区宽度：var clientW = document.documentElement.clientWidth;</li>
+</ul>
+<p>兼容：全兼容</p>
+<h2 id="4-物体高度"><a href="#4-物体高度" class="headerlink" title="4. 物体高度"></a>4. 物体高度</h2><p><strong>获取的是盒模型大小 = width/height + padding + border;</strong></p>
+<ul>
+<li>物体的高度：var oH = obj.offsetHeight;</li>
+<li>物体的宽度：var oW = obj.offsetWidth;</li>
+</ul>
+<blockquote>
+<p>注意：offsetWidth/height只有append进body后才有，创建时获取不到盒模型的大小。</p>
+</blockquote>
+<h2 id="5-offsetHeight-amp-amp-getStyle"><a href="#5-offsetHeight-amp-amp-getStyle" class="headerlink" title="5. offsetHeight &amp;&amp; getStyle()"></a>5. offsetHeight &amp;&amp; getStyle()</h2><table>
+<thead>
+<tr>
+<th></th>
+<th>offsetHeight</th>
+<th>getStyle()</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>返回值</td>
+<td>数字</td>
+<td>字符串</td>
+</tr>
+<tr>
+<td>获取值</td>
+<td>获取的是盒模型的大小(width/height+padding+border)</td>
+<td>获取的是纯width/height</td>
+</tr>
+<tr>
+<td>display:none后</td>
+<td>0</td>
+<td>仍可以获取</td>
+</tr>
+</tbody>
+</table>
+<h2 id="6-物体的相对距离"><a href="#6-物体的相对距离" class="headerlink" title="6. 物体的相对距离"></a>6. 物体的相对距离</h2><ul>
+<li>物体距离定位父级左边距离：var oL = obj.offsetLeft;</li>
+<li>物体距离定位父级上边距离：var oT = obj.offsetTop;</li>
+</ul>
+<h2 id="7-关于父级"><a href="#7-关于父级" class="headerlink" title="7. 关于父级"></a>7. 关于父级</h2><ul>
+<li>结构父级 obj.parentNode    根：document</li>
+<li>定位父级 obj.offsetParent  根：body</li>
+</ul>
+<h2 id="8-封装一个物体距离左边-上边的绝对位置的函数"><a href="#8-封装一个物体距离左边-上边的绝对位置的函数" class="headerlink" title="8. 封装一个物体距离左边/上边的绝对位置的函数"></a>8. 封装一个物体距离左边/上边的绝对位置的函数</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    function getPos(obj) &#123;        var l = 0;    // 距离左边的绝对距离</div><div class="line">        var t = 0;    // 距离上边的绝对距离</div><div class="line">        while(obj) &#123;</div><div class="line">            l += obj.offsetLeft;</div><div class="line">            t += obj.offsetTop;</div><div class="line">            obj = obj.offsetParent;    // 继续查找上一层定位父级</div><div class="line">        &#125;        return &#123;left: l, top: t&#125;;</div><div class="line">    &#125;</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure></div></article></div></main><footer><div class="paginator"><a href="/2017/01/18/工具类/在github pages利用hexo快速搭建静态个人主页以及更改域名/" class="prev">PREV</a><a href="/2015/04/13/前端知识点/前端知识点：原生篇(5)/" class="next">NEXT</a></div><div class="copyright"><p>© 2014 - 2017 刘小窝.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-65933410-1",'auto');ga('send','pageview');</script></body></html>
