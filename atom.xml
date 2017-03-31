@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-03-31T10:57:26.979Z</updated>
+  <updated>2017-03-07T02:14:25.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,38 +14,6 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title></title>
-    <link href="http://yoursite.com/2017/03/31/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9%EF%BC%9Aoffset%E4%B8%8Estyle%E7%B3%BB%E5%88%97/"/>
-    <id>http://yoursite.com/2017/03/31/前端知识点/前端知识点：offset与style系列/</id>
-    <published>2017-03-31T10:46:24.538Z</published>
-    <updated>2017-03-31T10:57:26.979Z</updated>
-    
-    <content type="html"><![CDATA[<hr>
-<p>title: CSS命名规范<br>date: 2015-7-17 19:39:15</p>
-<h2 id="tags"><a href="#tags" class="headerlink" title="tags:"></a>tags:</h2><p>offset系类与style系类区分<br>首先offset系类，offset有left、top、width、height、四个值即offsetLeft,offsetTop,offsetHeight,offsetWidth</p>
-<p><img src="/images/offset/1.png" alt="img"><br><img src="/images/offset/2.png" alt="img">   </p>
-<p>offset系类与style系类区别就是:1 style系类只能获取行内的样式，如果样式没写，或写到了别处则无法获取。2 offset系类只读，style系类能读也能设置。3 offset系类值是数值，style系类值是字符串，需加+“px”。4 如果没有加定位，style可能获取的值可能是无效的。5 两者最大的区别在于offsetLeft以border左上角为基准，而styleLeft以margin左上角为基准。（如下图）</p>
-<p><img src="/images/offset/3.png" alt="img"> </p>
-<p>offsetParent:返回该对象距离最近的带有定位的父级，如果当前的父级元素都没有设置定位，offsetParent为body,如果当前父级元素设置了定位，offsetParent为那个父级元素。<br><strong>scroll系类：</strong>主要分为scrollTop,scrollLeft,scrollWidth,scrollHeight四个。</p>
-<p><img src="/images/offset/4.png" alt="img"><br><strong>client系类：</strong>clientLeft和clientTop没用，他们就是borderTop和borderLeft。clientWidth和clientHeight：可视区域的宽度和高度不包括边框。</p>
-<p><img src="/images/offset/5.png" alt="img">  <img src="/images/offset/6.png" alt="img"> </p>
-<p>事件对象<br><img src="/images/offset/7.png" alt="img"> </p>
-<p> 其中三个重要的坐标：</p>
-<p><img src="/images/offset/8.png" alt="img"><br><img src="/images/offset/9.png" alt="img"> </p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;hr&gt;
-&lt;p&gt;title: CSS命名规范&lt;br&gt;date: 2015-7-17 19:39:15&lt;/p&gt;
-&lt;h2 id=&quot;tags&quot;&gt;&lt;a href=&quot;#tags&quot; class=&quot;headerlink&quot; title=&quot;tags:&quot;&gt;&lt;/a&gt;tags:&lt;/h2&gt;&lt;p&gt;offse
-    
-    </summary>
-    
-    
-  </entry>
   
   <entry>
     <title>MongoDB的安装以及自启动详细教程</title>
@@ -166,6 +134,242 @@
     <summary type="html">
     
       &lt;p&gt;github pages是一种提供免费托管静态页面的工具，可以免费作为我们的个人主页进行使用&lt;br&gt;
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>前端知识点：slice和splice区别</title>
+    <link href="http://yoursite.com/2015/08/17/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9%EF%BC%9Aslice%E5%92%8Csplice%E5%8C%BA%E5%88%AB/"/>
+    <id>http://yoursite.com/2015/08/17/前端知识点/前端知识点：slice和splice区别/</id>
+    <published>2015-08-17T12:14:15.000Z</published>
+    <updated>2017-03-31T11:08:11.692Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="slice和splice区别"><a href="#slice和splice区别" class="headerlink" title="slice和splice区别"></a>slice和splice区别</h1><p>##slice</p>
+<ul>
+<li>基于当前数组中的一或多个项创建一个新数组</li>
+<li>可以接受一或两个参数，即要返回项的起始和结束位置,但不包括结束位置</li>
+<li>在只有一个参数的情况下，返回从该参数指定位置开始到当前数组末尾的所有项</li>
+<li><strong>不会影响原始数组</strong></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">var colors = [&quot;red&quot;, &quot;green&quot;, &quot;blue&quot;, &quot;yellow&quot;, &quot;purple&quot;];</div><div class="line">var colors2 = colors.slice(1);</div><div class="line">var colors3 = colors.slice(1,4);</div><div class="line"></div><div class="line">console.log(colors); // [&quot;red&quot;, &quot;green&quot;, &quot;blue&quot;, &quot;yellow&quot;, &quot;purple&quot;]</div><div class="line">console.log(colors2); // [&quot;green&quot;,&quot;blue&quot;,&quot;yellow&quot;,&quot;purple&quot;]</div><div class="line">console.log(colors3); // [&quot;green&quot;,&quot;blue&quot;,&quot;yellow&quot;]</div></pre></td></tr></table></figure>
+<blockquote>
+<p>如果参数中有一个负数，则用数组长度加上该数来确定相应的位置。例如，在一个包含5项的数组上调用 <code>slice(-2,-1)</code>与调用 <code>slice(3,4)</code>得到的结果相同。如果结束位置小于起始位置，则返回空数组。</p>
+</blockquote>
+<hr>
+<h2 id="splice"><a href="#splice" class="headerlink" title="splice"></a>splice</h2><ul>
+<li>主要用途是向数组的中部插入元素</li>
+<li><strong>会影响原始数组</strong></li>
+</ul>
+<h4 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h4><p>要实现 <code>splice</code> 的删除功能，最多只能传两个参数</p>
+<h6 id="一个参数"><a href="#一个参数" class="headerlink" title="一个参数"></a>一个参数</h6><p>删除从参数位置到当前数组末尾的所有项</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var colors = [&quot;red&quot;, &quot;green&quot;, &quot;blue&quot;, &quot;black&quot;];</div><div class="line">var spliceColors = colors.splice(0)</div><div class="line"></div><div class="line">console.log(colors) // []</div><div class="line">console.log(spliceColors) // [&quot;red&quot;, &quot;green&quot;, &quot;blue&quot;, &quot;black&quot;]</div></pre></td></tr></table></figure>
+<h6 id="两个参数"><a href="#两个参数" class="headerlink" title="两个参数"></a>两个参数</h6><p>起始位置和要删除元素的数量</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var colors = [&quot;red&quot;, &quot;green&quot;, &quot;blue&quot;, &quot;black&quot;];</div><div class="line">var spliceColors = colors.splice(0,2)</div><div class="line"></div><div class="line">console.log(colors) // [&quot;blue&quot;, &quot;black&quot;]</div><div class="line">console.log(spliceColors) // [&quot;red&quot;, &quot;green&quot;]</div></pre></td></tr></table></figure>
+<h4 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h4><p>要实现 <code>splice</code> 的插入功能，至少传3个参数：起始位置、0（要删除元素的数量）和要插入的元素。如果要插入多个元素，可以再传入第四、第五，以至任意多个元素</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var colors = [&quot;red&quot;, &quot;green&quot;, &quot;blue&quot;, &quot;black&quot;];</div><div class="line">var spliceColors = colors.splice(1,0,&apos;yellow&apos;,&apos;white&apos;)</div><div class="line"></div><div class="line">console.log(colors) // [&quot;red&quot;, &quot;yellow&quot;, &quot;white&quot;, &quot;green&quot;, &quot;blue&quot;, &quot;black&quot;]</div><div class="line">console.log(spliceColors) // []</div></pre></td></tr></table></figure>
+<h4 id="替换"><a href="#替换" class="headerlink" title="替换"></a>替换</h4><p><code>splice</code> 可以向指定位置插入任意数量的项，且同时删除任意数量的项。要实现 <code>splice</code>的替换功能，只需指定3个参数：起始位置、要删除元素的数量和要插入的元素。插入的项数不必与删除的项数相等</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var colors = [&quot;red&quot;, &quot;green&quot;, &quot;blue&quot;, &quot;black&quot;];</div><div class="line">var spliceColors = colors.splice(1,2,&apos;yellow&apos;,&apos;white&apos;)</div><div class="line"></div><div class="line">console.log(colors) // [&quot;red&quot;, &quot;yellow&quot;, &quot;white&quot;, &quot;black&quot;]</div><div class="line">console.log(spliceColors) // [&quot;green&quot;, &quot;blue&quot;]</div></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;slice和splice区别&quot;&gt;&lt;a href=&quot;#slice和splice区别&quot; class=&quot;headerlink&quot; title=&quot;slice和splice区别&quot;&gt;&lt;/a&gt;slice和splice区别&lt;/h1&gt;&lt;p&gt;##slice&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;基
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>前端知识点：事件篇</title>
+    <link href="http://yoursite.com/2015/08/03/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9%EF%BC%9A%E4%BA%8B%E4%BB%B6%E7%AF%87/"/>
+    <id>http://yoursite.com/2015/08/03/前端知识点/前端知识点：事件篇/</id>
+    <published>2015-08-03T13:44:15.000Z</published>
+    <updated>2017-03-31T11:04:34.235Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="1-事件对象"><a href="#1-事件对象" class="headerlink" title="1. 事件对象"></a>1. 事件对象</h2><ul>
+<li>event  事件对象(系统自带)<br>*兼容：Chrome IE系<br>FF -&gt; 报错</li>
+<li>ev     事件函数传入参数<br>*兼容：高级浏览器(Chrome、FF、IE9+)<br>IE8- -&gt; undefined</li>
+</ul>
+<p><strong>兼容写法</strong>：var oEvent = ev || event;</p>
+<h2 id="2-事件冒泡"><a href="#2-事件冒泡" class="headerlink" title="2. 事件冒泡"></a>2. 事件冒泡</h2><p>概念：子级的事件会传递给父级。如果父级有相同的事件，会依次从内到外执行，直到相同事件的祖宗节点，否则会继续冒泡。</p>
+<p><strong>阻止事件冒泡：</strong></p>
+<p>子级事件内添加  <code>oEvent.cancelBubble = true;</code></p>
+<h2 id="3-事件绑定"><a href="#3-事件绑定" class="headerlink" title="3. 事件绑定"></a>3. 事件绑定</h2><p><strong>有效解决事件冲突</strong></p>
+<ul>
+<li>obj.addEventListener(事件名, 函数名/函数, 是否捕获);</li>
+</ul>
+<p>*兼容：高级浏览器</p>
+<p>事件名 -&gt; 不能加’on’</p>
+<p>函数名 -&gt; 不能加括号</p>
+<p>是否捕获 -&gt; false</p>
+<ul>
+<li>obj.attachEvent(事件名, 函数名/函数);</li>
+</ul>
+<p>*兼容：IE10-</p>
+<p>事件名 -&gt; 必须加’on’</p>
+<p>函数名 -&gt; 不能加括号</p>
+<p><strong>兼容写法</strong></p>
+<p>封装一个事件绑定的函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    function addEvent(obj, sEv, fn) &#123;    //对象, 事件(不加on), 函数名/函数</div><div class="line">        if(obj.addEventListner) &#123;    //高级浏览器 -&gt; function  低级 -&gt;undefined</div><div class="line">            //高级浏览器</div><div class="line">            obj.addEventListener(sEv, fn, false);</div><div class="line">        &#125; else &#123;            //低级浏览器</div><div class="line">            obj.attachEvent(&apos;on&apos; + sEv, fn);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
+<h2 id="4-关于捕获-这点理解不是很到位"><a href="#4-关于捕获-这点理解不是很到位" class="headerlink" title="4. 关于捕获(这点理解不是很到位)"></a>4. 关于捕获(这点理解不是很到位)</h2><p>事件冒泡：子级 -&gt; 父级<br>设置捕获：父级 -&gt; 子级</p>
+<h2 id="5-事件解绑"><a href="#5-事件解绑" class="headerlink" title="5. 事件解绑"></a>5. 事件解绑</h2><ul>
+<li>obj.removeEventListener(事件名, 函数名/函数, 是否捕获);</li>
+</ul>
+<p>*兼容：高级浏览器</p>
+<p><strong>注意：函数不能是匿名函数，每个匿名函数都相当于新创建了一个函数。</strong></p>
+<p>创建函数 var show = new Function(‘a’,’b’, ‘alert(a + b)’);</p>
+<ul>
+<li>obj.detachEvent(事件名, 函数名/函数);</li>
+</ul>
+<p>*兼容：IE10-</p>
+<p><strong>兼容写法</strong></p>
+<p>封装一个事件解绑的函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    function removeEvent(obj, sEv, fn) &#123;    //对象, 事件(不加on), 函数名/函数</div><div class="line">        if(obj.removeEventListner) &#123;    //高级浏览器 -&gt; function  低级 -&gt;undefined</div><div class="line">            //高级浏览器</div><div class="line">            obj.removeEventListener(sEv, fn, false);</div><div class="line">        &#125; else &#123;            //低级</div><div class="line">            obj.detachEvent(&apos;on&apos; + sEv, fn);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
+<h2 id="6-查看鼠标点击位置"><a href="#6-查看鼠标点击位置" class="headerlink" title="6. 查看鼠标点击位置"></a>6. 查看鼠标点击位置</h2><p>var oEvent = ev || event;</p>
+<p>X轴：oEvent.clientX;</p>
+<p>Y轴：oEvent.clientY;</p>
+<h2 id="7-键盘事件"><a href="#7-键盘事件" class="headerlink" title="7. 键盘事件"></a>7. 键盘事件</h2><ol>
+<li>obj.onkeydown  按下键盘触发</li>
+<li>obj.onkeyup    释放键盘触发</li>
+<li>obj.oninput           键盘输入时实时触发<br>*兼容：高级浏览器<br>IE9删除时有问题</li>
+</ol>
+<ul>
+<li>obj.onpropertychange    键盘输入时实时触发<br>*兼容：IE10-<br>IE9删除时有问题</li>
+</ul>
+<p><strong>兼容处理</strong></p>
+<p>事件的兼容不需要处理，直接连等</p>
+<p>obj.oninput = obj.onpropertychange = function() {}</p>
+<p>*处理IE9：定时器</p>
+<p>封装一个实时统计字数的函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    function calLen(obj1, obj2) &#123;        if (window.navigator.userAgent.indexOf(&apos;MSIE 9.0&apos;) != -1) &#123; //IE9</div><div class="line">            var timer = null;</div><div class="line">            obj1.onfocus = function() &#123;</div><div class="line">                timer = setInterval(function() &#123;</div><div class="line">                    obj2.innerHTML = obj1.value.length;</div><div class="line">                &#125;, 50);</div><div class="line">            &#125;;</div><div class="line">            obj1.onblur = function() &#123;</div><div class="line">                clearInterval(timer);</div><div class="line">            &#125;</div><div class="line">        &#125; else &#123; //能不添加定时器时就不添加</div><div class="line">            obj1.oninput = obj1.onpropertychange = function() &#123; //高级浏览器、IE10-</div><div class="line">                obj2.innerHTML = obj1.value.length;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
+<p>应用：实时统计输入字数</p>
+<h3 id="键码-oEvent-keyCode"><a href="#键码-oEvent-keyCode" class="headerlink" title="键码 oEvent.keyCode"></a>键码 <code>oEvent.keyCode</code></h3><p><strong>重要</strong></p>
+<ul>
+<li>0~9：48~57</li>
+<li>a~z：65~90</li>
+<li>ctrl：17</li>
+<li>delete：46</li>
+<li>backspace：8</li>
+<li>enter：13</li>
+<li>左键：37</li>
+<li>上键：38</li>
+<li>右键：39</li>
+<li>下键：40</li>
+</ul>
+<blockquote>
+<p>组合键(js中键码不能组合使用)</p>
+</blockquote>
+<ul>
+<li>ctrl  -&gt; ctrlKey</li>
+<li>shift -&gt; shiftKey</li>
+<li>alt   -&gt; altKey</li>
+</ul>
+<p>eg:<br><code>if(oEvent.ctrlKey &amp;&amp; oEvent.shiftKey &amp;&amp; oEvent.keyCode == 65){...}</code></p>
+<h2 id="8-鼠标事件"><a href="#8-鼠标事件" class="headerlink" title="8. 鼠标事件"></a>8. 鼠标事件</h2><ol>
+<li><p>obj.oncontextmenu 点击鼠标右键触发(有默认右键菜单行为)</p>
+<blockquote>
+<p>默认行为：<br>点击右键有菜单 文本框能输入内容 点击a标签能跳转等</p>
+</blockquote>
+<p><strong>阻止默认行为：return  false;</strong></p>
+<p>应用：自定义右键菜单<br>应用：自定义输入框</p>
+</li>
+<li><p>obj.onmousedown    按下鼠标时触发</p>
+</li>
+<li><p>obj.onmouseup    抬起鼠标时触发</p>
+</li>
+<li><p>obj.onmousemove    鼠标移动触发</p>
+<p>应用：拖拽<br>应用：拖拽(带框)<br>应用：磁性吸附</p>
+</li>
+<li><p>obj.onmouseover  鼠标移入时触发</p>
+</li>
+<li><p>obj.onmouseout   鼠标移出时触发</p>
+<p><strong>问题</strong></p>
+<p>问题1：移入子级也算重新移入<br>解决1：onmouseover -&gt; onmouseenter</p>
+<p>问题2：移出子级也算移出<br>解决2：onmouseout -&gt; onmouseleave</p>
+</li>
+<li><p>obj.onmousewheel  滚动鼠标滚轮触发</p>
+</li>
+</ol>
+<p>*兼容：Chrome IE系</p>
+<p>DOMMouseScroll       DOM滚轮事件(<strong>DOM事件只能通过事件绑定添加</strong>)</p>
+<p>*兼容：FF</p>
+<p><strong>兼容写法</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    if (window.navigator.userAgent.indexOf(&apos;FireFox&apos;) != -1) &#123;        document.addEventListener(&apos;DOMMouseScroll&apos;, function() &#123; //FF</div><div class="line">            //scroll code here</div><div class="line">        &#125;, false)</div><div class="line">    &#125; else &#123;        document.onmousewheel = function() &#123; //Chrome IE系</div><div class="line">            //scroll code here</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
+<h3 id="判断滚动方向"><a href="#判断滚动方向" class="headerlink" title="判断滚动方向"></a>判断滚动方向</h3><ul>
+<li><p>oEvent.wheelDelta</p>
+<p>*兼容：Chrome IE系</p>
+<p>向上：120</p>
+<p>向下：-120</p>
+</li>
+<li><p>DOMMouseScroll</p>
+<p>*兼容：FF</p>
+<p>向上：-3</p>
+<p>向下：3</p>
+</li>
+</ul>
+<p><strong>兼容写法</strong></p>
+<p>封装一个鼠标滚动方向的函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    function addWheel(obj, fn) &#123; //向上fn(false)，向下fn(true)</div><div class="line">        function wheel(ev) &#123;            var oEvent = ev || event;            // var bDown = true;                //默认向下 --&gt;</div><div class="line">            // if(oEvent.wheelDelta) &#123;            //FF -&gt; undefined</div><div class="line">            //     //Chrome IE系</div><div class="line">            //     bDown = oEvent.wheelDelta &lt; 0;</div><div class="line">            // &#125; else &#123;</div><div class="line">            //     //FF</div><div class="line">            //     bDown = oEvent.detail &gt; 0;</div><div class="line">            // &#125;</div><div class="line"></div><div class="line">            var bDown = oEvent.wheelDelta ? oEvent.wheelDelta &lt; 0 : oEvent.detail &gt; 0;            //判断是否传入函数，执行回调函数</div><div class="line">            fn &amp;&amp; fn(bDown);            //FF阻止默认</div><div class="line">            oEvent.preventDefault &amp;&amp; oEvent.preventDefault();            //阻止默认</div><div class="line">            return false;</div><div class="line">        &#125;        if (window.navigator.userAgent.indexOf(&apos;FireFox&apos;) != -1) &#123;            //FF</div><div class="line">            document.addEventListener(&apos;DOMMouseScroll&apos;, wheel, false); //事件中阻止默认没有用</div><div class="line">        &#125; else &#123;            //Chrome IE系</div><div class="line">            // document.onmousewheel = wheel;</div><div class="line">            addEvent(obj, &apos;mousewheel&apos;, wheel);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>oEvent.preventDefault();<br> 兼容：高级浏览器<br> IE8- -&gt; undefined</p>
+</blockquote>
+<p>应用：自定义滚动条</p>
+<h2 id="9-domReady"><a href="#9-domReady" class="headerlink" title="9. domReady"></a>9. domReady</h2><ul>
+<li>DOMContentLoaded 当DOM加载完成时触发(在页面前) <strong>DOM事件必须通过事件绑定添加</strong><br>*兼容：高级浏览器</li>
+<li>onreadystatechange 模拟domReady</li>
+</ul>
+<p><strong>兼容写法</strong><br>封装domReady全兼容方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    function domReady(fn) &#123;        if (document.addEventListener) &#123;            //高级浏览器</div><div class="line">            document.addEventListener(&apos;DOMContentLoaded&apos;, function() &#123;</div><div class="line">                fn &amp;&amp; fn();</div><div class="line">            &#125;, false);</div><div class="line">        &#125; else &#123;            //低级浏览器  模拟domReady</div><div class="line">            document.onreadystatechange = function() &#123;                if (document.readyState == &apos;complete&apos;) &#123;    // 全兼容</div><div class="line">                    fn &amp;&amp; fn();</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
+<h2 id="10-事件委托"><a href="#10-事件委托" class="headerlink" title="10. 事件委托"></a>10. 事件委托</h2><p>概念：子级自己的事件可以委托给父级处理</p>
+<p>好处： (1)提高性能  <strong>(2)可以给未来的子元素添加事件</strong></p>
+<h2 id="11-事件源"><a href="#11-事件源" class="headerlink" title="11. 事件源"></a>11. 事件源</h2><ul>
+<li>oEvent.target<br>*兼容：高级浏览器<br>低级浏览器 -&gt; undefined</li>
+<li>oEvent.srcElement<br>*兼容：Chrome、IE系<br>FF -&gt; undefined</li>
+</ul>
+<p><strong>兼容写法</strong><br>var oSrc = oEvent.srcElement || oEvent.target;</p>
+<blockquote>
+<p>注意：oSrc.tagName获取到的标签名都是大写</p>
+</blockquote>
+<h3 id="给子级循环添加事件-闭包的替代写法-gt-委托"><a href="#给子级循环添加事件-闭包的替代写法-gt-委托" class="headerlink" title="给子级循环添加事件 闭包的替代写法 -&gt; 委托"></a>给子级循环添加事件 闭包的替代写法 -&gt; 委托</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">window.onload=function()&#123;</div><div class="line">       var ul=document.getElementById(&quot;number&quot;);</div><div class="line">       var li=ul.getElementsByTagName(&quot;li&quot;);</div><div class="line">       var but=document.getElementById(&quot;add&quot;);</div><div class="line"></div><div class="line">       but.onclick=function()&#123;</div><div class="line">       	var li =document.createElement(&quot;li&quot;);</div><div class="line">       	li.innerHTML=&quot;hello&quot;;</div><div class="line">       	ul.appendChild(li)</div><div class="line">       &#125;</div><div class="line">       ul.onmouseover=function(ev)&#123;</div><div class="line">           var ev=ev||window.event;</div><div class="line">           var target=ev.target||ev.srcElement;</div><div class="line">           if(target.nodeName.toLowerCase()==&quot;li&quot;)&#123;</div><div class="line">               target.style.background=&quot;red&quot;;</div><div class="line">           &#125;</div><div class="line">       &#125;</div><div class="line">       ul.onmouseout=function(ev)&#123;</div><div class="line">           var ev=ev||window.event;</div><div class="line">           var target=ev.target||ev.srcElement;</div><div class="line">           if(target.nodeName.toLowerCase()==&quot;li&quot;)&#123;</div><div class="line">               target.style.background=&quot;white&quot;;</div><div class="line">           &#125;</div><div class="line">       &#125;</div><div class="line"></div><div class="line"></div><div class="line">       ul.onclick=function(ev)&#123;</div><div class="line">           var ev = event||window.event;</div><div class="line">           var target=ev.target||ev.srcElement  //获取事件源</div><div class="line">           if(target.nodeName==&quot;LI&quot; )&#123;</div><div class="line">               target.style.background=&quot;pink&quot;</div><div class="line">           &#125;</div><div class="line">       &#125;</div><div class="line"></div><div class="line">       </div><div class="line">   &#125;</div></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;1-事件对象&quot;&gt;&lt;a href=&quot;#1-事件对象&quot; class=&quot;headerlink&quot; title=&quot;1. 事件对象&quot;&gt;&lt;/a&gt;1. 事件对象&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;event  事件对象(系统自带)&lt;br&gt;*兼容：Chrome IE系&lt;br&gt;FF -&amp;gt
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>前端知识点：offset系类与style系类</title>
+    <link href="http://yoursite.com/2015/07/17/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9%EF%BC%9Aoffset%E4%B8%8Estyle%E7%B3%BB%E5%88%97/"/>
+    <id>http://yoursite.com/2015/07/17/前端知识点/前端知识点：offset与style系列/</id>
+    <published>2015-07-17T11:39:15.000Z</published>
+    <updated>2017-03-31T11:02:28.610Z</updated>
+    
+    <content type="html"><![CDATA[<p>#offset系类与style系类区分<br>首先offset系类，offset有left、top、width、height、四个值即offsetLeft,offsetTop,offsetHeight,offsetWidth</p>
+<p><img src="/images/offset/1.png" alt="img"><br><img src="/images/offset/2.png" alt="img">   </p>
+<p>offset系类与style系类区别就是:1 style系类只能获取行内的样式，如果样式没写，或写到了别处则无法获取。2 offset系类只读，style系类能读也能设置。3 offset系类值是数值，style系类值是字符串，需加+“px”。4 如果没有加定位，style可能获取的值可能是无效的。5 两者最大的区别在于offsetLeft以border左上角为基准，而styleLeft以margin左上角为基准。（如下图）</p>
+<p><img src="/images/offset/3.png" alt="img"> </p>
+<p>offsetParent:返回该对象距离最近的带有定位的父级，如果当前的父级元素都没有设置定位，offsetParent为body,如果当前父级元素设置了定位，offsetParent为那个父级元素。<br><strong>scroll系类：</strong>主要分为scrollTop,scrollLeft,scrollWidth,scrollHeight四个。</p>
+<p><img src="/images/offset/4.png" alt="img"><br><strong>client系类：</strong>clientLeft和clientTop没用，他们就是borderTop和borderLeft。clientWidth和clientHeight：可视区域的宽度和高度不包括边框。</p>
+<p><img src="/images/offset/5.png" alt="img">  <img src="/images/offset/6.png" alt="img"> </p>
+<p>事件对象<br><img src="/images/offset/7.png" alt="img"> </p>
+<p> 其中三个重要的坐标：</p>
+<p><img src="/images/offset/8.png" alt="img"><br><img src="/images/offset/9.png" alt="img"> </p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;#offset系类与style系类区分&lt;br&gt;首先offset系类，offset有left、top、width、height、四个值即offsetLeft,offsetTop,offsetHeight,offsetWidth&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images
     
     </summary>
     
