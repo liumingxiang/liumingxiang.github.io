@@ -969,13 +969,14 @@
     <link href="http://yoursite.com/2015/07/15/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9%EF%BC%9A%E5%90%84%E7%A7%8D%E5%AE%BD%E9%AB%98%E8%B7%9D%E7%A6%BB%E7%AF%87/"/>
     <id>http://yoursite.com/2015/07/15/前端知识点/前端知识点：各种宽高距离篇/</id>
     <published>2015-07-15T08:32:15.000Z</published>
-    <updated>2017-03-31T10:45:31.328Z</updated>
+    <updated>2017-03-31T12:43:28.222Z</updated>
     
     <content type="html"><![CDATA[<h2 id="1-滚动距离"><a href="#1-滚动距离" class="headerlink" title="1. 滚动距离"></a>1. 滚动距离</h2><p><strong>html简写：document.documentElement</strong></p>
 <ul>
 <li>document.body.scrollTop<br> 兼容：Chrome<br> 其他 -&gt; 0</li>
 <li>document.documentElement.scrollTop<br> 兼容：IE、FF<br> 其他 -&gt; 0</li>
 </ul>
+<a id="more"></a>
 <p><strong>兼容写法</strong><br>纵向：var scrollT = document.documentElement.scrollTop || document.body.scrollTop;<br>横向：var scrollL = document.documentElement.scrollLeft || document.body.scrollLeft;</p>
 <h2 id="2-滚动高度"><a href="#2-滚动高度" class="headerlink" title="2. 滚动高度"></a>2. 滚动高度</h2><p>obj.scrollHeight</p>
 <ul>
@@ -1034,6 +1035,10 @@
     <summary type="html">
     
       &lt;h2 id=&quot;1-滚动距离&quot;&gt;&lt;a href=&quot;#1-滚动距离&quot; class=&quot;headerlink&quot; title=&quot;1. 滚动距离&quot;&gt;&lt;/a&gt;1. 滚动距离&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;html简写：document.documentElement&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;document.body.scrollTop&lt;br&gt; 兼容：Chrome&lt;br&gt; 其他 -&amp;gt; 0&lt;/li&gt;
+&lt;li&gt;document.documentElement.scrollTop&lt;br&gt; 兼容：IE、FF&lt;br&gt; 其他 -&amp;gt; 0&lt;/li&gt;
+&lt;/ul&gt;
     
     </summary>
     
