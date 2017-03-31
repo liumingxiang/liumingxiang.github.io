@@ -1,0 +1,121 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> 前端知识点：前端知识点：jQuery(下) · 刘小窝</title><meta name="description" content="前端知识点：前端知识点：jQuery(下) - John Doe"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="http://yoursite.com/atom.xml" title="刘小窝"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">博客</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">文章列表</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">前端知识点：前端知识点：jQuery(下)</h1><div class="post-info">Nov 9, 2015</div><div class="post-content"><h2 id="1-jQuery获取物体信息"><a href="#1-jQuery获取物体信息" class="headerlink" title="1. jQuery获取物体信息"></a>1. jQuery获取物体信息</h2><h3 id="js"><a href="#js" class="headerlink" title="js"></a>js</h3><ul>
+<li><p>​</p>
+<p>obj.offsetWidth</p>
+</li>
+<li><p>​</p>
+<p>obj.offsetHeight</p>
+</li>
+<li><p>​</p>
+<p>obj.offsetLeft</p>
+</li>
+<li><p>​</p>
+<p>obj.offsetTop</p>
+</li>
+<li><p>​</p>
+<p>obj.parentNode 结构父级 根：document</p>
+</li>
+<li><p>​</p>
+<p>obj.offsetParent 定位父级 根：body</p>
+</li>
+</ul>
+<p><strong>js处理小数较弱，取出时取整Math.round()</strong></p>
+<h3 id="jQuery-只封装了以下方法"><a href="#jQuery-只封装了以下方法" class="headerlink" title="jQuery(只封装了以下方法)"></a>jQuery(只封装了以下方法)</h3><ul>
+<li><p>​</p>
+<p><code>obj.width();</code> 纯width</p>
+</li>
+<li><p>​</p>
+<p><code>obj.height();</code> 纯height</p>
+</li>
+<li><p>​</p>
+<p><code>obj.outerWidth();</code> 盒子模型的width (width+padding+border) =&gt; offsetWidth</p>
+</li>
+<li><p>​</p>
+<p><code>obj.outerHeight();</code> 盒子模型的height (height+padding+border) =&gt; offsetHeight</p>
+</li>
+<li><p>​</p>
+<p><code>obj.position().left;</code> 距离定位父级left值 (不包括margin) =&gt; offsetLeft</p>
+</li>
+<li><p>​</p>
+<p><code>obj.position().top;</code> 距离定位父级top值 (不包括margin) =&gt; offsetTop</p>
+</li>
+<li><p>​</p>
+<p><code>obj.offset().left;</code> 距离定位父级left值 (包括margin)</p>
+</li>
+<li><p>​</p>
+<p><code>obj.offset().top;</code> 距离定位父级top值 (包括margin)</p>
+</li>
+<li><p>​</p>
+<p><code>obj.scrollTop();</code> 元素相对滚动条顶部的偏移</p>
+</li>
+<li><p>​</p>
+<p><code>obj.scrollLeft();</code> 元素相对滚动条左侧的偏移</p>
+</li>
+</ul>
+<p>父级</p>
+<ul>
+<li><code>obj.parent()</code> 结构父级 根：document =&gt; parentNode</li>
+<li><code>obj.parents()</code> 返回被选元素的所有祖先元素，直到 <code>&lt;html&gt;</code></li>
+<li><code>obj.offsetParent()</code> 定位父级 根：body =&gt; offsetParent</li>
+</ul>
+<p>子级</p>
+<ul>
+<li><code>obj.children()</code> 返回被选元素的所有直接子元素</li>
+<li><code>obj.find()</code> 返回被选元素的后代元素，一路向下直到最后一个后代</li>
+</ul>
+<h2 id="2-jQuery筛选"><a href="#2-jQuery筛选" class="headerlink" title="2. jQuery筛选"></a>2. jQuery筛选</h2><h3 id="1-过滤"><a href="#1-过滤" class="headerlink" title="(1) 过滤"></a>(1) 过滤</h3><ul>
+<li><p><code>.eq(index)</code></p>
+</li>
+<li><ul>
+<li>index &gt;= 0 正向选取(0代表第一个，1代表第二个)</li>
+<li>index &lt; 0 反向选取(-1代表倒数第一个)</li>
+</ul>
+</li>
+<li><p><code>.first()</code></p>
+</li>
+<li><p><code>.last()</code></p>
+</li>
+<li><p><code>.hasClass(className)</code></p>
+</li>
+</ul>
+<h3 id="2-查找"><a href="#2-查找" class="headerlink" title="(2) 查找"></a>(2) 查找</h3><ul>
+<li><code>.find(tagName/className/id)</code> eg: <code>oBox.find(&#39;ol li&#39;);</code></li>
+</ul>
+<h2 id="3-jQuery-lt-gt-js"><a href="#3-jQuery-lt-gt-js" class="headerlink" title="3. jQuery &lt;=&gt; js"></a>3. jQuery &lt;=&gt; js</h2><h3 id="1-原生js转jQuery对象"><a href="#1-原生js转jQuery对象" class="headerlink" title="(1) 原生js转jQuery对象"></a>(1) 原生js转jQuery对象</h3><p><strong>$() 包裹</strong>this -&gt; $(this) document -&gt; $(document)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    var oDiv = document.getElementById(&apos;div1&apos;);    $(oDiv).html(&apos;xxx&apos;);&lt;/script&gt;</div></pre></td></tr></table></figure>
+<h3 id="2-jQuery转原生js对象"><a href="#2-jQuery转原生js对象" class="headerlink" title="(2) jQuery转原生js对象"></a>(2) jQuery转原生js对象</h3><p><strong>[] / get()</strong></p>
+<ol>
+<li><code>$(&#39;div&#39;)[0].innerHTML=&#39;xxx&#39;;</code></li>
+<li><code>$(&#39;div&#39;).get(0).innerHTML=&#39;xxx;</code></li>
+</ol>
+<h2 id="4-jQuery链式运动"><a href="#4-jQuery链式运动" class="headerlink" title="4. jQuery链式运动"></a>4. jQuery链式运动</h2><p><code>obj.css(...).html(...).attr(...).click();</code></p>
+<h2 id="5-jQuery循环"><a href="#5-jQuery循环" class="headerlink" title="5. jQuery循环"></a>5. jQuery循环</h2><p><code>obj.each(function(){...});</code></p>
+<p>JS中的forEach、$.each、map方法推荐</p>
+<p>eg:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    $(&apos;div&apos;).each(function(index, element) &#123;  // 索引，当前元素        console.log($(element).html);  // **element是原生对象，需转成jq对象        $(this);  // 当前对象    &#125;);&lt;/script&gt;</div></pre></td></tr></table></figure>
+<h2 id="6-jQuery工具"><a href="#6-jQuery工具" class="headerlink" title="6. jQuery工具"></a>6. jQuery工具</h2><ul>
+<li><code>$.trim(str);</code> 去掉字符串起始和结尾的空格</li>
+<li><code>$.browser.version;</code> 浏览器版本</li>
+</ul>
+<p>eg:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    if($.browse.version.substring(0, 1) == &apos;6&apos;) &#123;        // IE6 code here    &#125;&lt;/script&gt;</div></pre></td></tr></table></figure>
+<h2 id="7-jQuery-Ajax"><a href="#7-jQuery-Ajax" class="headerlink" title="7. jQuery Ajax"></a>7. jQuery Ajax</h2><p><code>$.ajax({...});</code></p>
+<ul>
+<li><strong>type: ‘get/post’</strong></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    $.ajax(&#123;        url: URL,        data: &#123;&#125;,        type: &apos;get&apos;,        error: fn,        complete: fn,        time: 3000;        success: function(str) &#123;            console.log(str);        &#125;    &#125;)&lt;/script&gt;</div></pre></td></tr></table></figure>
+<h2 id="8-jQuery-jsonp"><a href="#8-jQuery-jsonp" class="headerlink" title="8. jQuery jsonp"></a>8. jQuery jsonp</h2><p><code>$.ajax({...});</code></p>
+<ul>
+<li><strong>dataType: ‘jsonp’</strong></li>
+<li><strong>cbName: ‘callback/cb’</strong></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    $.ajax(&#123;        url: URL,        data: &#123;&#125;,        dataType: &apos;jsonp&apos;,        cbName: &apos;callback&apos;,        success: function(json) &#123;            console.log(json);        &#125;    &#125;);&lt;/script&gt;</div></pre></td></tr></table></figure>
+<h2 id="9-jQuery插件"><a href="#9-jQuery插件" class="headerlink" title="9. jQuery插件"></a>9. jQuery插件</h2><h3 id="写插件"><a href="#写插件" class="headerlink" title="写插件"></a>写插件</h3><p>$: jq fn: 帮助</p>
+<p><strong>jq里面除了插件里的this以外，其他都是原生的js</strong></p>
+<p>jquery的$.extend和$.fn.extend作用及区别</p>
+<h3 id="一个插件"><a href="#一个插件" class="headerlink" title="一个插件"></a>一个插件</h3><p><code>$.fn.插件名=fn;</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    $.fn.插件名 = function() &#123;        this.css(&apos;name&apos;, &apos;value&apos;);  // 插件中的this不用加$    &#125;    $(&apos;div&apos;).插件名();&lt;/script&gt;</div></pre></td></tr></table></figure>
+<h3 id="一组插件"><a href="#一组插件" class="headerlink" title="一组插件"></a>一组插件</h3><p><code>$.fn.extend(...);</code></p>
+<blockquote>
+<p>插件调用不能用链式</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    $.fn.extend(&#123;        插件名1: function() &#123;            this.css(&apos;name&apos;, &apos;value&apos;);        &#125;,        插件名2: function() &#123;            this.css(&apos;name&apos;, &apos;value&apos;);        &#125;    &#125;)    // 插件调用不能用链式    $(&apos;div&apos;).插件名1();    $(&apos;div&apos;).插件名2();&lt;/script&gt;</div></pre></td></tr></table></figure></div></article></div></main><footer><div class="paginator"><a href="/2015/11/09/前端知识点/前端知识点：前端知识点：布局大全/" class="prev">上一篇</a><a href="/2015/11/01/前端知识点/前端知识点：前端知识点：jQuery(上)/" class="next">下一篇</a></div><div class="copyright"><p>© 2014 - 2017 刘小窝.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-65933410-1",'auto');ga('send','pageview');</script></body></html>

@@ -141,6 +141,594 @@
   </entry>
   
   <entry>
+    <title>前端知识点：前端知识点：布局大全</title>
+    <link href="http://yoursite.com/2015/11/09/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9%EF%BC%9A%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9%EF%BC%9A%E5%B8%83%E5%B1%80%E5%A4%A7%E5%85%A8/"/>
+    <id>http://yoursite.com/2015/11/09/前端知识点/前端知识点：前端知识点：布局大全/</id>
+    <published>2015-11-09T13:44:15.000Z</published>
+    <updated>2017-03-31T11:17:55.454Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="一-单列布局"><a href="#一-单列布局" class="headerlink" title="一. 单列布局"></a>一. 单列布局</h2><h3 id="1-水平居中"><a href="#1-水平居中" class="headerlink" title="1. 水平居中"></a>1. 水平居中</h3><h4 id="1-文本、图片等行内元素"><a href="#1-文本、图片等行内元素" class="headerlink" title="(1) 文本、图片等行内元素"></a>(1) 文本、图片等行内元素</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;style&gt;</div><div class="line">	.parent &#123;</div><div class="line">		text-align: center;</div><div class="line">	&#125;</div><div class="line">&lt;/style&gt;</div></pre></td></tr></table></figure>
+<h4 id="2-定宽块级元素"><a href="#2-定宽块级元素" class="headerlink" title="(2) 定宽块级元素"></a>(2) 定宽块级元素</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;style&gt;</div><div class="line">	.child &#123;</div><div class="line">		margin: 0 auto;</div><div class="line">	&#125;</div><div class="line">&lt;/style&gt;</div></pre></td></tr></table></figure>
+<h4 id="3-不定宽块元素"><a href="#3-不定宽块元素" class="headerlink" title="(3) 不定宽块元素"></a>(3) 不定宽块元素</h4><ul>
+<li>inline + text-align</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;style&gt;</div><div class="line">	.parent &#123;</div><div class="line">		text-align: center;</div><div class="line">	&#125;</div><div class="line">	.child &#123;</div><div class="line">		display: inline;</div><div class="line">	&#125;</div><div class="line">&lt;/style&gt;</div></pre></td></tr></table></figure>
+<ul>
+<li>table + margin</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;style&gt;</div><div class="line">	.child &#123;</div><div class="line">		display: table;</div><div class="line">		margin: 0 auto;</div><div class="line">	&#125;</div><div class="line">&lt;/style&gt;</div></pre></td></tr></table></figure>
+<ul>
+<li>float + relative</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&lt;style&gt;</div><div class="line">	.parent &#123;</div><div class="line">		float: left;</div><div class="line">		position: relative;</div><div class="line">		left: 50%;</div><div class="line">	&#125;</div><div class="line">	.child &#123;</div><div class="line">		position: relative;</div><div class="line">		left: -50%;</div><div class="line">	&#125;</div><div class="line">&lt;/style&gt;</div></pre></td></tr></table></figure>
+<ul>
+<li>absolute + transform</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&lt;style&gt;</div><div class="line">	.parent &#123;</div><div class="line">		position: relative;</div><div class="line">	&#125;</div><div class="line">	.child &#123;</div><div class="line">		position: absolute;</div><div class="line">		left: 50%;</div><div class="line">		transform: translateX(-50%);</div><div class="line">	&#125;</div><div class="line">&lt;/style&gt;</div></pre></td></tr></table></figure>
+<h4 id="4-多个块级元素-单个块级元素也可用"><a href="#4-多个块级元素-单个块级元素也可用" class="headerlink" title="(4) 多个块级元素(单个块级元素也可用)"></a>(4) 多个块级元素(单个块级元素也可用)</h4><ul>
+<li>inline-block + text-align</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&lt;style&gt;</div><div class="line">	.parent &#123;</div><div class="line">		text-align: center;</div><div class="line">	&#125;</div><div class="line">	.child &#123;</div><div class="line">		display: inline-block;</div><div class="line">		*display: inline;</div><div class="line">		*zoom:1;</div><div class="line">	&#125;</div><div class="line">&lt;/style&gt;</div></pre></td></tr></table></figure>
+<ul>
+<li>flex + justify-content</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;style&gt;</div><div class="line">	.parent &#123;</div><div class="line">		display: flex;</div><div class="line">	&#125;</div><div class="line">	.child &#123;</div><div class="line">		justify-content: center;</div><div class="line">	&#125;</div><div class="line">&lt;/style&gt;</div></pre></td></tr></table></figure>
+<h3 id="2-垂直居中"><a href="#2-垂直居中" class="headerlink" title="2. 垂直居中"></a>2. 垂直居中</h3><h4 id="1-父元素高度确定的单行文本"><a href="#1-父元素高度确定的单行文本" class="headerlink" title="(1) 父元素高度确定的单行文本"></a>(1) 父元素高度确定的单行文本</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;style&gt;</div><div class="line">	.parent &#123;</div><div class="line">		height: 20px;</div><div class="line">		line-height: 20px;</div><div class="line">		overflow:hidden;</div><div class="line">	&#125;</div><div class="line">&lt;/style&gt;</div></pre></td></tr></table></figure>
+<h4 id="2-父元素高度确定的多行文本"><a href="#2-父元素高度确定的多行文本" class="headerlink" title="(2) 父元素高度确定的多行文本"></a>(2) 父元素高度确定的多行文本</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;style&gt;</div><div class="line">	.parent &#123;</div><div class="line">		display: table;</div><div class="line">	&#125;</div><div class="line">	.child &#123;</div><div class="line">		display: table-cell;</div><div class="line">		vertical-align: middle;</div><div class="line">	&#125;</div><div class="line">&lt;/style&gt;</div></pre></td></tr></table></figure>
+<h4 id="3-子元素定高块级元素"><a href="#3-子元素定高块级元素" class="headerlink" title="(3) 子元素定高块级元素"></a>(3) 子元素定高块级元素</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;style&gt;</div><div class="line">	.child &#123;</div><div class="line">		position: absolute;</div><div class="line">		top: 50%;</div><div class="line">		margin-top: -50px;</div><div class="line">		width: 100px;</div><div class="line">		height: 100px;</div><div class="line">	&#125;</div><div class="line">&lt;/style&gt;</div></pre></td></tr></table></figure>
+<h4 id="4-子元素不定高块级元素"><a href="#4-子元素不定高块级元素" class="headerlink" title="(4) 子元素不定高块级元素"></a>(4) 子元素不定高块级元素</h4><ul>
+<li>absolute + transform</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&lt;style&gt;</div><div class="line">	.parent &#123;</div><div class="line">		position: relative;</div><div class="line">	&#125;</div><div class="line">	.child &#123;</div><div class="line">		position: absolute;</div><div class="line">		top: 50%;</div><div class="line">		transform: translateY(-50%);</div><div class="line">	&#125;</div><div class="line">&lt;/style&gt;</div></pre></td></tr></table></figure>
+<ul>
+<li>flex + align-items</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;style&gt;</div><div class="line">	.parent &#123;</div><div class="line">		display: flex;</div><div class="line">		align-items: center;</div><div class="line">	&#125;</div><div class="line">&lt;/style&gt;</div></pre></td></tr></table></figure>
+<h3 id="3-水平垂直居中"><a href="#3-水平垂直居中" class="headerlink" title="3. 水平垂直居中"></a>3. 水平垂直居中</h3><h4 id="1-定宽高"><a href="#1-定宽高" class="headerlink" title="(1) 定宽高"></a>(1) 定宽高</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&lt;style&gt;</div><div class="line">	.child &#123;</div><div class="line">		position: absolute;</div><div class="line">		top: 50%;</div><div class="line">		left: 50%;</div><div class="line">		margin-top: -75px;</div><div class="line">		margin-left: -75px;</div><div class="line">		width: 150px;</div><div class="line">		height: 150px;</div><div class="line">	&#125;</div><div class="line">&lt;/style&gt;</div></pre></td></tr></table></figure>
+<h4 id="2-不定宽高"><a href="#2-不定宽高" class="headerlink" title="(2) 不定宽高"></a>(2) 不定宽高</h4><ul>
+<li>inline-block + table-cell</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">&lt;style&gt;</div><div class="line">	.parent &#123;</div><div class="line">		display: tabel-cell;</div><div class="line">		text-align: center;</div><div class="line">		vertical-align: middle;</div><div class="line">	&#125;</div><div class="line">	.child &#123;</div><div class="line">		display: inline-block;</div><div class="line">		*display: inline;</div><div class="line">		*zoom:1;</div><div class="line">	&#125;</div><div class="line">&lt;/style&gt;</div></pre></td></tr></table></figure>
+<ul>
+<li>table-cell + absolute</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">&lt;style&gt;</div><div class="line">	.parent &#123;</div><div class="line">		display: tabel;</div><div class="line">		position: absolute;</div><div class="line">		width: 100%;</div><div class="line">		height: 100%;</div><div class="line">	&#125;</div><div class="line">	.child &#123;</div><div class="line">		display: table-cell;</div><div class="line">		text-align: center;</div><div class="line">		vertical-align: middle;</div><div class="line">	&#125;</div><div class="line">&lt;/style&gt;</div></pre></td></tr></table></figure>
+<ul>
+<li>absolute + transform</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&lt;style&gt;</div><div class="line">	.parent &#123;</div><div class="line">		position: relative</div><div class="line">	&#125;</div><div class="line">	.child &#123;</div><div class="line">		position: absolute;</div><div class="line">		top: 50%;</div><div class="line">		left: 50%;</div><div class="line">		transform: translate(-50%, -50%);</div><div class="line">	&#125;</div><div class="line">&lt;/style&gt;</div></pre></td></tr></table></figure>
+<ul>
+<li>flex + justify-content + align-items</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;style&gt;</div><div class="line">	.parent &#123;</div><div class="line">		display: flex;</div><div class="line">		justify-content: center;</div><div class="line">		align-items: center;</div><div class="line">	&#125;</div><div class="line">&lt;/style&gt;</div></pre></td></tr></table></figure>
+<ul>
+<li>jQuery</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;</div><div class="line">	$(window).resize(function() &#123;</div><div class="line">		$(&apos;.child&apos;).css(&#123;</div><div class="line">			position: &apos;absolute&apos;,</div><div class="line">			left: ($(window).width()-$(&apos;.child&apos;).outerWidth())/2,</div><div class="line">			top: ($(window).height()-$(&apos;.child&apos;).outerHeight())/2</div><div class="line">		&#125;);</div><div class="line">	&#125;);</div><div class="line"></div><div class="line">	$(function() &#123;</div><div class="line">		$(window).resize();</div><div class="line">	&#125;)</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
+<h2 id="二-两列布局"><a href="#二-两列布局" class="headerlink" title="二. 两列布局"></a>二. 两列布局</h2><h3 id="1-两个div并排的多种方法"><a href="#1-两个div并排的多种方法" class="headerlink" title="1. 两个div并排的多种方法"></a>1. 两个div并排的多种方法</h3><ul>
+<li>定位</li>
+<li>margin负值</li>
+<li>浮动</li>
+<li>行内块</li>
+<li>table</li>
+</ul>
+<h3 id="2-左侧定宽，右侧自适应"><a href="#2-左侧定宽，右侧自适应" class="headerlink" title="2. 左侧定宽，右侧自适应"></a>2. 左侧定宽，右侧自适应</h3><ul>
+<li>float + margin</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;style&gt;</div><div class="line">	.left &#123;</div><div class="line">		float: left;</div><div class="line">		width: 100px;</div><div class="line">	&#125;</div><div class="line">	.right &#123;</div><div class="line">		margin-left: 120px;</div><div class="line">	&#125;</div><div class="line">&lt;/style&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&lt;div class=&quot;left&quot;&gt;左侧定宽&lt;/div&gt;</div><div class="line">   &lt;div class=&quot;right&quot;&gt;右侧自适应&lt;/div&gt;</div></pre></td></tr></table></figure>
+<ul>
+<li>float + margin</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&lt;style&gt;</div><div class="line">	.left &#123;</div><div class="line">		float: left;</div><div class="line">		width: 100px;</div><div class="line">		margin-right: 20px;</div><div class="line">	&#125;</div><div class="line">	.right &#123;</div><div class="line">		overflow: hidden;</div><div class="line">	&#125;</div><div class="line">&lt;/style&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&lt;div class=&quot;left&quot;&gt;左侧定宽&lt;/div&gt;</div><div class="line">   &lt;div class=&quot;right&quot;&gt;右侧自适应&lt;/div&gt;</div></pre></td></tr></table></figure>
+<ul>
+<li>absolute + margin</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">&lt;style&gt;</div><div class="line">	.left &#123;</div><div class="line">		width: 300px;</div><div class="line">		height: 500px;</div><div class="line">		background: red;</div><div class="line">		font-size: 30px;</div><div class="line">		color: #fff;</div><div class="line">		position: absolute;</div><div class="line">		left: 0;</div><div class="line">		top: 0;</div><div class="line">	&#125;</div><div class="line">	.right &#123;</div><div class="line">		height: 500px;</div><div class="line">		background: blue;</div><div class="line">		font-size: 30px;</div><div class="line">		color: #fff;</div><div class="line">		/* padding-left: 300px; */</div><div class="line">		margin-left: 300px;</div><div class="line">	&#125;</div><div class="line">&lt;/style&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&lt;div class=&quot;left&quot;&gt;左侧定宽&lt;/div&gt;</div><div class="line">   &lt;div class=&quot;right&quot;&gt;右侧自适应&lt;/div&gt;</div></pre></td></tr></table></figure>
+<ul>
+<li>relative + float + margin</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">&lt;style&gt;</div><div class="line">	.g-sd1 &#123;</div><div class="line">		position: relative;</div><div class="line">		float: left;</div><div class="line">		margin-right: -190px;</div><div class="line">		width: 190px;</div><div class="line">	&#125;</div><div class="line">	.g-mn1 &#123;</div><div class="line">		float: right;</div><div class="line">		width: 100%;</div><div class="line">	&#125;</div><div class="line">	.g-mn1c &#123;</div><div class="line">		margin-left: 200px;</div><div class="line">	&#125;</div><div class="line">&lt;/style&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;div class=&quot;g-sd1&quot;&gt;</div><div class="line">    &lt;p&gt;左侧定宽&lt;/p&gt;</div><div class="line">&lt;/div&gt;</div><div class="line">&lt;div class=&quot;g-mn1&quot;&gt;</div><div class="line">    &lt;div class=&quot;g-mn1c&quot;&gt;</div><div class="line">        &lt;p&gt;右侧自适应&lt;/p&gt;</div><div class="line">    &lt;/div&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure>
+<ul>
+<li>absolute + margin</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">&lt;style&gt;</div><div class="line">	.parent &#123;</div><div class="line">		display: flex;</div><div class="line">	&#125;</div><div class="line">	.left &#123;</div><div class="line">		margin-right: 20px;</div><div class="line">		width: 100px;</div><div class="line">	&#125;</div><div class="line">	.right &#123;</div><div class="line">		flex: 1;</div><div class="line">	&#125;</div><div class="line">&lt;/style&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;div class=&quot;parent&quot;&gt;</div><div class="line">	&lt;div class=&quot;left&quot;&gt;</div><div class="line">		&lt;p&gt;左侧定宽&lt;/p&gt;</div><div class="line">	&lt;/div&gt;</div><div class="line">	&lt;div class=&quot;right&quot;&gt;</div><div class="line">		&lt;p&gt;右侧自适应&lt;/p&gt;</div><div class="line">	&lt;/div&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure>
+<h3 id="3-左侧自适应，右侧定宽-基本同理，不一一列举"><a href="#3-左侧自适应，右侧定宽-基本同理，不一一列举" class="headerlink" title="3. 左侧自适应，右侧定宽(基本同理，不一一列举)"></a>3. 左侧自适应，右侧定宽(基本同理，不一一列举)</h3><ul>
+<li>margin + absolute</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">&lt;style&gt;</div><div class="line">	.left &#123;</div><div class="line">		/* padding-right: 300px; */</div><div class="line">		margin-left: 300px;</div><div class="line">		height: 500px;</div><div class="line">		background: blue;</div><div class="line">		font-size: 30px;</div><div class="line">		color: #fff;</div><div class="line">	&#125;</div><div class="line">	.right &#123;</div><div class="line">		position: absolute;</div><div class="line">		right: 0;</div><div class="line">		top: 0;</div><div class="line">		width: 300px;</div><div class="line">		height: 500px;</div><div class="line">		background: red;</div><div class="line">		font-size: 30px;</div><div class="line">		color: #fff;</div><div class="line">	&#125;</div><div class="line">&lt;/style&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&lt;div class=&quot;left&quot;&gt;左侧自适应&lt;/div&gt;</div><div class="line">   &lt;div class=&quot;right&quot;&gt;右侧定宽&lt;/div&gt;</div></pre></td></tr></table></figure>
+<ul>
+<li>relative + float + margin</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">&lt;style&gt;</div><div class="line">	.g-sd2 &#123;</div><div class="line">		position: relative;</div><div class="line">		float: right;</div><div class="line">		width: 230px;</div><div class="line">		margin-left: -230px</div><div class="line">	&#125;</div><div class="line">	.g-mn2 &#123;</div><div class="line">		float: left;</div><div class="line">		width: 100%;</div><div class="line">	&#125;</div><div class="line">	.g-mn2c &#123;</div><div class="line">		margin-right: 240px;</div><div class="line">	&#125;</div><div class="line">&lt;/style&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;div class=&quot;g-mn2&quot;&gt;</div><div class="line">    &lt;div class=&quot;g-mn2c&quot;&gt;</div><div class="line">        &lt;p&gt;左侧自适应&lt;/p&gt;</div><div class="line">    &lt;/div&gt;</div><div class="line">&lt;/div&gt;</div><div class="line">&lt;div class=&quot;g-sd2&quot;&gt;</div><div class="line">    &lt;p&gt;右侧定宽&lt;/p&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure>
+<h2 id="三-等高布局"><a href="#三-等高布局" class="headerlink" title="三. 等高布局"></a>三. 等高布局</h2><ul>
+<li>float + margin-bottom负值</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">&lt;style&gt;</div><div class="line">	.box &#123;</div><div class="line">		width: 800px;</div><div class="line">		overflow: hidden;	/* 搭配使用 */</div><div class="line">		margin: 10px auto;</div><div class="line">	&#125;</div><div class="line">	.l-box &#123;</div><div class="line">		float: left;</div><div class="line">		margin-bottom: -2000px;		/* 搭配使用 */</div><div class="line">		padding-bottom: 2000px;		/* 搭配使用 */</div><div class="line">		width: 300px;</div><div class="line">		background: red;</div><div class="line">	&#125;</div><div class="line">	.r-box &#123;</div><div class="line">		float: left;</div><div class="line">		margin-bottom: -2000px;		/* 搭配使用 */</div><div class="line">		padding-bottom: 2000px;		/* 搭配使用 */</div><div class="line">		width: 500px;</div><div class="line">		background: blue;</div><div class="line">	&#125;</div><div class="line">&lt;/style&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">&lt;div class=&quot;box&quot;&gt;</div><div class="line">   	&lt;div class=&quot;l-box&quot;&gt;</div><div class="line">		左侧左侧左侧左侧&lt;br/&gt;</div><div class="line">		左侧左侧左侧左侧&lt;br/&gt;</div><div class="line">		左侧左侧左侧左侧&lt;br/&gt;</div><div class="line">		左侧左侧左侧左侧&lt;br/&gt;</div><div class="line">   	&lt;/div&gt;</div><div class="line">       &lt;div class=&quot;r-box&quot;&gt;</div><div class="line">       	右侧右侧右侧右侧&lt;br/&gt;</div><div class="line">       	右侧右侧右侧右侧&lt;br/&gt;</div><div class="line">       	右侧右侧右侧右侧&lt;br/&gt;</div><div class="line">       	右侧右侧右侧右侧&lt;br/&gt;</div><div class="line">       	右侧右侧右侧右侧&lt;br/&gt;</div><div class="line">       	右侧右侧右侧右侧&lt;br/&gt;</div><div class="line">       	右侧右侧右侧右侧&lt;br/&gt;</div><div class="line">       	右侧右侧右侧右侧&lt;br/&gt;</div><div class="line">       	右侧右侧右侧右侧&lt;br/&gt;</div><div class="line">       	右侧右侧右侧右侧&lt;br/&gt;</div><div class="line">       	右侧右侧右侧右侧&lt;br/&gt;</div><div class="line">       &lt;/div&gt;</div><div class="line">   &lt;/div&gt;</div></pre></td></tr></table></figure>
+<ul>
+<li>flex</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">&lt;style&gt;</div><div class="line">	.box &#123;</div><div class="line">		display: flex;</div><div class="line">	&#125;</div><div class="line">	.l-box &#123;</div><div class="line">		margin-right: 20px;</div><div class="line">		width: 100px;</div><div class="line">	&#125;</div><div class="line">	.r-box &#123;</div><div class="line">		flex: 1;</div><div class="line">	&#125;</div><div class="line">&lt;/style&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">&lt;div class=&quot;box&quot;&gt;</div><div class="line">   	&lt;div class=&quot;l-box&quot;&gt;</div><div class="line">		左侧左侧左侧左侧&lt;br/&gt;</div><div class="line">		左侧左侧左侧左侧&lt;br/&gt;</div><div class="line">		左侧左侧左侧左侧&lt;br/&gt;</div><div class="line">		左侧左侧左侧左侧&lt;br/&gt;</div><div class="line">   	&lt;/div&gt;</div><div class="line">       &lt;div class=&quot;r-box&quot;&gt;</div><div class="line">       	右侧右侧右侧右侧&lt;br/&gt;</div><div class="line">       	右侧右侧右侧右侧&lt;br/&gt;</div><div class="line">       	右侧右侧右侧右侧&lt;br/&gt;</div><div class="line">       	右侧右侧右侧右侧&lt;br/&gt;</div><div class="line">       	右侧右侧右侧右侧&lt;br/&gt;</div><div class="line">       	右侧右侧右侧右侧&lt;br/&gt;</div><div class="line">       	右侧右侧右侧右侧&lt;br/&gt;</div><div class="line">       	右侧右侧右侧右侧&lt;br/&gt;</div><div class="line">       	右侧右侧右侧右侧&lt;br/&gt;</div><div class="line">       	右侧右侧右侧右侧&lt;br/&gt;</div><div class="line">       	右侧右侧右侧右侧&lt;br/&gt;</div><div class="line">       &lt;/div&gt;</div><div class="line">   &lt;/div&gt;</div></pre></td></tr></table></figure>
+<h2 id="四-多列布局"><a href="#四-多列布局" class="headerlink" title="四. 多列布局"></a>四. 多列布局</h2><h3 id="1-左右定宽，中间自适应"><a href="#1-左右定宽，中间自适应" class="headerlink" title="1. 左右定宽，中间自适应"></a>1. 左右定宽，中间自适应</h3><ul>
+<li>absolute + margin</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">&lt;style&gt;</div><div class="line">	.left &#123;</div><div class="line">		position: absolute;</div><div class="line">		top: 0;</div><div class="line">		left: 0;</div><div class="line">		width: 200px;</div><div class="line">		height: 500px;</div><div class="line">		background: red;</div><div class="line">		color: #fff;</div><div class="line">		font-size: 20px;</div><div class="line">	&#125;</div><div class="line">	.right &#123;</div><div class="line">		position: absolute;</div><div class="line">		top: 0;</div><div class="line">		right: 0;</div><div class="line">		width: 200px;</div><div class="line">		height: 500px;</div><div class="line">		background: red;</div><div class="line">		color: #fff;</div><div class="line">		font-size: 20px;</div><div class="line">	&#125;</div><div class="line">	.content &#123;</div><div class="line">		/* padding: 0 200px; */</div><div class="line">		margin: 0 200px;</div><div class="line">		height: 500px;</div><div class="line">		background: blue;</div><div class="line">		font-size: 20px;</div><div class="line">		color: #fff;</div><div class="line">	&#125;</div><div class="line">&lt;/style&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;div class=&quot;left&quot;&gt;左侧定宽&lt;/div&gt;</div><div class="line">&lt;div class=&quot;content&quot;&gt;中间自适应&lt;/div&gt;</div><div class="line">   &lt;div class=&quot;right&quot;&gt;右侧定宽&lt;/div&gt;</div></pre></td></tr></table></figure>
+<ul>
+<li>relative + float + margin</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">&lt;style&gt;</div><div class="line">	.g-sd51, .g-sd52 &#123;</div><div class="line">		position: relative;</div><div class="line">		float: left;</div><div class="line">		width: 230px;</div><div class="line">		margin: 0 -230px 0 0;</div><div class="line">	&#125;</div><div class="line">	.g-sd52 &#123;</div><div class="line">		float: right;</div><div class="line">		width: 190px;</div><div class="line">		margin: 0 0 0 -190px;</div><div class="line">	&#125;</div><div class="line">	.g-mn5 &#123;</div><div class="line">		float: left;</div><div class="line">		width: 100%;</div><div class="line">	&#125;</div><div class="line">	.g-mn5c &#123;</div><div class="line">		margin: 0 200px 0 240px;</div><div class="line">	&#125;</div><div class="line">&lt;/style&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&lt;div class=&quot;g-sd51&quot;&gt;</div><div class="line">    &lt;p&gt;左侧定宽&lt;/p&gt;</div><div class="line">&lt;/div&gt;</div><div class="line">&lt;div class=&quot;g-mn5&quot;&gt;</div><div class="line">    &lt;div class=&quot;g-mn5c&quot;&gt;</div><div class="line">        &lt;p&gt;中间自适应&lt;/p&gt;</div><div class="line">    &lt;/div&gt;</div><div class="line">&lt;/div&gt;</div><div class="line">&lt;div class=&quot;g-sd52&quot;&gt;</div><div class="line">    &lt;p&gt;右侧定宽&lt;/p&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure>
+<h4 id="圣杯布局"><a href="#圣杯布局" class="headerlink" title="圣杯布局"></a>圣杯布局</h4><ul>
+<li>中间栏放到文档流前面，保证先行渲染</li>
+<li>三栏全部float:left浮动</li>
+<li>中间栏在添加相对定位，并配合left和right属性</li>
+</ul>
+<blockquote>
+<p>效果上表现为三栏是单独分开的</p>
+</blockquote>
+<p><a href="http://www.cnblogs.com/linxiong945/p/4041841.html" target="_blank" rel="external">可参考该篇圣杯的分析过程：【CSS】 布局之圣杯布局</a>)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line">&lt;style&gt;</div><div class="line">	#hd &#123;</div><div class="line">		height: 50px;</div><div class="line">		background: #666;</div><div class="line">		text-align: center;</div><div class="line">	&#125;</div><div class="line">	#bd &#123;</div><div class="line">		/*左右栏通过添加负的margin放到正确的位置了，此段代码是为了摆正中间栏的位置*/</div><div class="line">		padding: 0 200px 0 180px;</div><div class="line">		height: 100px;</div><div class="line">	&#125;</div><div class="line">	#middle &#123;</div><div class="line">		float: left;</div><div class="line">		width: 100%;</div><div class="line">		height: 100px;</div><div class="line">		background: blue;</div><div class="line">	&#125;</div><div class="line">	#left &#123;</div><div class="line">		float: left;</div><div class="line">		width: 180px;</div><div class="line">		height: 100px;</div><div class="line">		margin-left: -100%;  /*左栏上去到第一行*/</div><div class="line">		background: #0c9;</div><div class="line">		position: relative;</div><div class="line">		left: -180px;  /*中间栏的位置摆正之后，左栏的位置也相应右移，通过相对定位的left恢复到正确位置*/</div><div class="line">	&#125;</div><div class="line">	#right &#123;</div><div class="line">		float: left;</div><div class="line">		width: 200px;</div><div class="line">		height: 100px;</div><div class="line">		margin-left: -200px;</div><div class="line">		background: #0c9;</div><div class="line">		position: relative;</div><div class="line">		right: -200px;  /*中间栏的位置摆正之后，右栏的位置也相应左移，通过相对定位的right恢复到正确位置*/</div><div class="line">	&#125;</div><div class="line">	#footer &#123;</div><div class="line">		height: 50px;</div><div class="line">		background: #666;</div><div class="line">		text-align: center;</div><div class="line">	&#125;</div><div class="line">&lt;/style&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;div id=&quot;hd&quot;&gt;header&lt;/div&gt;</div><div class="line">&lt;div id=&quot;bd&quot;&gt;</div><div class="line">  &lt;div id=&quot;middle&quot;&gt;middle&lt;/div&gt;</div><div class="line">  &lt;div id=&quot;left&quot;&gt;left&lt;/div&gt;</div><div class="line">  &lt;div id=&quot;right&quot;&gt;right&lt;/div&gt;</div><div class="line">&lt;/div&gt;</div><div class="line">&lt;div id=&quot;footer&quot;&gt;footer&lt;/div&gt;</div></pre></td></tr></table></figure>
+<h4 id="双飞翼布局"><a href="#双飞翼布局" class="headerlink" title="双飞翼布局"></a>双飞翼布局</h4><ul>
+<li>中间栏放到文档流前面，保证先行渲染</li>
+<li>三栏全部float:left浮动</li>
+<li>在中间栏的div中嵌套一个div，内容写在嵌套的div里，然后对嵌套的div设置margin-left和margin-right</li>
+</ul>
+<blockquote>
+<p>效果上表现为左右两栏在中间栏的上面</p>
+<ul>
+<li><strong>区别</strong>：双飞翼多了1个div，少用大致4个css属性（圣杯布局中间div padding-left和padding-right这2个属性，加上左右两个div用相对布局position: relative及对应的right和left共4个属性，一共6个；而双飞翼布局子div里用margin-left和margin-right共2个属性，6-2=4）<br>作者：吕延庆<br>链接：<a href="https://www.zhihu.com/question/21504052/answer/50053054" target="_blank" rel="external">https://www.zhihu.com/question/21504052/answer/50053054</a><br>来源：知乎<br>著作权归作者所有，转载请联系作者获得授权。</li>
+</ul>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line">&lt;style&gt;</div><div class="line">	#hd &#123;</div><div class="line">		height: 50px;</div><div class="line">		background: #666;</div><div class="line">		text-align: center;</div><div class="line">	&#125;</div><div class="line">	#middle &#123;</div><div class="line">		float: left;</div><div class="line">		width: 100%;</div><div class="line">		height: 100px;</div><div class="line">		background: blue;</div><div class="line">	&#125;</div><div class="line">	#left &#123;</div><div class="line">		float: left;</div><div class="line">		width: 180px;</div><div class="line">		height: 100px;</div><div class="line">		margin-left: -100%;   /*左栏上去到第一行*/</div><div class="line">		background: #0c9;</div><div class="line">	&#125;</div><div class="line">	#right &#123;</div><div class="line">		float: left;</div><div class="line">		width: 200px;</div><div class="line">		height: 100px;</div><div class="line">		margin-left: -200px;</div><div class="line">		background: #0c9;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	/*给内部div添加margin，把内容放到中间栏，其实整个背景还是100%*/</div><div class="line">	#inside &#123;</div><div class="line">		margin: 0 200px 0 180px;</div><div class="line">		height: 100px;</div><div class="line">	&#125;</div><div class="line">	#footer &#123;</div><div class="line">		clear: both; /*记得清除浮动*/</div><div class="line">		height: 50px;</div><div class="line">		background: #666;</div><div class="line">		text-align: center;</div><div class="line">	&#125;</div><div class="line">&lt;/style&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;div id=&quot;hd&quot;&gt;header&lt;/div&gt;</div><div class="line">&lt;div id=&quot;middle&quot;&gt;</div><div class="line">	&lt;div id=&quot;inside&quot;&gt;middle&lt;/div&gt;</div><div class="line">&lt;/div&gt;</div><div class="line">&lt;div id=&quot;left&quot;&gt;left&lt;/div&gt;</div><div class="line">&lt;div id=&quot;right&quot;&gt;right&lt;/div&gt;</div><div class="line">&lt;div id=&quot;footer&quot;&gt;footer&lt;/div&gt;</div></pre></td></tr></table></figure>
+<h3 id="2-左侧自适应，中间右侧定宽"><a href="#2-左侧自适应，中间右侧定宽" class="headerlink" title="2. 左侧自适应，中间右侧定宽"></a>2. 左侧自适应，中间右侧定宽</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">&lt;style&gt;</div><div class="line">	.g-sd41, .g-sd42 &#123;</div><div class="line">		position: relative;</div><div class="line">		float: right;</div><div class="line">		width: 190px;</div><div class="line">	&#125;</div><div class="line">	.g-sd41 &#123;</div><div class="line">		width: 230px;</div><div class="line">		margin-left: 10px;</div><div class="line">	&#125;</div><div class="line">	.g-mn4 &#123;</div><div class="line">		float: left;</div><div class="line">		width: 100%;</div><div class="line">		margin-right: -430px;</div><div class="line">	&#125;</div><div class="line">	.g-mn4c &#123;</div><div class="line">		margin-right: 440px;</div><div class="line">	&#125;</div><div class="line">&lt;/style&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&lt;div class=&quot;g-mn4&quot;&gt;</div><div class="line">    &lt;div class=&quot;g-mn4c&quot;&gt;</div><div class="line">        &lt;p&gt;左侧自适应&lt;/p&gt;</div><div class="line">    &lt;/div&gt;</div><div class="line">&lt;/div&gt;</div><div class="line">&lt;div class=&quot;g-sd41&quot;&gt;</div><div class="line">    &lt;p&gt;中间定宽&lt;/p&gt;</div><div class="line">&lt;/div&gt;</div><div class="line">&lt;div class=&quot;g-sd42&quot;&gt;</div><div class="line">    &lt;p&gt;右侧定宽&lt;/p&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure>
+<h3 id="3-右侧自适应，中间左侧定宽"><a href="#3-右侧自适应，中间左侧定宽" class="headerlink" title="3. 右侧自适应，中间左侧定宽"></a>3. 右侧自适应，中间左侧定宽</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">&lt;style&gt;</div><div class="line">	.g-sd31, .g-sd32 &#123;</div><div class="line">		position: relative;</div><div class="line">		float: left;</div><div class="line">		width: 230px;</div><div class="line">	&#125;</div><div class="line">	.g-sd31 &#123;</div><div class="line">		width: 190px;</div><div class="line">		margin-right: 10px;</div><div class="line">	&#125;</div><div class="line">	.g-mn3 &#123;</div><div class="line">		float: right;</div><div class="line">		width: 100%;</div><div class="line">		margin-left: -430px;</div><div class="line">	&#125;</div><div class="line">	.g-mn3c &#123;</div><div class="line">		margin-left: 440px;</div><div class="line">	&#125;</div><div class="line">&lt;/style&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&lt;div class=&quot;g-sd31&quot;&gt;</div><div class="line">    &lt;p&gt;左侧定宽&lt;/p&gt;</div><div class="line">&lt;/div&gt;</div><div class="line">&lt;div class=&quot;g-sd32&quot;&gt;</div><div class="line">    &lt;p&gt;中间定宽&lt;/p&gt;</div><div class="line">&lt;/div&gt;</div><div class="line">&lt;div class=&quot;g-mn3&quot;&gt;</div><div class="line">    &lt;div class=&quot;g-mn3c&quot;&gt;</div><div class="line">        &lt;p&gt;右侧自适应&lt;/p&gt;</div><div class="line">    &lt;/div&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure>
+<h2 id="五-图片绝对居中"><a href="#五-图片绝对居中" class="headerlink" title="五. 图片绝对居中"></a>五. 图片绝对居中</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">&lt;style&gt;</div><div class="line">	.box &#123;</div><div class="line">		width: 500px;</div><div class="line">		height: 600px;</div><div class="line">		margin: 10px auto;</div><div class="line">		border: 1px solid red;</div><div class="line">		text-align: center;</div><div class="line">	&#125;</div><div class="line">	.box img &#123;</div><div class="line">		vertical-align: middle;</div><div class="line">	&#125;</div><div class="line">	.box span &#123;</div><div class="line">		display: inline-block;</div><div class="line">		height: 100%;</div><div class="line">		vertical-align: middle;</div><div class="line">	&#125;</div><div class="line">&lt;/style&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;div class=&quot;box&quot;&gt;</div><div class="line">	&lt;img src=&quot;img/xxx.png&quot; alt=&quot;&quot;/&gt;</div><div class="line">    &lt;span&gt;&lt;/span&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure>
+<h3 id="图片居中溢出隐藏"><a href="#图片居中溢出隐藏" class="headerlink" title="图片居中溢出隐藏"></a>图片居中溢出隐藏</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">&lt;style&gt;</div><div class="line">	.m-demo &#123;</div><div class="line">		position: relative;</div><div class="line">		width: 300px;</div><div class="line">		height: 300px;</div><div class="line">		overflow: hidden;</div><div class="line">		border: 1px solid #ddd;</div><div class="line">	&#125;</div><div class="line">	.m-demo p &#123;</div><div class="line">		position: absolute;</div><div class="line">		top: 50%;</div><div class="line">		left: 50%;</div><div class="line">		margin: 0;</div><div class="line">		padding: 0;</div><div class="line">	&#125;</div><div class="line">	.m-demo img &#123;</div><div class="line">		position: absolute;</div><div class="line">		top: -50%;</div><div class="line">		left: -50%;</div><div class="line">		display: block;</div><div class="line">	&#125;</div><div class="line">	.m-demo img.hidden &#123;</div><div class="line">		visibility: hidden;</div><div class="line">		position: static;</div><div class="line">	&#125;</div><div class="line">&lt;/style&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">&lt;div class=&quot;m-demo&quot;&gt;</div><div class="line">    &lt;p&gt;</div><div class="line">        &lt;img src=&quot;http://nec.netease.com/img/s/1.jpg&quot; class=&quot;hidden&quot;/&gt;</div><div class="line">        &lt;img src=&quot;http://nec.netease.com/img/s/1.jpg&quot; alt=&quot;&quot;/&gt;</div><div class="line">    &lt;/p&gt;</div><div class="line">&lt;/div&gt;</div><div class="line">&lt;div class=&quot;m-demo&quot;&gt;</div><div class="line">    &lt;p&gt;</div><div class="line">        &lt;img src=&quot;http://nec.netease.com/img/m/1.jpg&quot; class=&quot;hidden&quot;/&gt;</div><div class="line">        &lt;img src=&quot;http://nec.netease.com/img/m/1.jpg&quot; alt=&quot;&quot;/&gt;</div><div class="line">    &lt;/p&gt;</div><div class="line">&lt;/div&gt;</div><div class="line">&lt;div class=&quot;m-demo&quot;&gt;</div><div class="line">    &lt;p&gt;</div><div class="line">        &lt;img src=&quot;http://nec.netease.com/img/l/1.jpg&quot; class=&quot;hidden&quot;/&gt;</div><div class="line">        &lt;img src=&quot;http://nec.netease.com/img/l/1.jpg&quot; alt=&quot;&quot;/&gt;</div><div class="line">    &lt;/p&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure>
+<h2 id="六-两列三列自适应"><a href="#六-两列三列自适应" class="headerlink" title="六. 两列三列自适应"></a>六. 两列三列自适应</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div></pre></td><td class="code"><pre><div class="line">&lt;style&gt;</div><div class="line">	/* 两列布局  主列左 侧列右 */</div><div class="line">	.g-mn1 &#123;</div><div class="line">		float: left;</div><div class="line">		width: 100%;</div><div class="line">		margin-right: -200px;</div><div class="line">	&#125;</div><div class="line">	.g-mnc1 &#123;</div><div class="line">		margin-right: 210px;</div><div class="line">	&#125;</div><div class="line">	.g-sd1 &#123;</div><div class="line">		float: right;</div><div class="line">		width: 200px;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	/* 两列布局  主列右 侧列左*/</div><div class="line">	.g-mn2 &#123;</div><div class="line">		float: right;</div><div class="line">		width: 100%;</div><div class="line">		margin-left: -200px;</div><div class="line">	&#125;</div><div class="line">	.g-mnc2 &#123;</div><div class="line">		margin-left: 210px;</div><div class="line">	&#125;</div><div class="line">	.g-sd2 &#123;</div><div class="line">		float: left;</div><div class="line">		width: 200px;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	/* 三列布局  主列右 两侧列左*/</div><div class="line">	.g-mn3 &#123;</div><div class="line">		float: right;</div><div class="line">		width: 100%;</div><div class="line">		margin-left: -520px;</div><div class="line">	&#125;</div><div class="line">	.g-mnc3 &#123;</div><div class="line">		margin-left: 520px;</div><div class="line">	&#125;</div><div class="line">	.g-sd3a &#123;</div><div class="line">		float: left;</div><div class="line">		width: 300px;</div><div class="line">		margin-right: 10px;</div><div class="line">	&#125;</div><div class="line">	.g-sd3b &#123;</div><div class="line">		float: left;</div><div class="line">		width: 200px;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	/* 三列布局  主列中 两侧列分居左右*/</div><div class="line">	.g-mn4 &#123;</div><div class="line">		float: right;</div><div class="line">		width: 100%;</div><div class="line">		margin-left: -200px;</div><div class="line">	&#125;</div><div class="line">	.g-mnc4 &#123;</div><div class="line">		margin-left: 210px;</div><div class="line">	&#125;</div><div class="line">	.g-sd4 &#123;</div><div class="line">		float: left;</div><div class="line">		width: 200px;</div><div class="line">	&#125;</div><div class="line">	.g-mn5 &#123;</div><div class="line">		float: left;</div><div class="line">		width: 100%;</div><div class="line">		margin-right: -200px;</div><div class="line">	&#125;</div><div class="line">	.g-mnc5 &#123;</div><div class="line">		margin-right: 210px;</div><div class="line">	&#125;</div><div class="line">	.g-sd5 &#123;</div><div class="line">		float: right;</div><div class="line">		width: 200px;</div><div class="line">	&#125;</div><div class="line">&lt;/style&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div></pre></td><td class="code"><pre><div class="line">&lt;div class=&quot;g-bd&quot;&gt;</div><div class="line">    &lt;div class=&quot;g-mn1&quot;&gt;</div><div class="line">        &lt;div class=&quot;g-mnc1&quot;&gt;</div><div class="line">            &lt;p&gt;主列1内容区&lt;/p&gt;</div><div class="line">        &lt;/div&gt;</div><div class="line">    &lt;/div&gt;</div><div class="line">    &lt;div class=&quot;g-sd1&quot;&gt;</div><div class="line">        &lt;p&gt;侧列1内容区&lt;/p&gt;</div><div class="line">    &lt;/div&gt;</div><div class="line">&lt;/div&gt;</div><div class="line">&lt;div class=&quot;g-bd&quot;&gt;</div><div class="line">    &lt;div class=&quot;g-mn2&quot;&gt;</div><div class="line">        &lt;div class=&quot;g-mnc2&quot;&gt;</div><div class="line">            &lt;p&gt;主列2内容区&lt;/p&gt;</div><div class="line">        &lt;/div&gt;</div><div class="line">    &lt;/div&gt;</div><div class="line">    &lt;div class=&quot;g-sd2&quot;&gt;</div><div class="line">        &lt;p&gt;侧列2内容区&lt;/p&gt;</div><div class="line">    &lt;/div&gt;</div><div class="line">&lt;/div&gt;</div><div class="line">&lt;div class=&quot;g-bd&quot;&gt;</div><div class="line">    &lt;div class=&quot;g-mn3&quot;&gt;</div><div class="line">        &lt;div class=&quot;g-mnc3&quot;&gt;</div><div class="line">            &lt;p&gt;主列3内容区&lt;/p&gt;</div><div class="line">        &lt;/div&gt;</div><div class="line">    &lt;/div&gt;</div><div class="line">    &lt;div class=&quot;g-sd3a&quot;&gt;</div><div class="line">        &lt;p&gt;侧列a内容区&lt;/p&gt;</div><div class="line">    &lt;/div&gt;</div><div class="line">    &lt;div class=&quot;g-sd3b&quot;&gt;</div><div class="line">        &lt;p&gt;侧列b内容区&lt;/p&gt;</div><div class="line">    &lt;/div&gt;</div><div class="line">&lt;/div&gt;</div><div class="line">&lt;div class=&quot;g-bd&quot;&gt;</div><div class="line">    &lt;div class=&quot;g-mn4&quot;&gt;</div><div class="line">        &lt;div class=&quot;g-mnc4&quot;&gt;</div><div class="line">            &lt;div class=&quot;g-mn5&quot;&gt;</div><div class="line">                &lt;div class=&quot;g-mnc5&quot;&gt;</div><div class="line">                    &lt;p&gt;主列5内容区&lt;/p&gt;</div><div class="line">                &lt;/div&gt;</div><div class="line">            &lt;/div&gt;</div><div class="line">            &lt;div class=&quot;g-sd5&quot;&gt;</div><div class="line">                &lt;p&gt;侧列5内容区&lt;/p&gt;</div><div class="line">            &lt;/div&gt;</div><div class="line">        &lt;/div&gt;</div><div class="line">    &lt;/div&gt;</div><div class="line">    &lt;div class=&quot;g-sd4&quot;&gt;</div><div class="line">        &lt;p&gt;侧列4内容区&lt;/p&gt;</div><div class="line">    &lt;/div&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure>
+<h2 id="七-全屏自适应"><a href="#七-全屏自适应" class="headerlink" title="七. 全屏自适应"></a>七. 全屏自适应</h2><ul>
+<li>absolute</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line">&lt;style&gt;</div><div class="line">	html, body &#123;</div><div class="line">		width: 100%;</div><div class="line">		height: 100%;</div><div class="line">		overflow: hidden;</div><div class="line">		margin: 0;</div><div class="line">	&#125;</div><div class="line">	html &#123;</div><div class="line">		_height: auto;</div><div class="line">		_padding: 100px 0 50px;</div><div class="line">	&#125;</div><div class="line">	.g-hd, .g-sd, .g-mn, .g-ft &#123;</div><div class="line">		position: absolute;</div><div class="line">		left: 0;</div><div class="line">	&#125;</div><div class="line">	.g-hd, .g-ft &#123;</div><div class="line">		width: 100%;</div><div class="line">	&#125;</div><div class="line">	.g-sd, .g-mn &#123;</div><div class="line">		top: 100px;</div><div class="line">		bottom: 50px;</div><div class="line">		_height: 100%;</div><div class="line">		overflow: auto;</div><div class="line">	&#125;</div><div class="line">	.g-hd &#123;</div><div class="line">		top: 0;</div><div class="line">		height: 100px;</div><div class="line">	&#125;</div><div class="line">	.g-sd &#123;</div><div class="line">		width: 300px;</div><div class="line">	&#125;</div><div class="line">	.g-mn &#123;</div><div class="line">		_position: relative;</div><div class="line">		left: 300px;</div><div class="line">		right: 0;</div><div class="line">		_top: 0;</div><div class="line">		_left: 0;</div><div class="line">		_margin-left: 300px;</div><div class="line">	&#125;</div><div class="line">	.g-ft &#123;</div><div class="line">		bottom: 0;</div><div class="line">		height: 50px;</div><div class="line">	&#125;</div><div class="line">&lt;/style&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">&lt;div class=&quot;g-hd&quot;&gt;</div><div class="line">    顶部</div><div class="line">&lt;/div&gt;</div><div class="line">&lt;div class=&quot;g-sd&quot;&gt;</div><div class="line">    内容左侧</div><div class="line">&lt;/div&gt;</div><div class="line">&lt;div class=&quot;g-mn&quot;&gt;</div><div class="line">    内容右侧</div><div class="line">&lt;/div&gt;</div><div class="line">&lt;div class=&quot;g-ft&quot;&gt;</div><div class="line">    底部</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure>
+<ul>
+<li>flex</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">&lt;style&gt;</div><div class="line">	html, body, .wrapper &#123;</div><div class="line">		height: 100%;</div><div class="line">		overflow: hidden;</div><div class="line">	&#125;</div><div class="line">	.wrapper &#123;</div><div class="line">		display: flex;</div><div class="line">		flex-direction: column;</div><div class="line">	&#125;</div><div class="line">	.g-hd &#123;</div><div class="line">		height: 100px;</div><div class="line">	&#125;</div><div class="line">	.g-ft &#123;</div><div class="line">		height: 50px;</div><div class="line">	&#125;</div><div class="line">	.g-md &#123;</div><div class="line">		flex: 1;</div><div class="line">		display: flex;</div><div class="line">	&#125;</div><div class="line">	.g-md .g-sd &#123;</div><div class="line">		width: 200px;</div><div class="line">	&#125;</div><div class="line">	.g-md .g-mn &#123;</div><div class="line">		flex: 1;</div><div class="line">		overflow: auto;</div><div class="line">	&#125;</div><div class="line">&lt;/style&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">&lt;div class=&quot;wrapper&quot;&gt;</div><div class="line">	&lt;div class=&quot;g-hd&quot;&gt;</div><div class="line">	    顶部</div><div class="line">	&lt;/div&gt;</div><div class="line">	&lt;div class=&quot;g-md&quot;&gt;</div><div class="line">		&lt;div class=&quot;g-sd&quot;&gt;</div><div class="line">		    内容左侧</div><div class="line">		&lt;/div&gt;</div><div class="line">		&lt;div class=&quot;g-mn&quot;&gt;</div><div class="line">		    内容右侧</div><div class="line">		&lt;/div&gt;</div><div class="line">	&lt;/div&gt;</div><div class="line">	&lt;div class=&quot;g-ft&quot;&gt;</div><div class="line">	    底部</div><div class="line">	&lt;/div&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure>
+<h2 id="八-底部显示自适应"><a href="#八-底部显示自适应" class="headerlink" title="八. 底部显示自适应"></a>八. 底部显示自适应</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">&lt;style&gt;</div><div class="line">	html, body &#123;</div><div class="line">		width: 100%;</div><div class="line">		height: 100%;</div><div class="line">		margin: 0;</div><div class="line">	&#125;</div><div class="line">	.g-doc &#123;</div><div class="line">		position: relative;</div><div class="line">		min-height: 100%;</div><div class="line">		_height: 100%;</div><div class="line">	&#125;</div><div class="line">	.g-bd &#123;</div><div class="line">		padding: 0 0 60px;</div><div class="line">		zoom: 1;</div><div class="line">	&#125;</div><div class="line">	.g-ft &#123;</div><div class="line">		height: 50px;</div><div class="line">		margin: -50px 0 0;</div><div class="line">		background: #ddd;</div><div class="line">	&#125;</div><div class="line">&lt;/style&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">&lt;div class=&quot;g-doc&quot;&gt;</div><div class="line">    &lt;div class=&quot;g-bd&quot;&gt;</div><div class="line">        &lt;p&gt;请增加或减少内容，或改变窗口大小，以便查看效果。&lt;/p&gt;</div><div class="line">        &lt;p&gt;请增加或减少内容，或改变窗口大小，以便查看效果。&lt;/p&gt;</div><div class="line">        &lt;p&gt;请增加或减少内容，或改变窗口大小，以便查看效果。&lt;/p&gt;</div><div class="line">        &lt;p&gt;请增加或减少内容，或改变窗口大小，以便查看效果。&lt;/p&gt;</div><div class="line">        &lt;p&gt;请增加或减少内容，或改变窗口大小，以便查看效果。&lt;/p&gt;</div><div class="line">    &lt;/div&gt;</div><div class="line">&lt;/div&gt;</div><div class="line">&lt;div class=&quot;g-ft&quot;&gt;</div><div class="line">    &lt;p&gt;底部始终在文档末尾，当文档较长时跟随在文档末尾，当文档较短时在窗口底部。&lt;/p&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure>
+<h2 id="九-前自适应后跟随"><a href="#九-前自适应后跟随" class="headerlink" title="九. 前自适应后跟随"></a>九. 前自适应后跟随</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">&lt;style&gt;</div><div class="line">	.m-demo &#123;</div><div class="line">		padding: 5px 0;</div><div class="line">		border-bottom: 1px dotted #ddd;</div><div class="line">		font-size: 12px;</div><div class="line">	&#125;</div><div class="line">	.m-demo .cnt &#123;</div><div class="line">		float: left;</div><div class="line">		margin-right: 80px;</div><div class="line">	&#125;</div><div class="line">	.m-demo .date &#123;</div><div class="line">		display: inline;</div><div class="line">		float: left;</div><div class="line">		margin-left: -70px;</div><div class="line">	&#125;</div><div class="line">&lt;/style&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;div class=&quot;m-demo f-cb&quot;&gt;</div><div class="line">    &lt;div class=&quot;cnt&quot;&gt;这是一段长度未知的文本，自动换行，且不会把右边的时间挤掉，修改这段文字长度或改变窗口宽度试试。&lt;/div&gt;</div><div class="line">    &lt;div class=&quot;date&quot;&gt;2009-08-08&lt;/div&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure>
+<h2 id="十-图文问题"><a href="#十-图文问题" class="headerlink" title="十. 图文问题"></a>十. 图文问题</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div></pre></td><td class="code"><pre><div class="line">&lt;style&gt;</div><div class="line">	/* 左图右文  */</div><div class="line">	.m-demo:after, .m-demo li .cnt:after &#123;</div><div class="line">		display: block;</div><div class="line">		clear: both;</div><div class="line">		visibility: hidden;</div><div class="line">		height: 0;</div><div class="line">		overflow: hidden;</div><div class="line">		content: &quot;.&quot;;</div><div class="line">	&#125;</div><div class="line">	.m-demo, .m-demo li .cnt &#123;</div><div class="line">		zoom: 1;</div><div class="line">	&#125;</div><div class="line">	.m-demo &#123;</div><div class="line">		width: 640px;</div><div class="line">		margin: 0 0 1em;</div><div class="line">		overflow: hidden;</div><div class="line">		background: #dfedf0;</div><div class="line">	&#125;</div><div class="line">	.m-demo ul &#123;</div><div class="line">		padding: 0;</div><div class="line">		margin: -11px 0 -10px;</div><div class="line">	&#125;</div><div class="line">	.m-demo li &#123;</div><div class="line">		padding: 10px 0;</div><div class="line">		border-top: 1px dashed #999;</div><div class="line">	&#125;</div><div class="line">	.m-demo .img &#123;</div><div class="line">		float: left;</div><div class="line">		width: 100px;</div><div class="line">		height: 100px;</div><div class="line">		padding: 5px;</div><div class="line">		border: 1px solid #ccc;</div><div class="line">		margin-right: -112px;</div><div class="line">		background: #eee;</div><div class="line">	&#125;</div><div class="line">	.m-demo .img img, .m-demo .img a &#123;</div><div class="line">		display: block;</div><div class="line">		width: 100px;</div><div class="line">		height: 100px;</div><div class="line">	&#125;</div><div class="line">	.m-demo .txt &#123;</div><div class="line">		line-height: 18px;</div><div class="line">		color: #666;</div><div class="line">		margin-left: 122px;</div><div class="line">	&#125;</div><div class="line">	.m-demo .txt h3 &#123;</div><div class="line">		margin: 0 0 3px;</div><div class="line">		font-size: 14px;</div><div class="line">	&#125;</div><div class="line">	.m-demo .txt a, .m-demo .txt a:hover &#123;</div><div class="line">		color: #f60;</div><div class="line">	&#125;</div><div class="line">	.m-demo .txt p &#123;</div><div class="line">		font-size: 12px;</div><div class="line">		margin: 0;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	/* 左图右文列表 */</div><div class="line">	.m-demo-1 ul &#123;</div><div class="line">		margin: -21px 0 0 -20px;</div><div class="line">	&#125;</div><div class="line">	.m-demo-1 li &#123;</div><div class="line">		float: left;</div><div class="line">		display: inline;</div><div class="line">		width: 200px;</div><div class="line">		overflow: hidden;</div><div class="line">		margin: 1px 0 -11px;</div><div class="line">		padding: 20px 0 10px 20px;</div><div class="line">		border-top: none;</div><div class="line">		border-bottom: 1px dashed #999;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	/* 上图下文列表 */</div><div class="line">	.m-demo-2 ul &#123;</div><div class="line">		margin: -20px 0 0 -20px;</div><div class="line">	&#125;</div><div class="line">	.m-demo-2 li &#123;</div><div class="line">		float: left;</div><div class="line">		display: inline;</div><div class="line">		width: 112px;</div><div class="line">		padding: 0;</div><div class="line">		border: none;</div><div class="line">		margin: 20px 0 0 20px;</div><div class="line">		overflow: hidden;</div><div class="line">	&#125;</div><div class="line">	.m-demo-2 .img &#123;</div><div class="line">		float: none;</div><div class="line">	&#125;</div><div class="line">	.m-demo-2 .txt &#123;</div><div class="line">		margin: 6px 0 0 0;</div><div class="line">	&#125;</div><div class="line">&lt;/style&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div></pre></td><td class="code"><pre><div class="line">&lt;div class=&quot;m-demo&quot;&gt;</div><div class="line">    &lt;ul&gt;</div><div class="line">       &lt;li&gt;</div><div class="line">            &lt;div class=&quot;cnt&quot;&gt;</div><div class="line">                &lt;div class=&quot;img&quot;&gt;&lt;a href=&quot;#&quot;&gt;&lt;img src=&quot;http://nec.netease.com/img/s/3.jpg&quot;&gt;&lt;/a&gt;&lt;/div&gt;</div><div class="line">                &lt;div class=&quot;txt&quot;&gt;</div><div class="line">                    &lt;h3&gt;&lt;a href=&quot;#&quot;&gt;标题标题标题标题&lt;/a&gt;&lt;/h3&gt;</div><div class="line">                    &lt;p&gt;左图右文左图右文左图右文左图右文左图右文左图右文左图右文左图右文左图右文左图右文左图右文左图右文左图右文左图右文左图右文左图右文左图右文左图右文左图右文&lt;/p&gt;</div><div class="line">                &lt;/div&gt;</div><div class="line">            &lt;/div&gt;</div><div class="line">        &lt;/li&gt;</div><div class="line">        &lt;li&gt;</div><div class="line">            &lt;div class=&quot;cnt&quot;&gt;</div><div class="line">                &lt;div class=&quot;img&quot;&gt;&lt;a href=&quot;#&quot;&gt;&lt;img src=&quot;http://nec.netease.com/img/s/3.jpg&quot;&gt;&lt;/a&gt;&lt;/div&gt;</div><div class="line">                &lt;div class=&quot;txt&quot;&gt;</div><div class="line">                    &lt;h3&gt;&lt;a href=&quot;#&quot;&gt;标题标题标题标题&lt;/a&gt;&lt;/h3&gt;</div><div class="line">                    &lt;p&gt;左图右文左图右文左图右文左图右文左图右文左图右文左图右文左图右文左图右文左图右文左图右文左图右文左图右文左图右文左图右文左图右文左图右文左图右文左图右文&lt;/p&gt;</div><div class="line">                &lt;/div&gt;</div><div class="line">            &lt;/div&gt;</div><div class="line">        &lt;/li&gt; </div><div class="line">    &lt;/ul&gt;</div><div class="line">&lt;/div&gt;</div><div class="line">&lt;div class=&quot;m-demo m-demo-1&quot;&gt;</div><div class="line">    &lt;ul&gt;</div><div class="line">        &lt;li&gt;</div><div class="line">            &lt;div class=&quot;cnt&quot;&gt;</div><div class="line">                &lt;div class=&quot;img&quot;&gt;&lt;a href=&quot;#&quot;&gt;&lt;img src=&quot;http://nec.netease.com/img/s/3.jpg&quot;&gt;&lt;/a&gt;&lt;/div&gt;</div><div class="line">                &lt;div class=&quot;txt&quot;&gt;</div><div class="line">                    &lt;h3&gt;&lt;a href=&quot;#&quot;&gt;标题标题标题标题&lt;/a&gt;&lt;/h3&gt;</div><div class="line">                    &lt;p&gt;左图右文列表左图右文列表左图右文列表左图右文列表左图右文列表&lt;/p&gt;</div><div class="line">                &lt;/div&gt;</div><div class="line">            &lt;/div&gt;</div><div class="line">        &lt;/li&gt;</div><div class="line">        &lt;li&gt;</div><div class="line">            &lt;div class=&quot;cnt&quot;&gt;</div><div class="line">                &lt;div class=&quot;img&quot;&gt;&lt;a href=&quot;#&quot;&gt;&lt;img src=&quot;http://nec.netease.com/img/s/3.jpg&quot;&gt;&lt;/a&gt;&lt;/div&gt;</div><div class="line">                &lt;div class=&quot;txt&quot;&gt;</div><div class="line">                    &lt;h3&gt;&lt;a href=&quot;#&quot;&gt;标题标题标题标题&lt;/a&gt;&lt;/h3&gt;</div><div class="line">                    &lt;p&gt;左图右文列表左图右文列表左图右文列表左图右文列表左图右文列表&lt;/p&gt;</div><div class="line">                &lt;/div&gt;</div><div class="line">            &lt;/div&gt;</div><div class="line">        &lt;/li&gt;</div><div class="line">        &lt;li&gt;</div><div class="line">            &lt;div class=&quot;cnt&quot;&gt;</div><div class="line">                &lt;div class=&quot;img&quot;&gt;&lt;a href=&quot;#&quot;&gt;&lt;img src=&quot;http://nec.netease.com/img/s/3.jpg&quot;&gt;&lt;/a&gt;&lt;/div&gt;</div><div class="line">                &lt;div class=&quot;txt&quot;&gt;</div><div class="line">                    &lt;h3&gt;&lt;a href=&quot;#&quot;&gt;标题标题标题标题&lt;/a&gt;&lt;/h3&gt;</div><div class="line">                    &lt;p&gt;左图右文列表左图右文列表左图右文列表左图右文列表左图右文列表&lt;/p&gt;</div><div class="line">                &lt;/div&gt;</div><div class="line">            &lt;/div&gt;</div><div class="line">        &lt;/li&gt;</div><div class="line">    &lt;/ul&gt;</div><div class="line">&lt;/div&gt;</div><div class="line">&lt;div class=&quot;m-demo m-demo-2&quot;&gt;</div><div class="line">    &lt;ul&gt;</div><div class="line">        &lt;li&gt;</div><div class="line">            &lt;div class=&quot;cnt&quot;&gt;</div><div class="line">                &lt;div class=&quot;img&quot;&gt;&lt;a href=&quot;#&quot;&gt;&lt;img src=&quot;http://nec.netease.com/img/s/3.jpg&quot;&gt;&lt;/a&gt;&lt;/div&gt;</div><div class="line">                &lt;div class=&quot;txt&quot;&gt;</div><div class="line">                    &lt;h3&gt;&lt;a href=&quot;#&quot;&gt;标题标题标题&lt;/a&gt;&lt;/h3&gt;</div><div class="line">                    &lt;p&gt;上图下文列表上图下文列表上图下文列表上图下文列表&lt;/p&gt;</div><div class="line">                &lt;/div&gt;</div><div class="line">            &lt;/div&gt;</div><div class="line">        &lt;/li&gt;</div><div class="line">        &lt;li&gt;</div><div class="line">            &lt;div class=&quot;cnt&quot;&gt;</div><div class="line">                &lt;div class=&quot;img&quot;&gt;&lt;a href=&quot;#&quot;&gt;&lt;img src=&quot;http://nec.netease.com/img/s/3.jpg&quot;&gt;&lt;/a&gt;&lt;/div&gt;</div><div class="line">                &lt;div class=&quot;txt&quot;&gt;</div><div class="line">                    &lt;h3&gt;&lt;a href=&quot;#&quot;&gt;标题标题标题&lt;/a&gt;&lt;/h3&gt;</div><div class="line">                    &lt;p&gt;上图下文列表上图下文列表上图下文列表&lt;/p&gt;</div><div class="line">                &lt;/div&gt;</div><div class="line">            &lt;/div&gt;</div><div class="line">        &lt;/li&gt;</div><div class="line">        &lt;li&gt;</div><div class="line">            &lt;div class=&quot;cnt&quot;&gt;</div><div class="line">                &lt;div class=&quot;img&quot;&gt;&lt;a href=&quot;#&quot;&gt;&lt;img src=&quot;http://nec.netease.com/img/s/3.jpg&quot;&gt;&lt;/a&gt;&lt;/div&gt;</div><div class="line">                &lt;div class=&quot;txt&quot;&gt;</div><div class="line">                    &lt;h3&gt;&lt;a href=&quot;#&quot;&gt;标题标题标题&lt;/a&gt;&lt;/h3&gt;</div><div class="line">                    &lt;p&gt;上图下文列表上图下文列表上图下文列表上图下文列表&lt;/p&gt;</div><div class="line">                &lt;/div&gt;</div><div class="line">            &lt;/div&gt;</div><div class="line">        &lt;/li&gt;</div><div class="line">        &lt;li&gt;</div><div class="line">            &lt;div class=&quot;cnt&quot;&gt;</div><div class="line">                &lt;div class=&quot;img&quot;&gt;&lt;a href=&quot;#&quot;&gt;&lt;img src=&quot;http://nec.netease.com/img/s/3.jpg&quot;&gt;&lt;/a&gt;&lt;/div&gt;</div><div class="line">                &lt;div class=&quot;txt&quot;&gt;</div><div class="line">                    &lt;h3&gt;&lt;a href=&quot;#&quot;&gt;标题标题标题&lt;/a&gt;&lt;/h3&gt;</div><div class="line">                    &lt;p&gt;上图下文列表上图下文列表上图下文列表上图下文列表上图下文列表上图下文列表上图下文列表&lt;/p&gt;</div><div class="line">                &lt;/div&gt;</div><div class="line">            &lt;/div&gt;</div><div class="line">        &lt;/li&gt;</div><div class="line">        &lt;li&gt;</div><div class="line">            &lt;div class=&quot;cnt&quot;&gt;</div><div class="line">                &lt;div class=&quot;img&quot;&gt;&lt;a href=&quot;#&quot;&gt;&lt;img src=&quot;http://nec.netease.com/img/s/3.jpg&quot;&gt;&lt;/a&gt;&lt;/div&gt;</div><div class="line">                &lt;div class=&quot;txt&quot;&gt;</div><div class="line">                    &lt;h3&gt;&lt;a href=&quot;#&quot;&gt;标题标题标题&lt;/a&gt;&lt;/h3&gt;</div><div class="line">                    &lt;p&gt;上图下文列表上图下文列表上图下文列表上图下文列表上图下文列表&lt;/p&gt;</div><div class="line">                &lt;/div&gt;</div><div class="line">            &lt;/div&gt;</div><div class="line">        &lt;/li&gt;</div><div class="line">    &lt;/ul&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure>
+<h2 id="十一-表头固定内容滚动"><a href="#十一-表头固定内容滚动" class="headerlink" title="十一. 表头固定内容滚动"></a>十一. 表头固定内容滚动</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div></pre></td><td class="code"><pre><div class="line">&lt;style&gt;</div><div class="line">	.m-demo &#123;</div><div class="line">		margin: 0 0 20px;</div><div class="line">		line-height: 18px;</div><div class="line">	&#125;</div><div class="line">	.m-demo .scroll &#123;</div><div class="line">		max-height: 116px;</div><div class="line">		border: 1px solid #ddd;</div><div class="line">		border-top: 0;</div><div class="line">		overflow-y: auto;</div><div class="line">	&#125;</div><div class="line">	.m-demo table &#123;</div><div class="line">		width: 100%;</div><div class="line">		table-layout: fixed;</div><div class="line">	&#125;</div><div class="line">	.m-demo th, .m-demo td &#123;</div><div class="line">		width: 100px;</div><div class="line">		padding: 10px;</div><div class="line">		border: 1px solid #ddd;</div><div class="line">	&#125;</div><div class="line">	.m-demo th &#123;</div><div class="line">		font-weight: bold;</div><div class="line">		background: #eee;</div><div class="line">	&#125;</div><div class="line">	.m-demo thead th:last-child, .m-demo tbody td:last-child &#123;</div><div class="line">		width: auto;</div><div class="line">	&#125;</div><div class="line">	.m-demo tbody tr:nth-child(2n) &#123;</div><div class="line">		background: #fafafa;</div><div class="line">	&#125;</div><div class="line">	.m-demo tbody tr:first-child td &#123;</div><div class="line">		border-top: 0;</div><div class="line">	&#125;</div><div class="line">	.m-demo tbody tr:last-child td &#123;</div><div class="line">		border-bottom: 0;</div><div class="line">	&#125;</div><div class="line">	.m-demo tbody tr td:first-child &#123;</div><div class="line">		border-left: 0;</div><div class="line">	&#125;</div><div class="line">	.m-demo tbody tr td:last-child &#123;</div><div class="line">		border-right: 0;</div><div class="line">	&#125;</div><div class="line">&lt;/style&gt;</div><div class="line">&lt;div class=&quot;m-demo&quot;&gt;</div><div class="line">	&lt;table&gt;</div><div class="line">        &lt;thead&gt;</div><div class="line">           &lt;tr&gt;&lt;th&gt;定宽a&lt;/th&gt;&lt;th&gt;定宽b&lt;/th&gt;&lt;th&gt;定宽c&lt;/th&gt;&lt;th&gt;最后列不定宽d&lt;/th&gt;&lt;/tr&gt;</div><div class="line">        &lt;/thead&gt;</div><div class="line">    &lt;/table&gt;</div><div class="line">	&lt;div class=&quot;scroll&quot;&gt;</div><div class="line">	    &lt;table&gt;</div><div class="line">            &lt;tbody&gt;</div><div class="line">                &lt;tr&gt;&lt;td&gt;定宽a&lt;/td&gt;&lt;td&gt;定宽b&lt;/td&gt;&lt;td&gt;定宽c&lt;/td&gt;&lt;td&gt;最后列不定宽d&lt;/td&gt;&lt;/tr&gt;</div><div class="line">                &lt;tr&gt;&lt;td&gt;定宽a&lt;/td&gt;&lt;td&gt;定宽b&lt;/td&gt;&lt;td&gt;定宽c&lt;/td&gt;&lt;td&gt;最后列不定宽d&lt;/td&gt;&lt;/tr&gt;</div><div class="line">                &lt;tr&gt;&lt;td&gt;定宽a&lt;/td&gt;&lt;td&gt;定宽b&lt;/td&gt;&lt;td&gt;定宽c&lt;/td&gt;&lt;td&gt;最后列不定宽d&lt;/td&gt;&lt;/tr&gt;</div><div class="line">                &lt;tr&gt;&lt;td&gt;定宽a&lt;/td&gt;&lt;td&gt;定宽b&lt;/td&gt;&lt;td&gt;定宽c&lt;/td&gt;&lt;td&gt;最后列不定宽d&lt;/td&gt;&lt;/tr&gt;</div><div class="line">                &lt;tr&gt;&lt;td&gt;定宽a&lt;/td&gt;&lt;td&gt;定宽b&lt;/td&gt;&lt;td&gt;定宽c&lt;/td&gt;&lt;td&gt;最后列不定宽d&lt;/td&gt;&lt;/tr&gt;</div><div class="line">                &lt;tr&gt;&lt;td&gt;定宽a&lt;/td&gt;&lt;td&gt;定宽b&lt;/td&gt;&lt;td&gt;定宽c&lt;/td&gt;&lt;td&gt;最后列不定宽d&lt;/td&gt;&lt;/tr&gt;</div><div class="line">            &lt;/tbody&gt;</div><div class="line">        &lt;/table&gt;</div><div class="line">    &lt;/div&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;一-单列布局&quot;&gt;&lt;a href=&quot;#一-单列布局&quot; class=&quot;headerlink&quot; title=&quot;一. 单列布局&quot;&gt;&lt;/a&gt;一. 单列布局&lt;/h2&gt;&lt;h3 id=&quot;1-水平居中&quot;&gt;&lt;a href=&quot;#1-水平居中&quot; class=&quot;headerlink&quot; ti
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>前端知识点：前端知识点：jQuery(下)</title>
+    <link href="http://yoursite.com/2015/11/09/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9%EF%BC%9A%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9%EF%BC%9AjQuery(%E4%B8%8B)/"/>
+    <id>http://yoursite.com/2015/11/09/前端知识点/前端知识点：前端知识点：jQuery(下)/</id>
+    <published>2015-11-09T13:44:15.000Z</published>
+    <updated>2017-03-31T11:14:41.305Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="1-jQuery获取物体信息"><a href="#1-jQuery获取物体信息" class="headerlink" title="1. jQuery获取物体信息"></a>1. jQuery获取物体信息</h2><h3 id="js"><a href="#js" class="headerlink" title="js"></a>js</h3><ul>
+<li><p>​</p>
+<p>obj.offsetWidth</p>
+</li>
+<li><p>​</p>
+<p>obj.offsetHeight</p>
+</li>
+<li><p>​</p>
+<p>obj.offsetLeft</p>
+</li>
+<li><p>​</p>
+<p>obj.offsetTop</p>
+</li>
+<li><p>​</p>
+<p>obj.parentNode 结构父级 根：document</p>
+</li>
+<li><p>​</p>
+<p>obj.offsetParent 定位父级 根：body</p>
+</li>
+</ul>
+<p><strong>js处理小数较弱，取出时取整Math.round()</strong></p>
+<h3 id="jQuery-只封装了以下方法"><a href="#jQuery-只封装了以下方法" class="headerlink" title="jQuery(只封装了以下方法)"></a>jQuery(只封装了以下方法)</h3><ul>
+<li><p>​</p>
+<p><code>obj.width();</code> 纯width</p>
+</li>
+<li><p>​</p>
+<p><code>obj.height();</code> 纯height</p>
+</li>
+<li><p>​</p>
+<p><code>obj.outerWidth();</code> 盒子模型的width (width+padding+border) =&gt; offsetWidth</p>
+</li>
+<li><p>​</p>
+<p><code>obj.outerHeight();</code> 盒子模型的height (height+padding+border) =&gt; offsetHeight</p>
+</li>
+<li><p>​</p>
+<p><code>obj.position().left;</code> 距离定位父级left值 (不包括margin) =&gt; offsetLeft</p>
+</li>
+<li><p>​</p>
+<p><code>obj.position().top;</code> 距离定位父级top值 (不包括margin) =&gt; offsetTop</p>
+</li>
+<li><p>​</p>
+<p><code>obj.offset().left;</code> 距离定位父级left值 (包括margin)</p>
+</li>
+<li><p>​</p>
+<p><code>obj.offset().top;</code> 距离定位父级top值 (包括margin)</p>
+</li>
+<li><p>​</p>
+<p><code>obj.scrollTop();</code> 元素相对滚动条顶部的偏移</p>
+</li>
+<li><p>​</p>
+<p><code>obj.scrollLeft();</code> 元素相对滚动条左侧的偏移</p>
+</li>
+</ul>
+<p>父级</p>
+<ul>
+<li><code>obj.parent()</code> 结构父级 根：document =&gt; parentNode</li>
+<li><code>obj.parents()</code> 返回被选元素的所有祖先元素，直到 <code>&lt;html&gt;</code></li>
+<li><code>obj.offsetParent()</code> 定位父级 根：body =&gt; offsetParent</li>
+</ul>
+<p>子级</p>
+<ul>
+<li><code>obj.children()</code> 返回被选元素的所有直接子元素</li>
+<li><code>obj.find()</code> 返回被选元素的后代元素，一路向下直到最后一个后代</li>
+</ul>
+<h2 id="2-jQuery筛选"><a href="#2-jQuery筛选" class="headerlink" title="2. jQuery筛选"></a>2. jQuery筛选</h2><h3 id="1-过滤"><a href="#1-过滤" class="headerlink" title="(1) 过滤"></a>(1) 过滤</h3><ul>
+<li><p><code>.eq(index)</code></p>
+</li>
+<li><ul>
+<li>index &gt;= 0 正向选取(0代表第一个，1代表第二个)</li>
+<li>index &lt; 0 反向选取(-1代表倒数第一个)</li>
+</ul>
+</li>
+<li><p><code>.first()</code></p>
+</li>
+<li><p><code>.last()</code></p>
+</li>
+<li><p><code>.hasClass(className)</code></p>
+</li>
+</ul>
+<h3 id="2-查找"><a href="#2-查找" class="headerlink" title="(2) 查找"></a>(2) 查找</h3><ul>
+<li><code>.find(tagName/className/id)</code> eg: <code>oBox.find(&#39;ol li&#39;);</code></li>
+</ul>
+<h2 id="3-jQuery-lt-gt-js"><a href="#3-jQuery-lt-gt-js" class="headerlink" title="3. jQuery &lt;=&gt; js"></a>3. jQuery &lt;=&gt; js</h2><h3 id="1-原生js转jQuery对象"><a href="#1-原生js转jQuery对象" class="headerlink" title="(1) 原生js转jQuery对象"></a>(1) 原生js转jQuery对象</h3><p><strong>$() 包裹</strong>this -&gt; $(this) document -&gt; $(document)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    var oDiv = document.getElementById(&apos;div1&apos;);    $(oDiv).html(&apos;xxx&apos;);&lt;/script&gt;</div></pre></td></tr></table></figure>
+<h3 id="2-jQuery转原生js对象"><a href="#2-jQuery转原生js对象" class="headerlink" title="(2) jQuery转原生js对象"></a>(2) jQuery转原生js对象</h3><p><strong>[] / get()</strong></p>
+<ol>
+<li><code>$(&#39;div&#39;)[0].innerHTML=&#39;xxx&#39;;</code></li>
+<li><code>$(&#39;div&#39;).get(0).innerHTML=&#39;xxx;</code></li>
+</ol>
+<h2 id="4-jQuery链式运动"><a href="#4-jQuery链式运动" class="headerlink" title="4. jQuery链式运动"></a>4. jQuery链式运动</h2><p><code>obj.css(...).html(...).attr(...).click();</code></p>
+<h2 id="5-jQuery循环"><a href="#5-jQuery循环" class="headerlink" title="5. jQuery循环"></a>5. jQuery循环</h2><p><code>obj.each(function(){...});</code></p>
+<p>JS中的forEach、$.each、map方法推荐</p>
+<p>eg:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    $(&apos;div&apos;).each(function(index, element) &#123;  // 索引，当前元素        console.log($(element).html);  // **element是原生对象，需转成jq对象        $(this);  // 当前对象    &#125;);&lt;/script&gt;</div></pre></td></tr></table></figure>
+<h2 id="6-jQuery工具"><a href="#6-jQuery工具" class="headerlink" title="6. jQuery工具"></a>6. jQuery工具</h2><ul>
+<li><code>$.trim(str);</code> 去掉字符串起始和结尾的空格</li>
+<li><code>$.browser.version;</code> 浏览器版本</li>
+</ul>
+<p>eg:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    if($.browse.version.substring(0, 1) == &apos;6&apos;) &#123;        // IE6 code here    &#125;&lt;/script&gt;</div></pre></td></tr></table></figure>
+<h2 id="7-jQuery-Ajax"><a href="#7-jQuery-Ajax" class="headerlink" title="7. jQuery Ajax"></a>7. jQuery Ajax</h2><p><code>$.ajax({...});</code></p>
+<ul>
+<li><strong>type: ‘get/post’</strong></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    $.ajax(&#123;        url: URL,        data: &#123;&#125;,        type: &apos;get&apos;,        error: fn,        complete: fn,        time: 3000;        success: function(str) &#123;            console.log(str);        &#125;    &#125;)&lt;/script&gt;</div></pre></td></tr></table></figure>
+<h2 id="8-jQuery-jsonp"><a href="#8-jQuery-jsonp" class="headerlink" title="8. jQuery jsonp"></a>8. jQuery jsonp</h2><p><code>$.ajax({...});</code></p>
+<ul>
+<li><strong>dataType: ‘jsonp’</strong></li>
+<li><strong>cbName: ‘callback/cb’</strong></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    $.ajax(&#123;        url: URL,        data: &#123;&#125;,        dataType: &apos;jsonp&apos;,        cbName: &apos;callback&apos;,        success: function(json) &#123;            console.log(json);        &#125;    &#125;);&lt;/script&gt;</div></pre></td></tr></table></figure>
+<h2 id="9-jQuery插件"><a href="#9-jQuery插件" class="headerlink" title="9. jQuery插件"></a>9. jQuery插件</h2><h3 id="写插件"><a href="#写插件" class="headerlink" title="写插件"></a>写插件</h3><p>$: jq fn: 帮助</p>
+<p><strong>jq里面除了插件里的this以外，其他都是原生的js</strong></p>
+<p>jquery的$.extend和$.fn.extend作用及区别</p>
+<h3 id="一个插件"><a href="#一个插件" class="headerlink" title="一个插件"></a>一个插件</h3><p><code>$.fn.插件名=fn;</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    $.fn.插件名 = function() &#123;        this.css(&apos;name&apos;, &apos;value&apos;);  // 插件中的this不用加$    &#125;    $(&apos;div&apos;).插件名();&lt;/script&gt;</div></pre></td></tr></table></figure>
+<h3 id="一组插件"><a href="#一组插件" class="headerlink" title="一组插件"></a>一组插件</h3><p><code>$.fn.extend(...);</code></p>
+<blockquote>
+<p>插件调用不能用链式</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    $.fn.extend(&#123;        插件名1: function() &#123;            this.css(&apos;name&apos;, &apos;value&apos;);        &#125;,        插件名2: function() &#123;            this.css(&apos;name&apos;, &apos;value&apos;);        &#125;    &#125;)    // 插件调用不能用链式    $(&apos;div&apos;).插件名1();    $(&apos;div&apos;).插件名2();&lt;/script&gt;</div></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;1-jQuery获取物体信息&quot;&gt;&lt;a href=&quot;#1-jQuery获取物体信息&quot; class=&quot;headerlink&quot; title=&quot;1. jQuery获取物体信息&quot;&gt;&lt;/a&gt;1. jQuery获取物体信息&lt;/h2&gt;&lt;h3 id=&quot;js&quot;&gt;&lt;a href=&quot;#j
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>前端知识点：前端知识点：jQuery(上)</title>
+    <link href="http://yoursite.com/2015/11/01/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9%EF%BC%9A%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9%EF%BC%9AjQuery(%E4%B8%8A)/"/>
+    <id>http://yoursite.com/2015/11/01/前端知识点/前端知识点：前端知识点：jQuery(上)/</id>
+    <published>2015-11-01T14:44:15.000Z</published>
+    <updated>2017-03-31T11:13:38.023Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="1-jQuery-amp-amp-js"><a href="#1-jQuery-amp-amp-js" class="headerlink" title="1. jQuery &amp;&amp; js"></a>1. jQuery &amp;&amp; js</h2><table>
+<thead>
+<tr>
+<th></th>
+<th>jQuery</th>
+<th>js</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>onload</td>
+<td>$(function() {});</td>
+<td>window.onload=function(){};</td>
+</tr>
+<tr>
+<td>获取元素</td>
+<td>$(‘div’);</td>
+<td>document.getElementsByTagName(‘div’);</td>
+</tr>
+<tr>
+<td>事件</td>
+<td>obj.click(fn);</td>
+<td>obj.onclick=fn;</td>
+</tr>
+<tr>
+<td>this</td>
+<td>$(this)</td>
+<td>this</td>
+</tr>
+<tr>
+<td>索引</td>
+<td>$(this).index()</td>
+<td>aDiv[i].index=i;…</td>
+</tr>
+<tr>
+<td>操作属性</td>
+<td>(1)获取attr(name)</td>
+<td>(1).</td>
+</tr>
+<tr>
+<td></td>
+<td>(2)设置attr(name, value)</td>
+<td>(2)[]</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>(3)getAttribute()/setAttribute()</td>
+</tr>
+</tbody>
+</table>
+<h2 id="2-jQuery效果"><a href="#2-jQuery效果" class="headerlink" title="2. jQuery效果"></a>2. jQuery效果</h2><ul>
+<li><code>.hide()</code> 隐藏</li>
+<li><code>.show()</code> 显示</li>
+<li><code>.slideDown()</code> 下滑</li>
+<li><code>.slideUp()</code> 上滑</li>
+<li><code>.fadeIn()</code> 淡入</li>
+<li><code>.fadeOut()</code> 淡出</li>
+</ul>
+<blockquote>
+<p>参数：time时间，easing运动方式，fn回调函数</p>
+</blockquote>
+<ul>
+<li><code>.animate(params,[speed],[easing],fn)</code></li>
+</ul>
+<p>eg: <code>.animate({width:&#39;100px&#39;,opacity:1},&#39;slow&#39;,{duration:1000,easing:&#39;linear&#39;,complete:function(){...}})</code></p>
+<blockquote>
+<p>animate()函数记得先清除定时器<code>$(&#39;ul&#39;).stop().animate(...);</code></p>
+</blockquote>
+<h2 id="3-jQuery选择器"><a href="#3-jQuery选择器" class="headerlink" title="3. jQuery选择器"></a>3. jQuery选择器</h2><h3 id="1-伪类选择器"><a href="#1-伪类选择器" class="headerlink" title="(1) 伪类选择器"></a>(1) 伪类选择器</h3><ul>
+<li><code>$(&#39;li:first&#39;)</code> 第一个</li>
+<li><code>$(&#39;li:last&#39;)</code> 最后一个</li>
+<li><code>$(&#39;li:eq(n)&#39;)</code> 第<strong>n+1</strong>个</li>
+<li><code>$(&#39;li:odd&#39;)</code> 第<strong>奇数</strong>个 (tips:记忆odd字母个数为奇数个)</li>
+<li><code>$(&#39;li:even&#39;)</code> 第<strong>偶数</strong>个 (tips:记忆even字母个数为偶数个)</li>
+<li><code>$(&#39;li:contains(xxx)&#39;)</code> 包含文本xxx的li标签</li>
+<li><code>$(&#39;li:has(p)&#39;)</code> 包含p标签的li标签</li>
+</ul>
+<h3 id="2-属性选择器"><a href="#2-属性选择器" class="headerlink" title="(2) 属性选择器"></a>(2) 属性选择器</h3><ul>
+<li><code>$(&#39;input[type==password]&#39;)</code> 属性type为password的input标签</li>
+</ul>
+<h2 id="4-jQuery操作css属性"><a href="#4-jQuery操作css属性" class="headerlink" title="4. jQuery操作css属性"></a>4. jQuery操作css属性</h2><ul>
+<li><p>获取 <code>.css(&#39;name&#39;)</code>;</p>
+</li>
+<li><p>设置</p>
+</li>
+<li><ul>
+<li>单一样式 <code>.css(&#39;name&#39;, &#39;value&#39;)</code></li>
+<li>多个样式 <code>.css({&#39;name&#39;: &#39;value&#39;, &#39;name2&#39;: &#39;value2&#39;})</code><br>eg: <code>.css(&#39;background-color&#39;: &#39;red&#39;)</code>或者<code>.css(&#39;backgroundColor&#39;: &#39;red&#39;)</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="5-jQuery操作内容"><a href="#5-jQuery操作内容" class="headerlink" title="5. jQuery操作内容"></a>5. jQuery操作内容</h2><ul>
+<li><p>非表单</p>
+</li>
+<li><ul>
+<li>获取 <code>.html()</code> // innnerHTML</li>
+<li>设置 <code>.html(&#39;xxx&#39;)</code></li>
+</ul>
+</li>
+<li><p>表单</p>
+</li>
+<li><ul>
+<li>获取 <code>.val()</code> // value</li>
+<li>设置 <code>.val(&#39;xxx&#39;)</code></li>
+</ul>
+</li>
+<li><p>文本</p>
+</li>
+<li><ul>
+<li>获取 <code>.text()</code></li>
+<li>设置 <code>.text(&#39;xxx&#39;)</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="6-jQuery操作类名"><a href="#6-jQuery操作类名" class="headerlink" title="6. jQuery操作类名"></a>6. jQuery操作类名</h2><ul>
+<li>添加 <code>.addClass(&#39;xxx&#39;)</code></li>
+<li>删除 <code>.removeClass(&#39;xxx&#39;)</code></li>
+<li>添加/删除 <code>.toggleClass(&#39;xxx&#39;)</code></li>
+</ul>
+<h2 id="7-jQuery操作属性"><a href="#7-jQuery操作属性" class="headerlink" title="7. jQuery操作属性"></a>7. jQuery操作属性</h2><ul>
+<li><p>获取 <code>.attr(name)</code></p>
+</li>
+<li><p>设置</p>
+</li>
+<li><ul>
+<li>单一属性 <code>.attr(&#39;name&#39;, &#39;value&#39;)</code></li>
+<li>多个属性 <code>.attr({&#39;name&#39;: &#39;value&#39;, &#39;name2&#39;: &#39;value2&#39;})</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="8-jQuery-DOM"><a href="#8-jQuery-DOM" class="headerlink" title="8. jQuery DOM"></a>8. jQuery DOM</h2><h3 id="1-创建元素"><a href="#1-创建元素" class="headerlink" title="(1) 创建元素"></a>(1) 创建元素</h3><p><code>$(&#39;&lt;div&gt;text&lt;/div&gt;&#39;)</code></p>
+<h3 id="2-添加元素"><a href="#2-添加元素" class="headerlink" title="(2) 添加元素"></a>(2) 添加元素</h3><ul>
+<li><p>​</p>
+<p><code>.append()</code>parent.append(child); 父级添加子级至末尾</p>
+</li>
+<li><p>​</p>
+<p><code>.appendTo</code>child.appendTo(parent); 子级追加至父级末尾</p>
+</li>
+<li><p>​</p>
+<p><code>.prepend()</code>parent.prepend(child); 父级添加子级至最前</p>
+</li>
+<li><p>​</p>
+<p><code>.prependTo()</code>child.prependTo(parent); 子级追加至父级最前</p>
+</li>
+<li><p>​</p>
+<p><code>.before()</code>sib1.before(sib2); sib2添加至同级sib1前面</p>
+</li>
+<li><p>​</p>
+<p><code>.after()</code>sib1.after(sib2); sib2添加至同级sib1后面</p>
+</li>
+<li><p>​</p>
+<p><code>.insertBefore()</code>sib1.insertBefore(sib2); sib1添加至同级sib2前面</p>
+</li>
+<li><p>​</p>
+<p><code>.insertAfter()</code>sib1.insertAfter(sib2); sib1添加至同级sib2后面</p>
+</li>
+<li><p>​</p>
+<p><code>.wrap()</code>child.wrap(parent); 子元素被父元素包裹</p>
+</li>
+<li><p>​</p>
+<p><code>.unwrap()</code>child.unwrap(); 子元素移出上级父元素</p>
+</li>
+</ul>
+<h3 id="3-删除元素"><a href="#3-删除元素" class="headerlink" title="(3) 删除元素"></a>(3) 删除元素</h3><ul>
+<li><p>​</p>
+<p><code>.remove()</code>obj.remove(); 删除obj节点</p>
+</li>
+<li><p>​</p>
+<p><code>.empty()</code>obj.empty(); 删除obj内所有子节点</p>
+</li>
+<li><p>​</p>
+<p><code>.detach()</code></p>
+</li>
+<li><p>​</p>
+<p>$(‘p’).detach(); 删除所有p标签及其中内容</p>
+</li>
+<li><p>​</p>
+<p>$(‘p’).detach(‘.hello’); 删除所有类为hello的p标签及其中内容</p>
+</li>
+</ul>
+<h2 id="9-jQuery事件"><a href="#9-jQuery事件" class="headerlink" title="9. jQuery事件"></a>9. jQuery事件</h2><p><strong>jQuery中所有事件都是绑定的</strong></p>
+<ul>
+<li><p>​</p>
+<p><code>.ready()</code> DOM完全加载时执行的函数</p>
+</li>
+<li><p>​</p>
+<p><code>.change()</code></p>
+</li>
+<li><p>​</p>
+<p><code>.click()</code></p>
+</li>
+<li><p>​</p>
+<p><code>.dblclick()</code> 双击 注意是<strong>dbl</strong></p>
+</li>
+<li><p>​</p>
+<p><code>.contextmenu()</code> 右击</p>
+</li>
+<li><p>​</p>
+<p><code>.hover()</code>hover(over, out) 可以绑定两个方法</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    obj.hover(function() &#123;        // 移入    &#125;, function() &#123;        // 移出    &#125;)&lt;/script&gt;</div></pre></td></tr></table></figure>
+<ul>
+<li><code>.mouseover()</code></li>
+<li><code>.mouseout()</code></li>
+<li><code>.mousedown()</code></li>
+<li><code>.mouseup()</code></li>
+<li><code>.mousewheel</code> 鼠标滚轮 <strong>jQuery没有封装这个函数，需用on事件绑定</strong></li>
+<li><code>.keydown()</code></li>
+<li><code>.keypress()</code></li>
+<li><code>.keyup()</code></li>
+</ul>
+<blockquote>
+<p><strong>最好不用jQuery封装的事件，都用on事件绑定</strong></p>
+</blockquote>
+<ul>
+<li><p>​</p>
+<p><code>.on()</code> 绑定</p>
+</li>
+<li><p>​</p>
+<p><code>.off()</code> 解绑</p>
+</li>
+<li><p>​</p>
+<p><code>.bind()</code> 绑定</p>
+</li>
+<li><p>​</p>
+<p><code>.unbind()</code> 解绑</p>
+</li>
+</ul>
+<p>// live() die() jQuery 1.7+被删除</p>
+<p>jQuery事件绑定on()、bind()与delegate() 方法详解</p>
+<h3 id="事件相关"><a href="#事件相关" class="headerlink" title="事件相关"></a>事件相关</h3><ul>
+<li><code>returnfalse;</code> 阻止默认事件、阻止冒泡</li>
+<li><code>ev.preventDefault();</code> 阻止默认事件</li>
+<li><code>ev.stopPropagation();</code> 阻止冒泡</li>
+</ul>
+<h3 id="事件委托"><a href="#事件委托" class="headerlink" title="事件委托"></a>事件委托</h3><ul>
+<li>第一种方法 <code>.on(events,selector,callback)</code></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    // $(&apos;table td&apos;).on(&apos;hover&apos;, function() &#123;    //  $(this).toggleClass(&apos;active&apos;);    // &#125;)    // =&gt;    $(&apos;table&apos;).on(&apos;hover&apos;, &apos;td&apos;, function() &#123;        #(this).toggleClass(&apos;active&apos;);    &#125;)&lt;/script&gt;</div></pre></td></tr></table></figure>
+<ul>
+<li>第二种方法 <code>.delegate()</code></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    $(&apos;table&apos;).delegate(&apos;td&apos;, &apos;hover&apos;, function() &#123;        $(this).toggleClass(&apos;active&apos;);    &#125;)&lt;/script&gt;</div></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;1-jQuery-amp-amp-js&quot;&gt;&lt;a href=&quot;#1-jQuery-amp-amp-js&quot; class=&quot;headerlink&quot; title=&quot;1. jQuery &amp;amp;&amp;amp; js&quot;&gt;&lt;/a&gt;1. jQuery &amp;amp;&amp;amp; js&lt;/
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
     <title>前端知识点：slice和splice区别</title>
     <link href="http://yoursite.com/2015/08/17/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9%EF%BC%9Aslice%E5%92%8Csplice%E5%8C%BA%E5%88%AB/"/>
     <id>http://yoursite.com/2015/08/17/前端知识点/前端知识点：slice和splice区别/</id>
@@ -1314,42 +1902,6 @@
     
     
       <category term="主要讲解eslint配置方法" scheme="http://yoursite.com/tags/%E4%B8%BB%E8%A6%81%E8%AE%B2%E8%A7%A3eslint%E9%85%8D%E7%BD%AE%E6%96%B9%E6%B3%95/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>CSS命名规范</title>
-    <link href="http://yoursite.com/2014/12/07/css%E7%B1%BB/CSS%E5%91%BD%E5%90%8D%E8%A7%84%E8%8C%83%E7%9A%84%E6%84%8F%E4%B9%89/"/>
-    <id>http://yoursite.com/2014/12/07/css类/CSS命名规范的意义/</id>
-    <published>2014-12-06T17:00:20.000Z</published>
-    <updated>2017-03-31T07:11:29.674Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="1-CSS命名规范的意义"><a href="#1-CSS命名规范的意义" class="headerlink" title="1.CSS命名规范的意义"></a>1.CSS命名规范的意义</h3><p>这里所说i的命名规范有两层含义，一是命名含义与元素相关，二是命名内容要精简，具体例子如下：</p>
-<p>命名含义与元素相关</p>
-<p>精简的命名规则</p>
-<p>从我对命名规范的理解，可以演绎出命名规范的意义所在：</p>
-<ul>
-<li>富有含义的命名规定对于开发者来说，更容易读懂</li>
-<li>精简的命名规范能够提高代码的整洁度和用户体验</li>
-<li>精简的含义不仅仅包括命名的简洁性，还包括浏览器对页面的渲染速度，即良好的命名规范可以提高页面渲染速度</li>
-<li>良好的命名规则会在精确性和复用性上权衡</li>
-</ul>
-<h2 id="1-1-命名规则"><a href="#1-1-命名规则" class="headerlink" title="1.1 命名规则"></a>1.1 命名规则</h2><p>驼峰命名规则：getElementById/matherAndFather/aaaOrBbbAndCcc</p>
-<p>遵从规则：</p>
-<p>1.变量命名必须以字母或是下标符号”_”或者”$”为开头。</p>
-<p>2.变量名长度不能超过255个字符。</p>
-<p>3.变量名中不允许使用空格，首个字不能为数字。</p>
-<p>4.不用使用脚本语言中保留的关键字及保留符号作为变量名。</p>
-<p>5.变量名区分大小写。(javascript是区分大小写的语言)</p>
-<p>6.汉语可以作为变量名。但是不建议使用！！！（low）</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;1-CSS命名规范的意义&quot;&gt;&lt;a href=&quot;#1-CSS命名规范的意义&quot; class=&quot;headerlink&quot; title=&quot;1.CSS命名规范的意义&quot;&gt;&lt;/a&gt;1.CSS命名规范的意义&lt;/h3&gt;&lt;p&gt;这里所说i的命名规范有两层含义，一是命名含义与元素相关，二是
-    
-    </summary>
-    
     
   </entry>
   
