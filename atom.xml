@@ -141,6 +141,25 @@
   </entry>
   
   <entry>
+    <title>Div+CSS命名规范大全</title>
+    <link href="http://yoursite.com/2015/01/02/css/Div+CSS%E5%91%BD%E5%90%8D%E8%A7%84%E8%8C%83%E5%A4%A7%E5%85%A8/"/>
+    <id>http://yoursite.com/2015/01/02/css/Div+CSS命名规范大全/</id>
+    <published>2015-01-02T04:00:20.000Z</published>
+    <updated>2017-03-31T07:24:43.645Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Div-CSS命名规范大全"><a href="#Div-CSS命名规范大全" class="headerlink" title="Div+CSS命名规范大全"></a>Div+CSS命名规范大全</h1><p>Div+CSS命名规范<br>（一）窗体<br>头：header　　<br>内容：content/container　　<br>尾：footer　　<br>导航：nav　　<br>侧栏：sidebar<br>栏目：column　　<br>页面外围控制整体布局宽度：wrapper　　<br>左右中：left right center<br>登录条：loginbar　　<br>标志：logo　　<br>广告：banner　　<br>页面主体：main　　<br>热点：hot<br>新闻：news　　<br>下载：download　　<br>子导航：subnav　　<br>菜单：menu<br>子菜单：submenu　　<br>搜索：search　　<br>友情链接：friendlink　　<br>页脚：footer<br>版权：copyright　　<br>滚动：scroll　　<br>内容：content　　<br>标签页：tab<br>文章列表：list　　<br>提示信息：msg　　<br>小技巧：tips　　<br>栏目标题：title<br>加入：joinus　　<br>指南：guild　　<br>服务：service　　<br>注册：regsiter<br>状态：status　　<br>投票：vote　　<br>合作伙伴：partner</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;Div-CSS命名规范大全&quot;&gt;&lt;a href=&quot;#Div-CSS命名规范大全&quot; class=&quot;headerlink&quot; title=&quot;Div+CSS命名规范大全&quot;&gt;&lt;/a&gt;Div+CSS命名规范大全&lt;/h1&gt;&lt;p&gt;Div+CSS命名规范&lt;br&gt;（一）窗体&lt;br&gt;头：
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
     <title>eslint配置</title>
     <link href="http://yoursite.com/2014/12/08/%E5%B7%A5%E5%85%B7%E7%B1%BB/eslint%E9%85%8D%E7%BD%AE/"/>
     <id>http://yoursite.com/2014/12/08/工具类/eslint配置/</id>
