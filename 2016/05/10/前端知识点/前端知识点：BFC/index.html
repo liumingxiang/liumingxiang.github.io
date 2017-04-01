@@ -26,7 +26,6 @@
 <li>overflow不为visible</li>
 </ol>
 <h3 id="三、BFC的作用及原理"><a href="#三、BFC的作用及原理" class="headerlink" title="三、BFC的作用及原理"></a>三、BFC的作用及原理</h3><h4 id="1-自适应两栏布局"><a href="#1-自适应两栏布局" class="headerlink" title="　1. 自适应两栏布局"></a>　1. 自适应两栏布局</h4><p>　　代码：</p>
-<p>​    <style></p>
 <pre><code>body {
     width: 300px;
     position: relative;
@@ -43,7 +42,7 @@
     height: 200px;
     background: #fcc;
 }
-</code></pre><p></style></p>
+</code></pre><p></p>
 <body><br>    <div class="aside"></div><br>    <div class="main"></div><br></body>
 
 <p>页面：</p>
@@ -54,9 +53,7 @@
 </blockquote>
 <p>　　因此，虽然存在浮动的元素aslide，但main的左边依然会与包含块的左边相接触。</p>
 <p>　　根据<code>BFC</code>布局规则第四条：</p>
-<blockquote>
 <p><code>BFC</code>的区域不会与<code>float box</code>重叠。</p>
-</blockquote>
 <p>　　我们可以通过通过触发main生成<code>BFC</code>， 来实现自适应两栏布局。</p>
 <p>.main {</p>
 <pre><code>overflow: hidden;

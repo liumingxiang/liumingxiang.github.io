@@ -145,15 +145,14 @@
     <link href="http://yoursite.com/2016/06/20/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9%EF%BC%9AFlex%E5%B8%83%E5%B1%80/"/>
     <id>http://yoursite.com/2016/06/20/前端知识点/前端知识点：Flex布局/</id>
     <published>2016-06-20T15:04:15.000Z</published>
-    <updated>2017-04-01T07:54:29.327Z</updated>
+    <updated>2017-04-01T08:12:34.569Z</updated>
     
     <content type="html"><![CDATA[<p>布局的传统解决方案，基于<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/box_model" target="_blank" rel="external">盒状模型</a>，依赖 <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/display" target="_blank" rel="external">display</a>属性 + <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/position" target="_blank" rel="external">position</a>属性 + <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/float" target="_blank" rel="external">float</a>属性。它对于那些特殊布局非常不方便，比如，<a href="https://css-tricks.com/centering-css-complete-guide/" target="_blank" rel="external">垂直居中</a>就不容易实现。</p>
-<p><img src="./Flex 布局教程：语法篇 - 阮一峰的网络日志_files/bg2015071002.png" alt="img"></p>
-<p>2009年，W3C提出了一种新的方案—-Flex布局，可以简便、完整、响应式地实现各种页面布局。目前，它已经得到了所有浏览器的支持，这意味着，现在就能很安全地使用这项功能。</p>
+<p>![img]<img src="/images/flex/1.png" alt="img"></p>
+<p>2009年，W3C提出了一种新的方案—-Flex布局，可以简便、完整、响应式地实现各种页面布局。目前，它已经得到了所有浏览器的支持，这意味着，现在就能很安全地使用这项功能。——文章来源于阮一峰的网络日志！</p>
 <a id="more"></a>
-<p><img src="./Flex 布局教程：语法篇 - 阮一峰的网络日志_files/bg2015071003.jpg" alt="img"></p>
-<p>Flex布局将成为未来布局的首选方案。本文介绍它的语法，<a href="http://www.ruanyifeng.com/blog/2015/07/flex-examples.html" target="_blank" rel="external">下一篇文章</a>给出常见布局的Flex写法。</p>
-<p>以下内容主要参考了下面两篇文章：<a href="https://css-tricks.com/snippets/css/a-guide-to-flexbox/" target="_blank" rel="external">A Complete Guide to Flexbox</a> 和 <a href="https://scotch.io/tutorials/a-visual-guide-to-css3-flexbox-properties" target="_blank" rel="external">A Visual Guide to CSS3 Flexbox Properties</a>。</p>
+<p><img src="(/images/flex/2.png" alt="img">)</p>
+<p>Flex布局将成为未来布局的首选方案。本文介绍它的语法。</p>
 <h2 id="一、Flex布局是什么？"><a href="#一、Flex布局是什么？" class="headerlink" title="一、Flex布局是什么？"></a>一、Flex布局是什么？</h2><p>Flex是Flexible Box的缩写，意为”弹性布局”，用来为盒状模型提供最大的灵活性。</p>
 <p>任何一个容器都可以指定为Flex布局。</p>
 <blockquote>
@@ -169,7 +168,7 @@
 </blockquote>
 <p>注意，设为Flex布局以后，子元素的<code>float</code>、<code>clear</code>和<code>vertical-align</code>属性将失效。</p>
 <h2 id="二、基本概念"><a href="#二、基本概念" class="headerlink" title="二、基本概念"></a>二、基本概念</h2><p>采用Flex布局的元素，称为Flex容器（flex container），简称”容器”。它的所有子元素自动成为容器成员，称为Flex项目（flex item），简称”项目”。</p>
-<p><img src="./Flex 布局教程：语法篇 - 阮一峰的网络日志_files/bg2015071004.png" alt="img"></p>
+<p><img src="/images/flex/3.png" alt="img"></p>
 <p>容器默认存在两根轴：水平的主轴（main axis）和垂直的交叉轴（cross axis）。主轴的开始位置（与边框的交叉点）叫做<code>main start</code>，结束位置叫做<code>main end</code>；交叉轴的开始位置叫做<code>cross start</code>，结束位置叫做<code>cross end</code>。</p>
 <p>项目默认沿主轴排列。单个项目占据的主轴空间叫做<code>main size</code>，占据的交叉轴空间叫做<code>cross size</code>。</p>
 <h2 id="三、容器的属性"><a href="#三、容器的属性" class="headerlink" title="三、容器的属性"></a>三、容器的属性</h2><p>以下6个属性设置在容器上。</p>
@@ -187,7 +186,7 @@
 <blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&gt; .box &#123;</div><div class="line">&gt;   flex-direction: row | row-reverse | column | column-reverse;</div><div class="line">&gt; &#125;</div><div class="line">&gt;</div><div class="line">&gt;</div></pre></td></tr></table></figure>
 </blockquote>
-<p><img src="./Flex 布局教程：语法篇 - 阮一峰的网络日志_files/bg2015071005.png" alt="img"></p>
+<p><img src="/images/flex/4.png" alt="img"></p>
 <p>它可能有4个值。</p>
 <blockquote>
 <ul>
@@ -198,17 +197,17 @@
 </ul>
 </blockquote>
 <h3 id="3-2-flex-wrap属性"><a href="#3-2-flex-wrap属性" class="headerlink" title="3.2 flex-wrap属性"></a>3.2 flex-wrap属性</h3><p>默认情况下，项目都排在一条线（又称”轴线”）上。<code>flex-wrap</code>属性定义，如果一条轴线排不下，如何换行。</p>
-<p><img src="./Flex 布局教程：语法篇 - 阮一峰的网络日志_files/bg2015071006.png" alt="img"></p>
+<p><img src="/images/flex/5.png" alt="img"></p>
 <blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&gt; .box&#123;</div><div class="line">&gt;   flex-wrap: nowrap | wrap | wrap-reverse;</div><div class="line">&gt; &#125;</div><div class="line">&gt;</div><div class="line">&gt;</div></pre></td></tr></table></figure>
 </blockquote>
 <p>它可能取三个值。</p>
 <p>（1）<code>nowrap</code>（默认）：不换行。</p>
-<p><img src="./Flex 布局教程：语法篇 - 阮一峰的网络日志_files/bg2015071007.png" alt="img"></p>
+<p><img src="/images/flex/6.png" alt="img"></p>
 <p>（2）<code>wrap</code>：换行，第一行在上方。</p>
-<p><img src="./Flex 布局教程：语法篇 - 阮一峰的网络日志_files/bg2015071008.jpg" alt="img"></p>
+<p><img src="/images/flex/7.png" alt="img"></p>
 <p>（3）<code>wrap-reverse</code>：换行，第一行在下方。</p>
-<p><img src="./Flex 布局教程：语法篇 - 阮一峰的网络日志_files/bg2015071009.jpg" alt="img"></p>
+<p><img src="/images/flex/8.png" alt="img"></p>
 <h3 id="3-3-flex-flow"><a href="#3-3-flex-flow" class="headerlink" title="3.3 flex-flow"></a>3.3 flex-flow</h3><p><code>flex-flow</code>属性是<code>flex-direction</code>属性和<code>flex-wrap</code>属性的简写形式，默认值为<code>row nowrap</code>。</p>
 <blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&gt; .box &#123;</div><div class="line">&gt;   flex-flow: &lt;flex-direction&gt; || &lt;flex-wrap&gt;;</div><div class="line">&gt; &#125;</div><div class="line">&gt;</div><div class="line">&gt;</div></pre></td></tr></table></figure>
@@ -217,7 +216,7 @@
 <blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&gt; .box &#123;</div><div class="line">&gt;   justify-content: flex-start | flex-end | center | space-between | space-around;</div><div class="line">&gt; &#125;</div><div class="line">&gt;</div><div class="line">&gt;</div></pre></td></tr></table></figure>
 </blockquote>
-<p><img src="./Flex 布局教程：语法篇 - 阮一峰的网络日志_files/bg2015071010.png" alt="img"></p>
+<p><img src="/images/flex/9.png" alt="img"></p>
 <p>它可能取5个值，具体对齐方式与轴的方向有关。下面假设主轴为从左到右。</p>
 <blockquote>
 <ul>
@@ -232,7 +231,7 @@
 <blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&gt; .box &#123;</div><div class="line">&gt;   align-items: flex-start | flex-end | center | baseline | stretch;</div><div class="line">&gt; &#125;</div><div class="line">&gt;</div><div class="line">&gt;</div></pre></td></tr></table></figure>
 </blockquote>
-<p><img src="./Flex 布局教程：语法篇 - 阮一峰的网络日志_files/bg2015071011.png" alt="img"></p>
+<p><img src="/images/flex/10.png" alt="img"></p>
 <p>它可能取5个值。具体的对齐方式与交叉轴的方向有关，下面假设交叉轴从上到下。</p>
 <blockquote>
 <ul>
@@ -247,7 +246,7 @@
 <blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&gt; .box &#123;</div><div class="line">&gt;   align-content: flex-start | flex-end | center | space-between | space-around | stretch;</div><div class="line">&gt; &#125;</div><div class="line">&gt;</div><div class="line">&gt;</div></pre></td></tr></table></figure>
 </blockquote>
-<p><img src="./Flex 布局教程：语法篇 - 阮一峰的网络日志_files/bg2015071012.png" alt="img"></p>
+<p><img src="/images/flex/11.png" alt="img"></p>
 <p>该属性可能取6个值。</p>
 <blockquote>
 <ul>
@@ -274,18 +273,18 @@
 <blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&gt; .item &#123;</div><div class="line">&gt;   order: &lt;integer&gt;;</div><div class="line">&gt; &#125;</div><div class="line">&gt;</div><div class="line">&gt;</div></pre></td></tr></table></figure>
 </blockquote>
-<p><img src="./Flex 布局教程：语法篇 - 阮一峰的网络日志_files/bg2015071013.png" alt="img"></p>
+<p><img src="/images/flex/12.png" alt="img"></p>
 <h3 id="4-2-flex-grow属性"><a href="#4-2-flex-grow属性" class="headerlink" title="4.2 flex-grow属性"></a>4.2 flex-grow属性</h3><p><code>flex-grow</code>属性定义项目的放大比例，默认为<code>0</code>，即如果存在剩余空间，也不放大。</p>
 <blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&gt; .item &#123;</div><div class="line">&gt;   flex-grow: &lt;number&gt;; /* default 0 */</div><div class="line">&gt; &#125;</div><div class="line">&gt;</div><div class="line">&gt;</div></pre></td></tr></table></figure>
 </blockquote>
-<p><img src="./Flex 布局教程：语法篇 - 阮一峰的网络日志_files/bg2015071014.png" alt="img"></p>
+<p><img src="/images/flex/13.png" alt="img"></p>
 <p>如果所有项目的<code>flex-grow</code>属性都为1，则它们将等分剩余空间（如果有的话）。如果一个项目的<code>flex-grow</code>属性为2，其他项目都为1，则前者占据的剩余空间将比其他项多一倍。</p>
 <h3 id="4-3-flex-shrink属性"><a href="#4-3-flex-shrink属性" class="headerlink" title="4.3 flex-shrink属性"></a>4.3 flex-shrink属性</h3><p><code>flex-shrink</code>属性定义了项目的缩小比例，默认为1，即如果空间不足，该项目将缩小。</p>
 <blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&gt; .item &#123;</div><div class="line">&gt;   flex-shrink: &lt;number&gt;; /* default 1 */</div><div class="line">&gt; &#125;</div><div class="line">&gt;</div><div class="line">&gt;</div></pre></td></tr></table></figure>
 </blockquote>
-<p><img src="./Flex 布局教程：语法篇 - 阮一峰的网络日志_files/bg2015071015.jpg" alt="img"></p>
+<p><img src="/images/flex/14.png" alt="img"></p>
 <p>如果所有项目的<code>flex-shrink</code>属性都为1，当空间不足时，都将等比例缩小。如果一个项目的<code>flex-shrink</code>属性为0，其他项目都为1，则空间不足时，前者不缩小。</p>
 <p>负值对该属性无效。</p>
 <h3 id="4-4-flex-basis属性"><a href="#4-4-flex-basis属性" class="headerlink" title="4.4 flex-basis属性"></a>4.4 flex-basis属性</h3><p><code>flex-basis</code>属性定义了在分配多余空间之前，项目占据的主轴空间（main size）。浏览器根据这个属性，计算主轴是否有多余空间。它的默认值为<code>auto</code>，即项目的本来大小。</p>
@@ -303,15 +302,15 @@
 <blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&gt; .item &#123;</div><div class="line">&gt;   align-self: auto | flex-start | flex-end | center | baseline | stretch;</div><div class="line">&gt; &#125;</div><div class="line">&gt;</div><div class="line">&gt;</div></pre></td></tr></table></figure>
 </blockquote>
-<p><img src="./Flex 布局教程：语法篇 - 阮一峰的网络日志_files/bg2015071016.png" alt="img"></p>
+<p><img src="/images/flex/15.png" alt="img"></p>
 <p>该属性可能取6个值，除了auto，其他都与align-items属性完全一致。</p>
 ]]></content>
     
     <summary type="html">
     
       &lt;p&gt;布局的传统解决方案，基于&lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/CSS/box_model&quot;&gt;盒状模型&lt;/a&gt;，依赖 &lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/CSS/display&quot;&gt;display&lt;/a&gt;属性 + &lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/CSS/position&quot;&gt;position&lt;/a&gt;属性 + &lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/CSS/float&quot;&gt;float&lt;/a&gt;属性。它对于那些特殊布局非常不方便，比如，&lt;a href=&quot;https://css-tricks.com/centering-css-complete-guide/&quot;&gt;垂直居中&lt;/a&gt;就不容易实现。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;./Flex 布局教程：语法篇 - 阮一峰的网络日志_files/bg2015071002.png&quot; alt=&quot;img&quot;&gt;&lt;/p&gt;
-&lt;p&gt;2009年，W3C提出了一种新的方案—-Flex布局，可以简便、完整、响应式地实现各种页面布局。目前，它已经得到了所有浏览器的支持，这意味着，现在就能很安全地使用这项功能。&lt;/p&gt;
+&lt;p&gt;![img]&lt;img src=&quot;/images/flex/1.png&quot; alt=&quot;img&quot;&gt;&lt;/p&gt;
+&lt;p&gt;2009年，W3C提出了一种新的方案—-Flex布局，可以简便、完整、响应式地实现各种页面布局。目前，它已经得到了所有浏览器的支持，这意味着，现在就能很安全地使用这项功能。——文章来源于阮一峰的网络日志！&lt;/p&gt;
     
     </summary>
     
@@ -323,7 +322,7 @@
     <link href="http://yoursite.com/2016/05/10/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9%EF%BC%9ABFC/"/>
     <id>http://yoursite.com/2016/05/10/前端知识点/前端知识点：BFC/</id>
     <published>2016-05-10T14:04:15.000Z</published>
-    <updated>2017-04-01T07:54:32.262Z</updated>
+    <updated>2017-04-01T08:03:57.449Z</updated>
     
     <content type="html"><![CDATA[<p>​    BFC什么鬼？在解释BFC之前先说一下文档流。我们常说的文档流其实分为定位流，浮动流和普通流。三种。而普通流其实就是指BFC中的FC。FC是formatting context的首字母缩写，直译过来是格式化上下文，它是页面中的一块渲染区域，有一套渲染规则，决定了其子元素如何布局，以及和其他元素之间的关系和作用。常见的FC有BFC、IFC，还有GFC和FFC。BFC是block formatting context，也就是块级格式化上下文，是用于布局块级盒子的一块渲染区域，BFC 的一些用处（如清浮动，防止 margin 重叠等）</p>
 <a id="more"></a>
@@ -353,7 +352,6 @@
 <li>overflow不为visible</li>
 </ol>
 <h3 id="三、BFC的作用及原理"><a href="#三、BFC的作用及原理" class="headerlink" title="三、BFC的作用及原理"></a>三、BFC的作用及原理</h3><h4 id="1-自适应两栏布局"><a href="#1-自适应两栏布局" class="headerlink" title="　1. 自适应两栏布局"></a>　1. 自适应两栏布局</h4><p>　　代码：</p>
-<p>​    <style></p>
 <pre><code>body {
     width: 300px;
     position: relative;
@@ -370,7 +368,7 @@
     height: 200px;
     background: #fcc;
 }
-</code></pre><p></style></p>
+</code></pre><p></p>
 <body><br>    <div class="aside"></div><br>    <div class="main"></div><br></body>
 
 <p>页面：</p>
@@ -381,9 +379,7 @@
 </blockquote>
 <p>　　因此，虽然存在浮动的元素aslide，但main的左边依然会与包含块的左边相接触。</p>
 <p>　　根据<code>BFC</code>布局规则第四条：</p>
-<blockquote>
 <p><code>BFC</code>的区域不会与<code>float box</code>重叠。</p>
-</blockquote>
 <p>　　我们可以通过通过触发main生成<code>BFC</code>， 来实现自适应两栏布局。</p>
 <p>.main {</p>
 <pre><code>overflow: hidden;
