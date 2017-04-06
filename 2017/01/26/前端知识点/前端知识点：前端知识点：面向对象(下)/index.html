@@ -1,0 +1,116 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> 前端知识点：前端知识点：面向对象(下) · 刘擎</title><meta name="description" content="前端知识点：前端知识点：面向对象(下) - John Doe"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="http://yoursite.com/atom.xml" title="刘擎"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">博客</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">文章列表</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">前端知识点：前端知识点：面向对象(下)</h1><div class="post-info">Jan 26, 2017</div><div class="post-content"><h2 id="7-如何编写面向对象程序"><a href="#7-如何编写面向对象程序" class="headerlink" title="7. 如何编写面向对象程序"></a>7. 如何编写面向对象程序</h2><ol>
+<li>采用构造+原型，写一个构造函数</li>
+<li>把方法挂在原型上(不能有方法嵌套)</li>
+<li>把全局变量变成属性</li>
+<li>调整this</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    // 1. 写一个构造函数    function ToRed() &#123;        // 3. 全局变量变成属性        this.oDiv = document.body.children[0];        // document.onclick = this.fnClick;        // 上句相当于        // document.onclick = function() &#123;        //  alert(this);    // document        //  this.oDiv.style.background = &apos;#f00&apos;;    // 当前的this指向document，错误        // &#125;        // 4. 调整this        var _this = this;        document.onclick = function() &#123;            _this.fnClick();        &#125;    &#125;    // 2. 方法挂在原型上    ToRed.prototype.fnClick = function() &#123;        this.oDiv.style.background = &apos;#f00&apos;;    &#125;    new ToRed();&lt;/script&gt;</div></pre></td></tr></table></figure>
+<p>``</p>
+<h2 id="8-面向对象：继承"><a href="#8-面向对象：继承" class="headerlink" title="8. 面向对象：继承"></a>8. 面向对象：继承</h2><ol>
+<li><p>属性的继承</p>
+</li>
+<li><ul>
+<li><code>父级的构造函数.call(this, 参数1, 参数2, ...);</code></li>
+<li><code>父级的构造函数.apply(this, arguments);</code></li>
+</ul>
+</li>
+<li><p>方法的继承</p>
+</li>
+<li><ul>
+<li><code>子级.prototype = 父级.prototype;</code> // 引用 子级新方法在此之前写会被清空<br>问题：子级改了，父级也改了</li>
+<li>循环复制</li>
+</ul>
+</li>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    for(var name in 父级.prototype) &#123;        子级.prototype[name] = 父级.prototype[name];  // 循环复制父级的方法    &#125;&lt;/script&gt;</div></pre></td></tr></table></figure>
+</li>
+<li><ul>
+<li>问题：<code>子级 instanceof 父级;</code> // false</li>
+<li>组合继承：子级的原型对象指向父级的实例，子级的原型对象的构造函数再指向自己。 <strong>推荐使用</strong></li>
+</ul>
+</li>
+<li><ol>
+<li>``</li>
+</ol>
+</li>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    子级.prototype = new 父级的构造函数();    子级.prototype.constructor = 子级的构造函数;&lt;/script&gt;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="实例：自动播放选项卡-继承"><a href="#实例：自动播放选项卡-继承" class="headerlink" title="实例：自动播放选项卡(继承)"></a>实例：自动播放选项卡(继承)</h3><hr>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;style&gt;    * &#123;        margin: 0;        padding: 0;    &#125;    #box button.active, #box2 button.active &#123;        background: #ff0;    &#125;    #box div, #box2 div &#123;        display: none;        width: 100px;        height: 100px;        font-size: 20px;        border: 1px solid #ccc;    &#125;    #box div.active, #box2 div.active &#123;        display: block;    &#125;&lt;/style&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;!-- 不自动播放 --&gt;&lt;div id=&quot;box&quot;&gt;    &lt;button class=&quot;active&quot;&gt;btn1&lt;/button&gt;    &lt;button&gt;btn2&lt;/button&gt;    &lt;button&gt;btn3&lt;/button&gt;    &lt;div class=&quot;active&quot;&gt;div1&lt;/div&gt;    &lt;div&gt;div2&lt;/div&gt;    &lt;div&gt;div3&lt;/div&gt;&lt;/div&gt;&lt;!-- 自动播放 --&gt;&lt;div id=&quot;box2&quot;&gt;    &lt;button class=&quot;active&quot;&gt;btn1&lt;/button&gt;    &lt;button&gt;btn2&lt;/button&gt;    &lt;button&gt;btn3&lt;/button&gt;    &lt;div class=&quot;active&quot;&gt;div1&lt;/div&gt;    &lt;div&gt;div2&lt;/div&gt;    &lt;div&gt;div3&lt;/div&gt;&lt;/div&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    // 构造函数写属性    function Tab(id) &#123;        if(!id) &#123;            return;        &#125;        this.oBox = document.getElementById(id);        this.aBtn = this.oBox.getElementsByTagName(&apos;button&apos;);        this.aDiv = this.oBox.getElementsByTagName(&apos;div&apos;);    &#125;    // 原型写方法    Tab.prototype.fnClick = function() &#123;        var _this = this;        for (var i = 0; i &lt; this.aBtn.length; i++) &#123;            (function(index) &#123;                _this.aBtn[i].onclick = function() &#123;                    _this._click(this, index);                &#125;            &#125;)(i);        &#125;    &#125;    Tab.prototype._click = function(oBtn, index) &#123;        for (var i = 0; i &lt; this.aBtn.length; i++) &#123;            this.aBtn[i].className = &apos;&apos;;            this.aDiv[i].className = &apos;&apos;;        &#125;        oBtn.className = &apos;active&apos;;        this.aDiv[index].className = &apos;active&apos;;    &#125;    // 自动播放属性    function AutoTab(id) &#123;        var _this = this;        Tab.call(this, id);  // 继承Tab属性        this.iNow = 0;  // 当前选项卡索引值        this.timer = null;        clearInterval(this.timer);        this.timer = setInterval(function() &#123;            _this.next();        &#125;, 1000);    &#125;    AutoTab.prototype = new Tab();  // 继承Tab方法    AutoTab.prototype.constructor = AutoTab;    // 自动播放方法    AutoTab.prototype.next = function() &#123;        this._click(this.aBtn[this.iNow], this.iNow);        this.iNow++;        if(this.iNow == this.aBtn.length) &#123;            this.iNow = 0;        &#125;        this.fnClick();    &#125;    var old_click = AutoTab.prototype._click;    AutoTab.prototype._click = function(oBtn, index) &#123;        this.iNow = index;        old_click.apply(this, arguments);  // 调整this    &#125;    var oTab = new Tab(&apos;box&apos;);  // 不自动播放    var oAuto = new AutoTab(&apos;box2&apos;);    oAuto.next();  // 自动播放    console.log(oTab.constructor == Tab);   // true    console.log(oTab instanceof AutoTab);   // false    console.log(oAuto.constructor == AutoTab);  // true    console.log(oAuto instanceof AutoTab);  // true    console.log(oAuto instanceof Tab);  // true&lt;/script&gt;</div></pre></td></tr></table></figure>
+<h2 id="9-解决变量名冲突的多种方法"><a href="#9-解决变量名冲突的多种方法" class="headerlink" title="9. 解决变量名冲突的多种方法"></a>9. 解决变量名冲突的多种方法</h2><p>​    1. 闭包、自执行函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    (function()&#123;&#125;)();    (function()&#123;&#125;());    // 首部加符号防止报错，不限于~    ~function()&#123;&#125;();&lt;/script&gt;</div></pre></td></tr></table></figure>
+<ol>
+<li><p>面向对象</p>
+</li>
+<li><p>命名空间</p>
+</li>
+<li><p>模块化</p>
+</li>
+<li><p>let(ES6)</p>
+</li>
+</ol>
+<h2 id="10-伪数组问题"><a href="#10-伪数组问题" class="headerlink" title="10. 伪数组问题"></a>10. 伪数组问题</h2><ul>
+<li><strong>DOM获取的元素是伪数组</strong></li>
+<li><strong>arguments是伪数组</strong></li>
+</ul>
+<blockquote>
+<p>注意json属性名不用纯数字</p>
+</blockquote>
+<h2 id="11-js的冒泡-Bubbling-Event-和捕获-Capture-Event-的区别"><a href="#11-js的冒泡-Bubbling-Event-和捕获-Capture-Event-的区别" class="headerlink" title="11. js的冒泡(Bubbling Event)和捕获(Capture Event)的区别"></a>11. js的冒泡(Bubbling Event)和捕获(Capture Event)的区别</h2><blockquote>
+<p>这个问题在之前的原生篇没有写好，这边补充进来。面试题那篇中也有这题。</p>
+</blockquote>
+<p>js之事件冒泡和事件捕获详细介绍</p>
+<ol>
+<li>冒泡型事件：事件按照从最特定的事件目标到最不特定的事件目标(document对象)的顺序触发。</li>
+<li>捕获型事件(event capturing)：事件从最不精确的对象(document 对象)开始触发，然后到最精确(也可以在窗口级别捕获事件，不过必须由开发人员特别指定)。</li>
+<li>DOM事件流：<strong>同时支持两种事件模型</strong>：捕获型事件和冒泡型事件，但是，<strong>捕获型事件先发生</strong>。两种事件流会触及DOM中的所有对象，从document对象开始，也在document对象结束。<br>DOM事件模型最独特的性质是，文本节点也触发事件(在IE中不会)。</li>
+</ol>
+<p>示例<br>假设一个元素div，它有一个下级元素p。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;div&gt;　　&lt;p&gt;元素&lt;/p&gt;&lt;/div&gt;</div></pre></td></tr></table></figure>
+<p>这两个元素都绑定了click事件，如果用户点击了p：</p>
+<ul>
+<li>事件捕获<br>当你使用事件捕获时，<strong>父级元素先触发</strong>，子级元素后触发，即div先触发，p后触发。</li>
+<li>事件冒泡<br>当你使用事件冒泡时，<strong>子级元素先触发</strong>，父级元素后触发，即p先触发，div后触发。</li>
+</ul>
+<blockquote>
+<p>addEventListener函数，它有三个参数，第三个参数若是true，则表示采用事件捕获，若是false，则表示采用事件冒泡。<br>IE只支持事件冒泡，不支持事件捕获。</p>
+</blockquote>
+<p><img src="http://mmbiz.qpic.cn/mmbiz_png/2bdBSyvBaf148xN0ibmV7CNCJkEPpTW5BiapEnYTibxRdiaXsedbhR6OFcyeGfcfPUibyic67OSTRU8rLNdfq1a7JGdg/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1" alt="img"></p>
+<h3 id="阻止冒泡"><a href="#阻止冒泡" class="headerlink" title="阻止冒泡"></a>阻止冒泡</h3><p>• 在W3c中，使用<code>stopPropagation()</code>方法<br>• 在IE下设置<code>oEvent.cancelBubble = true</code>；</p>
+<blockquote>
+<p>在捕获的过程中stopPropagation()后，后面的冒泡过程也不会发生了。</p>
+</blockquote>
+<h3 id="阻止捕获"><a href="#阻止捕获" class="headerlink" title="阻止捕获"></a>阻止捕获</h3><p><strong>阻止事件的默认行为</strong>，例如<code>click &lt;a&gt;</code>后的跳转</p>
+<p>• 在W3c中，使用<code>oEvent.preventDefault()</code>方法；<br>• 在IE下设置<code>window.event.returnValue = false;</code>或<code>return false</code></p>
+<h2 id="12-如何写一个自己的框架"><a href="#12-如何写一个自己的框架" class="headerlink" title="12. 如何写一个自己的框架"></a>12. 如何写一个自己的框架</h2><blockquote>
+<p>以下只是我自己的一点想法，有些幼稚，大家可以提供更好的意见</p>
+</blockquote>
+<h3 id="仿写jQuery要点回顾"><a href="#仿写jQuery要点回顾" class="headerlink" title="仿写jQuery要点回顾"></a>仿写jQuery要点回顾</h3><ul>
+<li><p>链式运动<br>每个功能方法最后需返回当前对象<br><code>return this;</code></p>
+</li>
+<li><p>编写插件</p>
+</li>
+<li><ul>
+<li>一个插件(插件中的this不用加$)</li>
+</ul>
+</li>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    $.fn = jQuery.prototype;    $.fn.插件名 = fn;    // 调用    $(div).插件名();&lt;/script&gt;</div></pre></td></tr></table></figure>
+</li>
+<li><ul>
+<li>一组插件</li>
+</ul>
+</li>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    $.fn = jQuery.prototype;      $.fn.extend = jQuery.prototype.extend = function(json) &#123;        for(var name in json) &#123;            jQuery.prototype[name] = json[name];        &#125;    &#125;    // 调用    $(div).插件名();&lt;/script&gt;</div></pre></td></tr></table></figure>
+</li>
+<li><p><code>$.ajax</code></p>
+</li>
+<li><ul>
+<li><code>$.xxx</code>形式 放在原型的属性上</li>
+<li><code>xxx.find()</code>形式 放在原型的原型链上</li>
+</ul>
+</li>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    $.ajax = jQuery.ajax = function(json) &#123;        // 调用原生的ajax方法，jsonp同理        ajax(json);    &#125;&lt;/script&gt;</div></pre></td></tr></table></figure></li>
+</ul>
+</div></article></div></main><footer><div class="paginator"><a href="/2017/02/02/前端知识点/前端知识点：前端知识点：关于this/" class="prev">上一篇</a><a href="/2017/01/24/前端知识点/前端知识点：前端知识点：面向对象(中)/" class="next">下一篇</a></div><div class="copyright"><p>© 2014 - 2017 刘擎.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-65933410-1",'auto');ga('send','pageview');</script></body></html>

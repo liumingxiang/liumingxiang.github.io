@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-03-07T02:14:25.000Z</updated>
+  <updated>2017-04-06T14:35:11.119Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -16,76 +16,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>MongoDB的安装以及自启动详细教程</title>
-    <link href="http://yoursite.com/2017/03/07/nodejs/mongodb/MongoDB/"/>
-    <id>http://yoursite.com/2017/03/07/nodejs/mongodb/MongoDB/</id>
-    <published>2017-03-06T17:57:20.000Z</published>
-    <updated>2017-03-07T02:14:25.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>首先说一下，我写这篇文章的背景，一直以来我也是这么实践的，那就是懒，嗯，对，就是懒，之前我自己配过这个mongodb，最近电脑重装了，然后我有个步骤忘记了，然后去网上查询资料，想改成自启动，可是我发现网上的教程没有一篇能把它说清楚的，所以我就把这个教程写了下来，供大家参考</p>
-<p>———————————————————华丽的分割线—————————————————————-</p>
-<p>MongoDB是一个基于分布式文件存储的数据库。由<a href="http://baike.baidu.com/view/824.htm" target="_blank" rel="external">C++</a>语言编写。旨在为WEB应用提供可扩展的高性能数据存储解决方案。</p>
-<p>MongoDB[][ ]是一个介于<a href="http://baike.baidu.com/view/68348.htm" target="_blank" rel="external">关系数据库</a>和非关系数据库之间的产品，是非关系数据库当中功能最丰富，最像关系数据库的。他支持的数据结构非常松散，是类似<a href="http://baike.baidu.com/view/136475.htm" target="_blank" rel="external">json</a>的<a href="http://baike.baidu.com/view/3463259.htm" target="_blank" rel="external">bson</a>格式，因此可以存储比较复杂的数据类型。Mongo最大的特点是他支持的查询语言非常强大，其语法有点类似于面向对象的查询语言，几乎可以实现类似关系数据库单表查询的绝大部分功能，而且还支持对数据建立<a href="http://baike.baidu.com/view/262241.htm" target="_blank" rel="external">索引</a>。</p>
-<a id="more"></a>
-<p>首先我们要去下载我们的mongodb的zip包，不知道你们要下载什么，反正我是下载的zip，因为这个比较灵活，只需要解压就OK了，（记住哈，是zip格式）    <a href="https://www.mongodb.com/" target="_blank" rel="external">传送门</a></p>
-<p><img src="/images/MongoDB/mdb16.png" alt="img"></p>
-<p><img src="/images/MongoDB/mdb17.png" alt="img"></p>
-<p>然后把他解压到我们电脑的某一个盘符的根目录譬如我这样 把它放在D盘根目录</p>
-<p><img src="/images/MongoDB/mdb15.png" alt="img"></p>
-<p>当我们把这些准备好以后，我们只需要在我们mongodb的目录下，建立一个data的目录（先不要管那个mongo.config）</p>
-<p><img src="/images/MongoDB/mdb1.png" alt="img"></p>
-<p>后面我们只需要在data中建立一个文件夹叫db还有一个文件夹叫log</p>
-<p><img src="/images/MongoDB/mdb2.png" alt="img"></p>
-<p>还有下面我们要在我们的log文件夹中建立一个mongodb.log文件，文件里不用填任何的东西</p>
-<p><img src="/images/MongoDB/mdb3.png" alt="img"></p>
-<p>下面我们只需要把我们的mongodb加入我们的path目录中，我们就可以在系统的任何地方启动我们的mongodb了</p>
-<p><img src="/images/MongoDB/mdb4.png" alt="img"></p>
-<p>然后我们就可以启动我们的数据库了，第一次启动的时候，我们要指定我们的数据库存储地址，上面我们建的的data里面的db</p>
-<p>我们只需要执行一个命令就可以了，其实在你执行了上面一步之后，并不需要跳转到bin目录下，也依然可以执行我们的mongod命令，后面的<code>--dbpath D:\mongodb\data\db</code>千万不能忘，这是指定我们的数据存储地址</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">D:/mongodb/bin&gt;mongod --dbpath D:\mongodb\data\db</div><div class="line">D:\                                  </div><div class="line">λ cd mongodb\bin\                                                    </div><div class="line">D:\mongodb\bin                       </div><div class="line">λ mongod --dbpath D:\mongodb\data\db</div></pre></td></tr></table></figure>
-<p><img src="/images/MongoDB/mdb13.png" alt="img"></p>
-<p>就这样子，我们就在本地安装好了我们的mongodb</p>
-<h3 id="但是，但是，但是。。。"><a href="#但是，但是，但是。。。" class="headerlink" title="但是，但是，但是。。。"></a>但是，但是，但是。。。</h3><p>如果真的这样子的话，我们每次都需要在我们需要的时候，都需要开启我们的cmd然后输入我们的mongod然后一直开着我们的cmd窗口才行，这样子很不方便好吗，如果真的这样子就完事了，我就不写这篇文章了。既然你是一名开发者，就肯定知道系统服务这个东西，我们也可以把我们的mongodb服务加入到我们的系统服务中，然后在开机的时候，自动开启我们的mongodb，这样子就很方便了。</p>
-<p>—————————————————分割线———————————————–</p>
-<p>下面我就带着你，把我们的mongodb加到我们的系统服务中</p>
-<p>首先呢，我们需要在我们的mongodb根目录下，建立一个<code>mongo.config</code></p>
-<p><img src="/images/MongoDB/mdb5.png" alt="img"></p>
-<p>然后在文件中写入我们的mongodb.log的目录，以及我们的db的目录，如下（根据自己的实际情况来填写下面的路径）</p>
-<p><img src="/images/MongoDB/mdb6.png" alt="img"></p>
-<p>再然后我们在我们的cmd中输入下面的命令，可是你要根据自己的实际目录来改变自己的命令</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mongod --config D:\mongodb\mongo.config --install --serviceName &quot;MongoDB&quot;</div></pre></td></tr></table></figure>
-<p><img src="/images/MongoDB/mdb8.png" alt="img"></p>
-<p>如果在我们的mongodb.log中看到以下信息，嗯，你就成功了</p>
-<p><img src="/images/MongoDB/mdb14.png" alt="img"></p>
-<p>下面我们在cmd或者<code>win+R</code>输入以下命令<code>services.msc</code>，来打开我们的服务列表</p>
-<p><img src="/images/MongoDB/mdb9.png" alt="img"></p>
-<p>然后我们就可以看到这些信息，在这里我们就可以看到我们的mongodb服务了</p>
-<p><img src="/images/MongoDB/mdb10.png" alt="img"></p>
-<p>然后我们右键进入属性，把启动项改为自动</p>
-<p><img src="/images/MongoDB/mdb11.png" alt="img"></p>
-<p>然后在回到上一级，把我们的服务启动了，就算正式完成了，噢耶</p>
-<p><img src="/images/MongoDB/mdb12.png" alt="img"></p>
-<p>至此我们的mongodb就算是真的安装以及可以自启动了，再也不用去看着黑黑的dos了</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;首先说一下，我写这篇文章的背景，一直以来我也是这么实践的，那就是懒，嗯，对，就是懒，之前我自己配过这个mongodb，最近电脑重装了，然后我有个步骤忘记了，然后去网上查询资料，想改成自启动，可是我发现网上的教程没有一篇能把它说清楚的，所以我就把这个教程写了下来，供大家参考&lt;/p&gt;
-&lt;p&gt;———————————————————华丽的分割线—————————————————————-&lt;/p&gt;
-&lt;p&gt;MongoDB是一个基于分布式文件存储的数据库。由&lt;a href=&quot;http://baike.baidu.com/view/824.htm&quot;&gt;C++&lt;/a&gt;语言编写。旨在为WEB应用提供可扩展的高性能数据存储解决方案。&lt;/p&gt;
-&lt;p&gt;MongoDB[][ ]是一个介于&lt;a href=&quot;http://baike.baidu.com/view/68348.htm&quot;&gt;关系数据库&lt;/a&gt;和非关系数据库之间的产品，是非关系数据库当中功能最丰富，最像关系数据库的。他支持的数据结构非常松散，是类似&lt;a href=&quot;http://baike.baidu.com/view/136475.htm&quot;&gt;json&lt;/a&gt;的&lt;a href=&quot;http://baike.baidu.com/view/3463259.htm&quot;&gt;bson&lt;/a&gt;格式，因此可以存储比较复杂的数据类型。Mongo最大的特点是他支持的查询语言非常强大，其语法有点类似于面向对象的查询语言，几乎可以实现类似关系数据库单表查询的绝大部分功能，而且还支持对数据建立&lt;a href=&quot;http://baike.baidu.com/view/262241.htm&quot;&gt;索引&lt;/a&gt;。&lt;/p&gt;
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
     <title>在github pages利用hexo快速搭建静态个人主页以及更改域名</title>
-    <link href="http://yoursite.com/2017/01/18/%E5%B7%A5%E5%85%B7%E7%B1%BB/%E5%9C%A8github%20pages%E5%88%A9%E7%94%A8hexo%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA%E9%9D%99%E6%80%81%E4%B8%AA%E4%BA%BA%E4%B8%BB%E9%A1%B5%E4%BB%A5%E5%8F%8A%E6%9B%B4%E6%94%B9%E5%9F%9F%E5%90%8D/"/>
-    <id>http://yoursite.com/2017/01/18/工具类/在github pages利用hexo快速搭建静态个人主页以及更改域名/</id>
-    <published>2017-01-18T06:41:30.000Z</published>
-    <updated>2017-03-03T02:07:12.000Z</updated>
+    <link href="http://yoursite.com/2017/03/18/%E5%B7%A5%E5%85%B7%E7%B1%BB/%E5%9C%A8github%20pages%E5%88%A9%E7%94%A8hexo%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA%E9%9D%99%E6%80%81%E4%B8%AA%E4%BA%BA%E4%B8%BB%E9%A1%B5%E4%BB%A5%E5%8F%8A%E6%9B%B4%E6%94%B9%E5%9F%9F%E5%90%8D/"/>
+    <id>http://yoursite.com/2017/03/18/工具类/在github pages利用hexo快速搭建静态个人主页以及更改域名/</id>
+    <published>2017-03-18T06:41:30.000Z</published>
+    <updated>2017-04-06T14:35:11.119Z</updated>
     
     <content type="html"><![CDATA[<p>github pages是一种提供免费托管静态页面的工具，可以免费作为我们的个人主页进行使用<br><a id="more"></a></p>
 <p><a href="https://pages.github.com/" target="_blank" rel="external">官方地址</a></p>
@@ -142,10 +77,10 @@
   
   <entry>
     <title>前端知识点：Flex布局</title>
-    <link href="http://yoursite.com/2016/06/20/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9%EF%BC%9AFlex%E5%B8%83%E5%B1%80/"/>
-    <id>http://yoursite.com/2016/06/20/前端知识点/前端知识点：Flex布局/</id>
-    <published>2016-06-20T15:04:15.000Z</published>
-    <updated>2017-04-01T08:12:34.569Z</updated>
+    <link href="http://yoursite.com/2017/03/10/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9%EF%BC%9AFlex%E5%B8%83%E5%B1%80/"/>
+    <id>http://yoursite.com/2017/03/10/前端知识点/前端知识点：Flex布局/</id>
+    <published>2017-03-10T15:04:15.000Z</published>
+    <updated>2017-04-06T14:36:32.528Z</updated>
     
     <content type="html"><![CDATA[<p>布局的传统解决方案，基于<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/box_model" target="_blank" rel="external">盒状模型</a>，依赖 <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/display" target="_blank" rel="external">display</a>属性 + <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/position" target="_blank" rel="external">position</a>属性 + <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/float" target="_blank" rel="external">float</a>属性。它对于那些特殊布局非常不方便，比如，<a href="https://css-tricks.com/centering-css-complete-guide/" target="_blank" rel="external">垂直居中</a>就不容易实现。</p>
 <p>![img]<img src="/images/flex/1.png" alt="img"></p>
@@ -319,10 +254,10 @@
   
   <entry>
     <title>前端知识点：BFC</title>
-    <link href="http://yoursite.com/2016/05/10/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9%EF%BC%9ABFC/"/>
-    <id>http://yoursite.com/2016/05/10/前端知识点/前端知识点：BFC/</id>
-    <published>2016-05-10T14:04:15.000Z</published>
-    <updated>2017-04-01T08:03:57.449Z</updated>
+    <link href="http://yoursite.com/2017/02/20/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9%EF%BC%9ABFC/"/>
+    <id>http://yoursite.com/2017/02/20/前端知识点/前端知识点：BFC/</id>
+    <published>2017-02-20T14:04:15.000Z</published>
+    <updated>2017-04-06T14:43:37.879Z</updated>
     
     <content type="html"><![CDATA[<p>​    BFC什么鬼？在解释BFC之前先说一下文档流。我们常说的文档流其实分为定位流，浮动流和普通流。三种。而普通流其实就是指BFC中的FC。FC是formatting context的首字母缩写，直译过来是格式化上下文，它是页面中的一块渲染区域，有一套渲染规则，决定了其子元素如何布局，以及和其他元素之间的关系和作用。常见的FC有BFC、IFC，还有GFC和FFC。BFC是block formatting context，也就是块级格式化上下文，是用于布局块级盒子的一块渲染区域，BFC 的一些用处（如清浮动，防止 margin 重叠等）</p>
 <a id="more"></a>
@@ -462,10 +397,10 @@ p {
   
   <entry>
     <title>前端知识点：清除浮动</title>
-    <link href="http://yoursite.com/2016/04/03/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9%EF%BC%9A%E6%B8%85%E9%99%A4%E6%B5%AE%E5%8A%A8/"/>
-    <id>http://yoursite.com/2016/04/03/前端知识点/前端知识点：清除浮动/</id>
-    <published>2016-04-03T12:04:15.000Z</published>
-    <updated>2017-04-01T06:57:52.731Z</updated>
+    <link href="http://yoursite.com/2017/02/15/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9%EF%BC%9A%E6%B8%85%E9%99%A4%E6%B5%AE%E5%8A%A8/"/>
+    <id>http://yoursite.com/2017/02/15/前端知识点/前端知识点：清除浮动/</id>
+    <published>2017-02-15T12:04:15.000Z</published>
+    <updated>2017-04-06T14:44:06.817Z</updated>
     
     <content type="html"><![CDATA[<p>前端技术栈更新太快，眼花缭乱，大家一个劲揽过来学习的时候，别忘了回头看看那些已经掌握的基础知识。</p>
 <h2 id="浮动到底是什么？"><a href="#浮动到底是什么？" class="headerlink" title="##浮动到底是什么？"></a>##浮动到底是什么？</h2><p>浮动核心就一句话：<strong>浮动元素会脱离文档流并向左/向右浮动，直到碰到父元素或者另一个浮动元素</strong>。请默念3次！</p>
@@ -536,10 +471,10 @@ p {
   
   <entry>
     <title>前端知识点：任意元素的垂直水平居中</title>
-    <link href="http://yoursite.com/2016/04/02/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9%EF%BC%9A%E4%BB%BB%E6%84%8F%E5%85%83%E7%B4%A0%E7%9A%84%E5%9E%82%E7%9B%B4%E6%B0%B4%E5%B9%B3%E5%B1%85%E4%B8%AD/"/>
-    <id>http://yoursite.com/2016/04/02/前端知识点/前端知识点：任意元素的垂直水平居中/</id>
-    <published>2016-04-02T14:04:15.000Z</published>
-    <updated>2017-03-31T16:04:06.966Z</updated>
+    <link href="http://yoursite.com/2017/02/10/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9%EF%BC%9A%E4%BB%BB%E6%84%8F%E5%85%83%E7%B4%A0%E7%9A%84%E5%9E%82%E7%9B%B4%E6%B0%B4%E5%B9%B3%E5%B1%85%E4%B8%AD/"/>
+    <id>http://yoursite.com/2017/02/10/前端知识点/前端知识点：任意元素的垂直水平居中/</id>
+    <published>2017-02-10T14:04:15.000Z</published>
+    <updated>2017-04-06T14:44:30.162Z</updated>
     
     <content type="html"><![CDATA[<p>这里涉及到行内元素和块级元素。</p>
 <p>行内元素和块级元素可以相互转换，比如用<strong>display</strong>来进行设置。</p>
@@ -570,10 +505,10 @@ p {
   
   <entry>
     <title>前端知识点：前端知识点：关于this</title>
-    <link href="http://yoursite.com/2016/03/21/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9%EF%BC%9A%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9%EF%BC%9A%E5%85%B3%E4%BA%8Ethis/"/>
-    <id>http://yoursite.com/2016/03/21/前端知识点/前端知识点：前端知识点：关于this/</id>
-    <published>2016-03-21T11:04:15.000Z</published>
-    <updated>2017-03-31T15:23:59.403Z</updated>
+    <link href="http://yoursite.com/2017/02/02/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9%EF%BC%9A%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9%EF%BC%9A%E5%85%B3%E4%BA%8Ethis/"/>
+    <id>http://yoursite.com/2017/02/02/前端知识点/前端知识点：前端知识点：关于this/</id>
+    <published>2017-02-02T11:04:15.000Z</published>
+    <updated>2017-04-06T14:45:17.030Z</updated>
     
     <content type="html"><![CDATA[<p>JavaScript中最令人困惑的机制之一就是<code>this</code>关键字。它是一个在每个函数作用域中自动定义的特殊标识符关键字，但即便是一些老练的开发者也对它到底指向什么感到困扰。</p>
 <blockquote>
@@ -704,10 +639,10 @@ p {
   
   <entry>
     <title>前端知识点：前端知识点：面向对象(下)</title>
-    <link href="http://yoursite.com/2016/02/12/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9%EF%BC%9A%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9%EF%BC%9A%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1(%E4%B8%8B)/"/>
-    <id>http://yoursite.com/2016/02/12/前端知识点/前端知识点：前端知识点：面向对象(下)/</id>
-    <published>2016-02-12T14:04:15.000Z</published>
-    <updated>2017-03-31T14:52:36.433Z</updated>
+    <link href="http://yoursite.com/2017/01/26/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9%EF%BC%9A%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9%EF%BC%9A%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1(%E4%B8%8B)/"/>
+    <id>http://yoursite.com/2017/01/26/前端知识点/前端知识点：前端知识点：面向对象(下)/</id>
+    <published>2017-01-26T14:04:15.000Z</published>
+    <updated>2017-04-06T14:45:44.547Z</updated>
     
     <content type="html"><![CDATA[<h2 id="7-如何编写面向对象程序"><a href="#7-如何编写面向对象程序" class="headerlink" title="7. 如何编写面向对象程序"></a>7. 如何编写面向对象程序</h2><ol>
 <li>采用构造+原型，写一个构造函数</li>
@@ -839,10 +774,10 @@ p {
   
   <entry>
     <title>前端知识点：前端知识点：面向对象(中)</title>
-    <link href="http://yoursite.com/2016/02/11/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9%EF%BC%9A%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9%EF%BC%9A%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1(%E4%B8%AD)/"/>
-    <id>http://yoursite.com/2016/02/11/前端知识点/前端知识点：前端知识点：面向对象(中)/</id>
-    <published>2016-02-10T18:04:15.000Z</published>
-    <updated>2017-03-31T15:25:40.825Z</updated>
+    <link href="http://yoursite.com/2017/01/24/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9%EF%BC%9A%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9%EF%BC%9A%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1(%E4%B8%AD)/"/>
+    <id>http://yoursite.com/2017/01/24/前端知识点/前端知识点：前端知识点：面向对象(中)/</id>
+    <published>2017-01-23T18:04:15.000Z</published>
+    <updated>2017-04-06T14:45:58.166Z</updated>
     
     <content type="html"><![CDATA[<h2 id="1-面向对象"><a href="#1-面向对象" class="headerlink" title="1. 面向对象"></a>1. 面向对象</h2><h3 id="1-对象组成"><a href="#1-对象组成" class="headerlink" title="(1) 对象组成"></a>(1) 对象组成</h3><ol>
 <li><strong>属性(变量)</strong></li>
@@ -946,82 +881,11 @@ p {
   </entry>
   
   <entry>
-    <title>前端知识点：前端知识点：选择器</title>
-    <link href="http://yoursite.com/2016/02/11/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9%EF%BC%9A%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9%EF%BC%9A%E9%80%89%E6%8B%A9%E5%99%A8/"/>
-    <id>http://yoursite.com/2016/02/11/前端知识点/前端知识点：前端知识点：选择器/</id>
-    <published>2016-02-10T18:04:15.000Z</published>
-    <updated>2017-03-31T15:02:51.646Z</updated>
-    
-    <content type="html"><![CDATA[<ul>
-<li><p>H5选择器</p>
-</li>
-<li><ul>
-<li>querySelectorAll 对比 getElements 的优势</li>
-<li>jQuery的选择器即是querySelectorAll</li>
-</ul>
-</li>
-<li><p>H5自定义属性 dataset</p>
-</li>
-<li><p>H5元素类名操作 classList</p>
-</li>
-</ul>
-<a id="more"></a>
-<h2 id="3-H5选择器补充"><a href="#3-H5选择器补充" class="headerlink" title="3. H5选择器补充"></a>3. H5选择器补充</h2><p>*兼容：IE8+</p>
-<ul>
-<li><p>​</p>
-<p>document/dom.querySelector() 匹配指定 css 选择器的一个元素</p>
-</li>
-<li><p>​</p>
-<p>querySelectorAll() 匹配指定 css 选择器的所有元素 (NodeList)</p>
-</li>
-</ul>
-<blockquote>
-<p><strong>注意：</strong> querySelectorAll()方法得到的类数组对象是非动态实时的</p>
-</blockquote>
-<h3 id="querySelectorAll-对比-getElements-的优势"><a href="#querySelectorAll-对比-getElements-的优势" class="headerlink" title="querySelectorAll 对比 getElements 的优势"></a>querySelectorAll 对比 getElements 的优势</h3><p>可以操作数组</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;div class=&quot;box&quot;&gt;&lt;/div&gt;    &lt;div class=&quot;box&quot;&gt;&lt;/div&gt;    &lt;div class=&quot;box&quot;&gt;&lt;/div&gt;</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    var aBox = document.querySelectorAll(&apos;div&apos;);    // getElements得到的是伪数组，不能操作各项的属性    // var aBox = document.getElementsByTagName(&apos;div&apos;);    // for (var i = 0; i &lt; aBox.length; i++) &#123;    //  aBox[i].onclick = function() &#123;    //      alert(1);    //  &#125;    // &#125;    aBox.forEach(function(item, index) &#123;        item.onclick = function() &#123;            alert(index);            // 弹出当前点击div的索引值，依次为0、1、2        &#125;    &#125;)&lt;/script&gt;</div></pre></td></tr></table></figure>
-<h3 id="jQuery的选择器即是querySelectorAll"><a href="#jQuery的选择器即是querySelectorAll" class="headerlink" title="jQuery的选择器即是querySelectorAll"></a>jQuery的选择器即是querySelectorAll</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    function $(selector) &#123;        var items = document.querySelectorAll(selector);        if(items.length &gt; 1) &#123;            return items;        &#125; else if (items.length == 0) &#123;            return;        &#125; else &#123;            return items[0];        &#125;    &#125;&lt;/script&gt;</div></pre></td></tr></table></figure>
-<p>##.CSS 选择符有哪些？哪些属性可以继承？优先级算法如何计算？ CSS3新增伪类有那些？</p>
-<pre><code>*   1.id选择器（ # myid）
-    2.类选择器（.myclassname）
-    3.标签选择器（div, h1, p）
-    4.相邻选择器（h1 + p）
-    5.子选择器（ul &lt; li）
-    6.后代选择器（li a）
-    7.通配符选择器（ * ）
-    8.属性选择器（a[rel = &quot;external&quot;]）
-    9.伪类选择器（a: hover, li: nth - child）
-</code></pre><p>##CSS3新增伪类举例：<br>    p:first-of-type 选择属于其父元素的首个 </p><p> 元素的每个 </p><p> 元素。<br>    p:last-of-type  选择属于其父元素的最后 </p><p> 元素的每个 </p><p> 元素。<br>    p:only-of-type  选择属于其父元素唯一的 </p><p> 元素的每个 </p><p> 元素。<br>    p:only-child    选择属于其父元素的唯一子元素的每个 </p><p> 元素。<br>    p:nth-child(2)  选择属于其父元素的第二个子元素的每个 </p><p> 元素。<br>    :enabled、:disabled 控制表单控件的禁用状态。<br>    :checked，单选框或复选框被选中。<br>上图一张：<br><img src="/images/css3t/1.png" alt="img"></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;ul&gt;
-&lt;li&gt;&lt;p&gt;H5选择器&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;ul&gt;
-&lt;li&gt;querySelectorAll 对比 getElements 的优势&lt;/li&gt;
-&lt;li&gt;jQuery的选择器即是querySelectorAll&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;H5自定义属性 dataset&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;H5元素类名操作 classList&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
     <title>前端知识点：前端知识点：面向对象(上)</title>
-    <link href="http://yoursite.com/2016/02/10/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9%EF%BC%9A%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9%EF%BC%9A%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1(%E4%B8%8A)/"/>
-    <id>http://yoursite.com/2016/02/10/前端知识点/前端知识点：前端知识点：面向对象(上)/</id>
-    <published>2016-02-09T17:34:15.000Z</published>
-    <updated>2017-03-31T14:50:49.885Z</updated>
+    <link href="http://yoursite.com/2017/01/22/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9%EF%BC%9A%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9%EF%BC%9A%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1(%E4%B8%8A)/"/>
+    <id>http://yoursite.com/2017/01/22/前端知识点/前端知识点：前端知识点：面向对象(上)/</id>
+    <published>2017-01-21T17:34:15.000Z</published>
+    <updated>2017-04-06T14:46:28.576Z</updated>
     
     <content type="html"><![CDATA[<p>1.面向过程编程:注重解决问题的步骤,分析问题需要的每一步,实现函数依次调用。</p>
 <p>2.面向对象编程:注重问题中的对象,分析问题中对象的联系,实现对象间的通讯解决问题.面向对象编程淡化过程,强调对象 更贴近我们人日常处理问题的方式。</p>
@@ -1130,6 +994,77 @@ p {
 &lt;p&gt;4.面向对象:在正式开发之前,就先把所有需要使用的功能都开发好,并以属性或者方法的形式存放&lt;/p&gt;
 &lt;p&gt;在一个对象中,在实际开发的时候根据需要来调用写好的功能。相当于去快餐店吃快餐,菜都是&lt;/p&gt;
 &lt;p&gt;事先已经炒好的,去了就可以吃。&lt;/p&gt;
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>前端知识点：前端知识点：选择器</title>
+    <link href="http://yoursite.com/2017/01/12/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9%EF%BC%9A%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9%EF%BC%9A%E9%80%89%E6%8B%A9%E5%99%A8/"/>
+    <id>http://yoursite.com/2017/01/12/前端知识点/前端知识点：前端知识点：选择器/</id>
+    <published>2017-01-11T18:04:15.000Z</published>
+    <updated>2017-04-06T14:47:11.467Z</updated>
+    
+    <content type="html"><![CDATA[<ul>
+<li><p>H5选择器</p>
+</li>
+<li><ul>
+<li>querySelectorAll 对比 getElements 的优势</li>
+<li>jQuery的选择器即是querySelectorAll</li>
+</ul>
+</li>
+<li><p>H5自定义属性 dataset</p>
+</li>
+<li><p>H5元素类名操作 classList</p>
+</li>
+</ul>
+<a id="more"></a>
+<h2 id="3-H5选择器补充"><a href="#3-H5选择器补充" class="headerlink" title="3. H5选择器补充"></a>3. H5选择器补充</h2><p>*兼容：IE8+</p>
+<ul>
+<li><p>​</p>
+<p>document/dom.querySelector() 匹配指定 css 选择器的一个元素</p>
+</li>
+<li><p>​</p>
+<p>querySelectorAll() 匹配指定 css 选择器的所有元素 (NodeList)</p>
+</li>
+</ul>
+<blockquote>
+<p><strong>注意：</strong> querySelectorAll()方法得到的类数组对象是非动态实时的</p>
+</blockquote>
+<h3 id="querySelectorAll-对比-getElements-的优势"><a href="#querySelectorAll-对比-getElements-的优势" class="headerlink" title="querySelectorAll 对比 getElements 的优势"></a>querySelectorAll 对比 getElements 的优势</h3><p>可以操作数组</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;div class=&quot;box&quot;&gt;&lt;/div&gt;    &lt;div class=&quot;box&quot;&gt;&lt;/div&gt;    &lt;div class=&quot;box&quot;&gt;&lt;/div&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    var aBox = document.querySelectorAll(&apos;div&apos;);    // getElements得到的是伪数组，不能操作各项的属性    // var aBox = document.getElementsByTagName(&apos;div&apos;);    // for (var i = 0; i &lt; aBox.length; i++) &#123;    //  aBox[i].onclick = function() &#123;    //      alert(1);    //  &#125;    // &#125;    aBox.forEach(function(item, index) &#123;        item.onclick = function() &#123;            alert(index);            // 弹出当前点击div的索引值，依次为0、1、2        &#125;    &#125;)&lt;/script&gt;</div></pre></td></tr></table></figure>
+<h3 id="jQuery的选择器即是querySelectorAll"><a href="#jQuery的选择器即是querySelectorAll" class="headerlink" title="jQuery的选择器即是querySelectorAll"></a>jQuery的选择器即是querySelectorAll</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    function $(selector) &#123;        var items = document.querySelectorAll(selector);        if(items.length &gt; 1) &#123;            return items;        &#125; else if (items.length == 0) &#123;            return;        &#125; else &#123;            return items[0];        &#125;    &#125;&lt;/script&gt;</div></pre></td></tr></table></figure>
+<p>##.CSS 选择符有哪些？哪些属性可以继承？优先级算法如何计算？ CSS3新增伪类有那些？</p>
+<pre><code>*   1.id选择器（ # myid）
+    2.类选择器（.myclassname）
+    3.标签选择器（div, h1, p）
+    4.相邻选择器（h1 + p）
+    5.子选择器（ul &lt; li）
+    6.后代选择器（li a）
+    7.通配符选择器（ * ）
+    8.属性选择器（a[rel = &quot;external&quot;]）
+    9.伪类选择器（a: hover, li: nth - child）
+</code></pre><p>##CSS3新增伪类举例：<br>    p:first-of-type 选择属于其父元素的首个 </p><p> 元素的每个 </p><p> 元素。<br>    p:last-of-type  选择属于其父元素的最后 </p><p> 元素的每个 </p><p> 元素。<br>    p:only-of-type  选择属于其父元素唯一的 </p><p> 元素的每个 </p><p> 元素。<br>    p:only-child    选择属于其父元素的唯一子元素的每个 </p><p> 元素。<br>    p:nth-child(2)  选择属于其父元素的第二个子元素的每个 </p><p> 元素。<br>    :enabled、:disabled 控制表单控件的禁用状态。<br>    :checked，单选框或复选框被选中。<br>上图一张：<br><img src="/images/css3t/1.png" alt="img"></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;ul&gt;
+&lt;li&gt;&lt;p&gt;H5选择器&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;ul&gt;
+&lt;li&gt;querySelectorAll 对比 getElements 的优势&lt;/li&gt;
+&lt;li&gt;jQuery的选择器即是querySelectorAll&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;H5自定义属性 dataset&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;H5元素类名操作 classList&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
     
     </summary>
     
@@ -1437,6 +1372,144 @@ p {
   </entry>
   
   <entry>
+    <title>前端知识点：前端知识点：jQuery(下)</title>
+    <link href="http://yoursite.com/2015/11/09/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9%EF%BC%9A%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9%EF%BC%9AjQuery(%E4%B8%8B)/"/>
+    <id>http://yoursite.com/2015/11/09/前端知识点/前端知识点：前端知识点：jQuery(下)/</id>
+    <published>2015-11-09T13:44:15.000Z</published>
+    <updated>2017-03-31T11:14:41.305Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="1-jQuery获取物体信息"><a href="#1-jQuery获取物体信息" class="headerlink" title="1. jQuery获取物体信息"></a>1. jQuery获取物体信息</h2><h3 id="js"><a href="#js" class="headerlink" title="js"></a>js</h3><ul>
+<li><p>​</p>
+<p>obj.offsetWidth</p>
+</li>
+<li><p>​</p>
+<p>obj.offsetHeight</p>
+</li>
+<li><p>​</p>
+<p>obj.offsetLeft</p>
+</li>
+<li><p>​</p>
+<p>obj.offsetTop</p>
+</li>
+<li><p>​</p>
+<p>obj.parentNode 结构父级 根：document</p>
+</li>
+<li><p>​</p>
+<p>obj.offsetParent 定位父级 根：body</p>
+</li>
+</ul>
+<p><strong>js处理小数较弱，取出时取整Math.round()</strong></p>
+<h3 id="jQuery-只封装了以下方法"><a href="#jQuery-只封装了以下方法" class="headerlink" title="jQuery(只封装了以下方法)"></a>jQuery(只封装了以下方法)</h3><ul>
+<li><p>​</p>
+<p><code>obj.width();</code> 纯width</p>
+</li>
+<li><p>​</p>
+<p><code>obj.height();</code> 纯height</p>
+</li>
+<li><p>​</p>
+<p><code>obj.outerWidth();</code> 盒子模型的width (width+padding+border) =&gt; offsetWidth</p>
+</li>
+<li><p>​</p>
+<p><code>obj.outerHeight();</code> 盒子模型的height (height+padding+border) =&gt; offsetHeight</p>
+</li>
+<li><p>​</p>
+<p><code>obj.position().left;</code> 距离定位父级left值 (不包括margin) =&gt; offsetLeft</p>
+</li>
+<li><p>​</p>
+<p><code>obj.position().top;</code> 距离定位父级top值 (不包括margin) =&gt; offsetTop</p>
+</li>
+<li><p>​</p>
+<p><code>obj.offset().left;</code> 距离定位父级left值 (包括margin)</p>
+</li>
+<li><p>​</p>
+<p><code>obj.offset().top;</code> 距离定位父级top值 (包括margin)</p>
+</li>
+<li><p>​</p>
+<p><code>obj.scrollTop();</code> 元素相对滚动条顶部的偏移</p>
+</li>
+<li><p>​</p>
+<p><code>obj.scrollLeft();</code> 元素相对滚动条左侧的偏移</p>
+</li>
+</ul>
+<p>父级</p>
+<ul>
+<li><code>obj.parent()</code> 结构父级 根：document =&gt; parentNode</li>
+<li><code>obj.parents()</code> 返回被选元素的所有祖先元素，直到 <code>&lt;html&gt;</code></li>
+<li><code>obj.offsetParent()</code> 定位父级 根：body =&gt; offsetParent</li>
+</ul>
+<p>子级</p>
+<ul>
+<li><code>obj.children()</code> 返回被选元素的所有直接子元素</li>
+<li><code>obj.find()</code> 返回被选元素的后代元素，一路向下直到最后一个后代</li>
+</ul>
+<h2 id="2-jQuery筛选"><a href="#2-jQuery筛选" class="headerlink" title="2. jQuery筛选"></a>2. jQuery筛选</h2><h3 id="1-过滤"><a href="#1-过滤" class="headerlink" title="(1) 过滤"></a>(1) 过滤</h3><ul>
+<li><p><code>.eq(index)</code></p>
+</li>
+<li><ul>
+<li>index &gt;= 0 正向选取(0代表第一个，1代表第二个)</li>
+<li>index &lt; 0 反向选取(-1代表倒数第一个)</li>
+</ul>
+</li>
+<li><p><code>.first()</code></p>
+</li>
+<li><p><code>.last()</code></p>
+</li>
+<li><p><code>.hasClass(className)</code></p>
+</li>
+</ul>
+<h3 id="2-查找"><a href="#2-查找" class="headerlink" title="(2) 查找"></a>(2) 查找</h3><ul>
+<li><code>.find(tagName/className/id)</code> eg: <code>oBox.find(&#39;ol li&#39;);</code></li>
+</ul>
+<h2 id="3-jQuery-lt-gt-js"><a href="#3-jQuery-lt-gt-js" class="headerlink" title="3. jQuery &lt;=&gt; js"></a>3. jQuery &lt;=&gt; js</h2><h3 id="1-原生js转jQuery对象"><a href="#1-原生js转jQuery对象" class="headerlink" title="(1) 原生js转jQuery对象"></a>(1) 原生js转jQuery对象</h3><p><strong>$() 包裹</strong>this -&gt; $(this) document -&gt; $(document)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    var oDiv = document.getElementById(&apos;div1&apos;);    $(oDiv).html(&apos;xxx&apos;);&lt;/script&gt;</div></pre></td></tr></table></figure>
+<h3 id="2-jQuery转原生js对象"><a href="#2-jQuery转原生js对象" class="headerlink" title="(2) jQuery转原生js对象"></a>(2) jQuery转原生js对象</h3><p><strong>[] / get()</strong></p>
+<ol>
+<li><code>$(&#39;div&#39;)[0].innerHTML=&#39;xxx&#39;;</code></li>
+<li><code>$(&#39;div&#39;).get(0).innerHTML=&#39;xxx;</code></li>
+</ol>
+<h2 id="4-jQuery链式运动"><a href="#4-jQuery链式运动" class="headerlink" title="4. jQuery链式运动"></a>4. jQuery链式运动</h2><p><code>obj.css(...).html(...).attr(...).click();</code></p>
+<h2 id="5-jQuery循环"><a href="#5-jQuery循环" class="headerlink" title="5. jQuery循环"></a>5. jQuery循环</h2><p><code>obj.each(function(){...});</code></p>
+<p>JS中的forEach、$.each、map方法推荐</p>
+<p>eg:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    $(&apos;div&apos;).each(function(index, element) &#123;  // 索引，当前元素        console.log($(element).html);  // **element是原生对象，需转成jq对象        $(this);  // 当前对象    &#125;);&lt;/script&gt;</div></pre></td></tr></table></figure>
+<h2 id="6-jQuery工具"><a href="#6-jQuery工具" class="headerlink" title="6. jQuery工具"></a>6. jQuery工具</h2><ul>
+<li><code>$.trim(str);</code> 去掉字符串起始和结尾的空格</li>
+<li><code>$.browser.version;</code> 浏览器版本</li>
+</ul>
+<p>eg:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    if($.browse.version.substring(0, 1) == &apos;6&apos;) &#123;        // IE6 code here    &#125;&lt;/script&gt;</div></pre></td></tr></table></figure>
+<h2 id="7-jQuery-Ajax"><a href="#7-jQuery-Ajax" class="headerlink" title="7. jQuery Ajax"></a>7. jQuery Ajax</h2><p><code>$.ajax({...});</code></p>
+<ul>
+<li><strong>type: ‘get/post’</strong></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    $.ajax(&#123;        url: URL,        data: &#123;&#125;,        type: &apos;get&apos;,        error: fn,        complete: fn,        time: 3000;        success: function(str) &#123;            console.log(str);        &#125;    &#125;)&lt;/script&gt;</div></pre></td></tr></table></figure>
+<h2 id="8-jQuery-jsonp"><a href="#8-jQuery-jsonp" class="headerlink" title="8. jQuery jsonp"></a>8. jQuery jsonp</h2><p><code>$.ajax({...});</code></p>
+<ul>
+<li><strong>dataType: ‘jsonp’</strong></li>
+<li><strong>cbName: ‘callback/cb’</strong></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    $.ajax(&#123;        url: URL,        data: &#123;&#125;,        dataType: &apos;jsonp&apos;,        cbName: &apos;callback&apos;,        success: function(json) &#123;            console.log(json);        &#125;    &#125;);&lt;/script&gt;</div></pre></td></tr></table></figure>
+<h2 id="9-jQuery插件"><a href="#9-jQuery插件" class="headerlink" title="9. jQuery插件"></a>9. jQuery插件</h2><h3 id="写插件"><a href="#写插件" class="headerlink" title="写插件"></a>写插件</h3><p>$: jq fn: 帮助</p>
+<p><strong>jq里面除了插件里的this以外，其他都是原生的js</strong></p>
+<p>jquery的$.extend和$.fn.extend作用及区别</p>
+<h3 id="一个插件"><a href="#一个插件" class="headerlink" title="一个插件"></a>一个插件</h3><p><code>$.fn.插件名=fn;</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    $.fn.插件名 = function() &#123;        this.css(&apos;name&apos;, &apos;value&apos;);  // 插件中的this不用加$    &#125;    $(&apos;div&apos;).插件名();&lt;/script&gt;</div></pre></td></tr></table></figure>
+<h3 id="一组插件"><a href="#一组插件" class="headerlink" title="一组插件"></a>一组插件</h3><p><code>$.fn.extend(...);</code></p>
+<blockquote>
+<p>插件调用不能用链式</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    $.fn.extend(&#123;        插件名1: function() &#123;            this.css(&apos;name&apos;, &apos;value&apos;);        &#125;,        插件名2: function() &#123;            this.css(&apos;name&apos;, &apos;value&apos;);        &#125;    &#125;)    // 插件调用不能用链式    $(&apos;div&apos;).插件名1();    $(&apos;div&apos;).插件名2();&lt;/script&gt;</div></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;1-jQuery获取物体信息&quot;&gt;&lt;a href=&quot;#1-jQuery获取物体信息&quot; class=&quot;headerlink&quot; title=&quot;1. jQuery获取物体信息&quot;&gt;&lt;/a&gt;1. jQuery获取物体信息&lt;/h2&gt;&lt;h3 id=&quot;js&quot;&gt;&lt;a href=&quot;#j
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
     <title>前端知识点：前端知识点：布局大全</title>
     <link href="http://yoursite.com/2015/11/09/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9%EF%BC%9A%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9%EF%BC%9A%E5%B8%83%E5%B1%80%E5%A4%A7%E5%85%A8/"/>
     <id>http://yoursite.com/2015/11/09/前端知识点/前端知识点：前端知识点：布局大全/</id>
@@ -1618,144 +1691,6 @@ p {
     <summary type="html">
     
       &lt;h2 id=&quot;一-单列布局&quot;&gt;&lt;a href=&quot;#一-单列布局&quot; class=&quot;headerlink&quot; title=&quot;一. 单列布局&quot;&gt;&lt;/a&gt;一. 单列布局&lt;/h2&gt;&lt;h3 id=&quot;1-水平居中&quot;&gt;&lt;a href=&quot;#1-水平居中&quot; class=&quot;headerlink&quot; ti
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>前端知识点：前端知识点：jQuery(下)</title>
-    <link href="http://yoursite.com/2015/11/09/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9%EF%BC%9A%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9%EF%BC%9AjQuery(%E4%B8%8B)/"/>
-    <id>http://yoursite.com/2015/11/09/前端知识点/前端知识点：前端知识点：jQuery(下)/</id>
-    <published>2015-11-09T13:44:15.000Z</published>
-    <updated>2017-03-31T11:14:41.305Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="1-jQuery获取物体信息"><a href="#1-jQuery获取物体信息" class="headerlink" title="1. jQuery获取物体信息"></a>1. jQuery获取物体信息</h2><h3 id="js"><a href="#js" class="headerlink" title="js"></a>js</h3><ul>
-<li><p>​</p>
-<p>obj.offsetWidth</p>
-</li>
-<li><p>​</p>
-<p>obj.offsetHeight</p>
-</li>
-<li><p>​</p>
-<p>obj.offsetLeft</p>
-</li>
-<li><p>​</p>
-<p>obj.offsetTop</p>
-</li>
-<li><p>​</p>
-<p>obj.parentNode 结构父级 根：document</p>
-</li>
-<li><p>​</p>
-<p>obj.offsetParent 定位父级 根：body</p>
-</li>
-</ul>
-<p><strong>js处理小数较弱，取出时取整Math.round()</strong></p>
-<h3 id="jQuery-只封装了以下方法"><a href="#jQuery-只封装了以下方法" class="headerlink" title="jQuery(只封装了以下方法)"></a>jQuery(只封装了以下方法)</h3><ul>
-<li><p>​</p>
-<p><code>obj.width();</code> 纯width</p>
-</li>
-<li><p>​</p>
-<p><code>obj.height();</code> 纯height</p>
-</li>
-<li><p>​</p>
-<p><code>obj.outerWidth();</code> 盒子模型的width (width+padding+border) =&gt; offsetWidth</p>
-</li>
-<li><p>​</p>
-<p><code>obj.outerHeight();</code> 盒子模型的height (height+padding+border) =&gt; offsetHeight</p>
-</li>
-<li><p>​</p>
-<p><code>obj.position().left;</code> 距离定位父级left值 (不包括margin) =&gt; offsetLeft</p>
-</li>
-<li><p>​</p>
-<p><code>obj.position().top;</code> 距离定位父级top值 (不包括margin) =&gt; offsetTop</p>
-</li>
-<li><p>​</p>
-<p><code>obj.offset().left;</code> 距离定位父级left值 (包括margin)</p>
-</li>
-<li><p>​</p>
-<p><code>obj.offset().top;</code> 距离定位父级top值 (包括margin)</p>
-</li>
-<li><p>​</p>
-<p><code>obj.scrollTop();</code> 元素相对滚动条顶部的偏移</p>
-</li>
-<li><p>​</p>
-<p><code>obj.scrollLeft();</code> 元素相对滚动条左侧的偏移</p>
-</li>
-</ul>
-<p>父级</p>
-<ul>
-<li><code>obj.parent()</code> 结构父级 根：document =&gt; parentNode</li>
-<li><code>obj.parents()</code> 返回被选元素的所有祖先元素，直到 <code>&lt;html&gt;</code></li>
-<li><code>obj.offsetParent()</code> 定位父级 根：body =&gt; offsetParent</li>
-</ul>
-<p>子级</p>
-<ul>
-<li><code>obj.children()</code> 返回被选元素的所有直接子元素</li>
-<li><code>obj.find()</code> 返回被选元素的后代元素，一路向下直到最后一个后代</li>
-</ul>
-<h2 id="2-jQuery筛选"><a href="#2-jQuery筛选" class="headerlink" title="2. jQuery筛选"></a>2. jQuery筛选</h2><h3 id="1-过滤"><a href="#1-过滤" class="headerlink" title="(1) 过滤"></a>(1) 过滤</h3><ul>
-<li><p><code>.eq(index)</code></p>
-</li>
-<li><ul>
-<li>index &gt;= 0 正向选取(0代表第一个，1代表第二个)</li>
-<li>index &lt; 0 反向选取(-1代表倒数第一个)</li>
-</ul>
-</li>
-<li><p><code>.first()</code></p>
-</li>
-<li><p><code>.last()</code></p>
-</li>
-<li><p><code>.hasClass(className)</code></p>
-</li>
-</ul>
-<h3 id="2-查找"><a href="#2-查找" class="headerlink" title="(2) 查找"></a>(2) 查找</h3><ul>
-<li><code>.find(tagName/className/id)</code> eg: <code>oBox.find(&#39;ol li&#39;);</code></li>
-</ul>
-<h2 id="3-jQuery-lt-gt-js"><a href="#3-jQuery-lt-gt-js" class="headerlink" title="3. jQuery &lt;=&gt; js"></a>3. jQuery &lt;=&gt; js</h2><h3 id="1-原生js转jQuery对象"><a href="#1-原生js转jQuery对象" class="headerlink" title="(1) 原生js转jQuery对象"></a>(1) 原生js转jQuery对象</h3><p><strong>$() 包裹</strong>this -&gt; $(this) document -&gt; $(document)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    var oDiv = document.getElementById(&apos;div1&apos;);    $(oDiv).html(&apos;xxx&apos;);&lt;/script&gt;</div></pre></td></tr></table></figure>
-<h3 id="2-jQuery转原生js对象"><a href="#2-jQuery转原生js对象" class="headerlink" title="(2) jQuery转原生js对象"></a>(2) jQuery转原生js对象</h3><p><strong>[] / get()</strong></p>
-<ol>
-<li><code>$(&#39;div&#39;)[0].innerHTML=&#39;xxx&#39;;</code></li>
-<li><code>$(&#39;div&#39;).get(0).innerHTML=&#39;xxx;</code></li>
-</ol>
-<h2 id="4-jQuery链式运动"><a href="#4-jQuery链式运动" class="headerlink" title="4. jQuery链式运动"></a>4. jQuery链式运动</h2><p><code>obj.css(...).html(...).attr(...).click();</code></p>
-<h2 id="5-jQuery循环"><a href="#5-jQuery循环" class="headerlink" title="5. jQuery循环"></a>5. jQuery循环</h2><p><code>obj.each(function(){...});</code></p>
-<p>JS中的forEach、$.each、map方法推荐</p>
-<p>eg:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    $(&apos;div&apos;).each(function(index, element) &#123;  // 索引，当前元素        console.log($(element).html);  // **element是原生对象，需转成jq对象        $(this);  // 当前对象    &#125;);&lt;/script&gt;</div></pre></td></tr></table></figure>
-<h2 id="6-jQuery工具"><a href="#6-jQuery工具" class="headerlink" title="6. jQuery工具"></a>6. jQuery工具</h2><ul>
-<li><code>$.trim(str);</code> 去掉字符串起始和结尾的空格</li>
-<li><code>$.browser.version;</code> 浏览器版本</li>
-</ul>
-<p>eg:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    if($.browse.version.substring(0, 1) == &apos;6&apos;) &#123;        // IE6 code here    &#125;&lt;/script&gt;</div></pre></td></tr></table></figure>
-<h2 id="7-jQuery-Ajax"><a href="#7-jQuery-Ajax" class="headerlink" title="7. jQuery Ajax"></a>7. jQuery Ajax</h2><p><code>$.ajax({...});</code></p>
-<ul>
-<li><strong>type: ‘get/post’</strong></li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    $.ajax(&#123;        url: URL,        data: &#123;&#125;,        type: &apos;get&apos;,        error: fn,        complete: fn,        time: 3000;        success: function(str) &#123;            console.log(str);        &#125;    &#125;)&lt;/script&gt;</div></pre></td></tr></table></figure>
-<h2 id="8-jQuery-jsonp"><a href="#8-jQuery-jsonp" class="headerlink" title="8. jQuery jsonp"></a>8. jQuery jsonp</h2><p><code>$.ajax({...});</code></p>
-<ul>
-<li><strong>dataType: ‘jsonp’</strong></li>
-<li><strong>cbName: ‘callback/cb’</strong></li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    $.ajax(&#123;        url: URL,        data: &#123;&#125;,        dataType: &apos;jsonp&apos;,        cbName: &apos;callback&apos;,        success: function(json) &#123;            console.log(json);        &#125;    &#125;);&lt;/script&gt;</div></pre></td></tr></table></figure>
-<h2 id="9-jQuery插件"><a href="#9-jQuery插件" class="headerlink" title="9. jQuery插件"></a>9. jQuery插件</h2><h3 id="写插件"><a href="#写插件" class="headerlink" title="写插件"></a>写插件</h3><p>$: jq fn: 帮助</p>
-<p><strong>jq里面除了插件里的this以外，其他都是原生的js</strong></p>
-<p>jquery的$.extend和$.fn.extend作用及区别</p>
-<h3 id="一个插件"><a href="#一个插件" class="headerlink" title="一个插件"></a>一个插件</h3><p><code>$.fn.插件名=fn;</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    $.fn.插件名 = function() &#123;        this.css(&apos;name&apos;, &apos;value&apos;);  // 插件中的this不用加$    &#125;    $(&apos;div&apos;).插件名();&lt;/script&gt;</div></pre></td></tr></table></figure>
-<h3 id="一组插件"><a href="#一组插件" class="headerlink" title="一组插件"></a>一组插件</h3><p><code>$.fn.extend(...);</code></p>
-<blockquote>
-<p>插件调用不能用链式</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    $.fn.extend(&#123;        插件名1: function() &#123;            this.css(&apos;name&apos;, &apos;value&apos;);        &#125;,        插件名2: function() &#123;            this.css(&apos;name&apos;, &apos;value&apos;);        &#125;    &#125;)    // 插件调用不能用链式    $(&apos;div&apos;).插件名1();    $(&apos;div&apos;).插件名2();&lt;/script&gt;</div></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;1-jQuery获取物体信息&quot;&gt;&lt;a href=&quot;#1-jQuery获取物体信息&quot; class=&quot;headerlink&quot; title=&quot;1. jQuery获取物体信息&quot;&gt;&lt;/a&gt;1. jQuery获取物体信息&lt;/h2&gt;&lt;h3 id=&quot;js&quot;&gt;&lt;a href=&quot;#j
     
     </summary>
     
@@ -2372,6 +2307,79 @@ p {
     
       &lt;h3 id=&quot;1-数组翻转方法2&quot;&gt;&lt;a href=&quot;#1-数组翻转方法2&quot; class=&quot;headerlink&quot; title=&quot;1. 数组翻转方法2&quot;&gt;&lt;/a&gt;1. 数组翻转方法2&lt;/h3&gt;&lt;p&gt;eg:&lt;/p&gt;
 &lt;figure class=&quot;highlight plain&quot;&gt;
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>前端知识点：原生篇(5)</title>
+    <link href="http://yoursite.com/2015/04/13/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E7%82%B9%EF%BC%9A%E5%8E%9F%E7%94%9F%E7%AF%87(5)/"/>
+    <id>http://yoursite.com/2015/04/13/前端知识点/前端知识点：原生篇(5)/</id>
+    <published>2015-04-13T10:37:15.000Z</published>
+    <updated>2017-03-31T10:33:08.944Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="1-select下拉框的相关属性"><a href="#1-select下拉框的相关属性" class="headerlink" title="1. select下拉框的相关属性"></a>1. select下拉框的相关属性</h2><ul>
+<li>选中的索引值<br>oSel.selectedIndex</li>
+<li>获取所有选项<br>oSel.options</li>
+<li>获取选中的选项的文本内容<br>oSel.options[oSel.selectedIndex].innerHTML<br>oSel.options[oSel.selectedIndex].text</li>
+<li>添加选项<br>var option = new Option(文本内容, value值);<br>oSel.options.add(option);</li>
+<li>删除选项<br>oSel.options.remove(index);</li>
+</ul>
+<h2 id="2-预解析"><a href="#2-预解析" class="headerlink" title="2. 预解析"></a>2. 预解析</h2><p>变量和函数的定义会预先解析，解析在当前script标签内的最上面</p>
+<blockquote>
+<p>作用域：(1)script (2)函数</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;   </div><div class="line">    var a = 111;    </div><div class="line">    function show() &#123;</div><div class="line">        alert(a);        </div><div class="line">        var a = 12;        // 相当于</div><div class="line">                           // var a;</div><div class="line">                           // alert(a);    //undefined</div><div class="line">                           // a = 12;</div><div class="line">    &#125;</div><div class="line">    show();        // undefined</div><div class="line">    alert(a);    // 111</div><div class="line"></div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
+<h2 id="3-已知计算机编码查看对应单词"><a href="#3-已知计算机编码查看对应单词" class="headerlink" title="3. 已知计算机编码查看对应单词"></a>3. 已知计算机编码查看对应单词</h2><p>String.fromCharCode(‘0x4e00’);     // 对应中文 “一”</p>
+<ul>
+<li>第一个中文     0x4e00 一</li>
+<li>最后一个中文    0x9fa5 龥(yu)</li>
+</ul>
+<p><strong>unicode编码：以\u开头 \u4e00(一) ~ \u9fa5(龥)</strong></p>
+<h2 id="4-字节长度和编码的关系"><a href="#4-字节长度和编码的关系" class="headerlink" title="4. 字节长度和编码的关系"></a>4. 字节长度和编码的关系</h2><p>英文、数组都占1个字节，与编码格式无关<br>UTF-8；中文占3个字节<br>GB2312：中文占2个字节</p>
+<h3 id="封装一个求字节长度的函数"><a href="#封装一个求字节长度的函数" class="headerlink" title="封装一个求字节长度的函数"></a>封装一个求字节长度的函数</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    </div><div class="line">    function getBytesLen(str, type) &#123;    // 字符串，编码格式</div><div class="line">        var result = 0;</div><div class="line">        type = type.toLowerCase();        </div><div class="line">        for (var i = 0; i &lt; str.length; i++) &#123;</div><div class="line">            if(str.charAt(i) &gt;= &apos;\u4e00&apos; &amp;&amp; str.charAt(i) &lt;= &apos;\u9fa5&apos;) &#123;                if(type == &apos;gb2312&apos;) &#123;</div><div class="line">                    result += 2;</div><div class="line">                &#125; else &#123;</div><div class="line">                    result += 3;</div><div class="line">                &#125;</div><div class="line">            &#125; else &#123;</div><div class="line">                result++;</div><div class="line">            &#125;</div><div class="line">        &#125;        </div><div class="line">        return result;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
+<h2 id="5-严格模式"><a href="#5-严格模式" class="headerlink" title="5. 严格模式"></a>5. 严格模式</h2><p><strong>非严格模式下，没有用var定义变量时为全局变量，全局的东西都属于window</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    </div><div class="line">    function show()&#123;</div><div class="line">        a = 12;        //a没有var时a为全局变量</div><div class="line">        alert(a);    //1. 12</div><div class="line">    &#125;</div><div class="line">    show();        //需先调用show函数</div><div class="line">    alert(a);    //2. 12</div><div class="line"></div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
+<p>严格模式</p>
+<p>在script标签内最上面写<code>&#39;use strict&#39;;</code>   <strong>IE6不识别但不报错</strong></p>
+<p><code>&#39;use strict&#39;;</code>好处：</p>
+<ol>
+<li>修复局部this的问题</li>
+<li>不允许if/while/for里面定义函数</li>
+<li>去掉了with(){}</li>
+<li>定义变量必须加var</li>
+</ol>
+<p>作用域：(1)当前script标签内 (2)函数  (3)js文件</p>
+<p><strong>坑</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    </div><div class="line">    var a = 5;    </div><div class="line">    if(a % 2) &#123;        </div><div class="line">        function show() &#123;</div><div class="line">            alert(&apos;单数&apos;);</div><div class="line">        &#125;</div><div class="line">    &#125; else &#123;        </div><div class="line">        function show() &#123;</div><div class="line">            alert(&apos;双数&apos;);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    show();    // 单数 最新版高级浏览器中预解析不会覆盖，之前版本预解析后此例预解析覆盖 弹出双数</div><div class="line"></div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    </div><div class="line">    &apos;use strict&apos;;    </div><div class="line">    var a = 5;    </div><div class="line">    if(a % 2) &#123;        </div><div class="line">        function show() &#123;</div><div class="line">            alert(&apos;单数&apos;);</div><div class="line">        &#125;</div><div class="line">    &#125; else &#123;        </div><div class="line">        function show() &#123;</div><div class="line">            alert(&apos;双数&apos;);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    show();    // show is not defined，严格模式不允许if/for里面定义函数</div><div class="line"></div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
+<h2 id="6-连等及逗号运算符"><a href="#6-连等及逗号运算符" class="headerlink" title="6. 连等及逗号运算符"></a>6. 连等及逗号运算符</h2><h3 id="连等"><a href="#连等" class="headerlink" title="连等"></a>连等</h3><p><strong>函数内部使用连等定义变量，第一个是局部变量，其余是全局变量。</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    </div><div class="line">    function show()&#123;        </div><div class="line">        var a=b=c=1;    //a是局部变量，b、c是全局变量</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
+<h3 id="逗号运算符"><a href="#逗号运算符" class="headerlink" title="逗号运算符"></a>逗号运算符</h3><p><strong>逗号运算符 以最后一个为准</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    </div><div class="line">    var a = (1, 2, 3); // a=3</div><div class="line"></div><div class="line">    for (var i = 0, j = 5, k = 8; i &lt; 10, j &lt; 10, k &lt; 10; i++, j++, k++) &#123;</div><div class="line"></div><div class="line">    &#125;</div><div class="line">    alert(i + j + k); // 2+7+10=19</div><div class="line"></div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
+<h2 id="7-文本提示框"><a href="#7-文本提示框" class="headerlink" title="7. 文本提示框"></a>7. 文本提示框</h2><p>聚焦事件：oT.onfocus = function() {};<br>失焦事件：oT.onblur = function() {};</p>
+<blockquote>
+<p>强制获取一个焦点：oT.focus();<br>强制失去一个焦点：oT.blur();</p>
+</blockquote>
+<h2 id="8-form表单"><a href="#8-form表单" class="headerlink" title="8. form表单"></a>8. form表单</h2><p>想要提交数据须有</p>
+<ol>
+<li>action 提交的地址</li>
+<li>name   数据名称</li>
+<li>value  数据       input.value</li>
+</ol>
+<p>提交方式</p>
+<ol>
+<li>get(默认) 容量32K左右  不安全，有缓存<br><strong>好处：(1)分享 (2)收藏</strong></li>
+<li>post      容量1G左右   相对安全，没有缓存</li>
+</ol>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;1-select下拉框的相关属性&quot;&gt;&lt;a href=&quot;#1-select下拉框的相关属性&quot; class=&quot;headerlink&quot; title=&quot;1. select下拉框的相关属性&quot;&gt;&lt;/a&gt;1. select下拉框的相关属性&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;选中的索引值
     
     </summary>
     

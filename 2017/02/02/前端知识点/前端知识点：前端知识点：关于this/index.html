@@ -1,0 +1,112 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> 前端知识点：前端知识点：关于this · 刘擎</title><meta name="description" content="前端知识点：前端知识点：关于this - John Doe"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="http://yoursite.com/atom.xml" title="刘擎"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">博客</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">文章列表</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">前端知识点：前端知识点：关于this</h1><div class="post-info">Feb 2, 2017</div><div class="post-content"><p>JavaScript中最令人困惑的机制之一就是<code>this</code>关键字。它是一个在每个函数作用域中自动定义的特殊标识符关键字，但即便是一些老练的开发者也对它到底指向什么感到困扰。</p>
+<blockquote>
+<p>任何足够 <em>先进</em> 的技术都跟魔法没有区别。– Arthur C. Clarke</p>
+</blockquote>
+<p>JavaScript的<code>this</code>机制实际上没有 <em>那么</em> 先进，但是开发者们总是在大脑中引用这句话来表达“复杂”和“混乱”，毫无疑问，如果没有清晰的理解，在 <em>你的</em> 困惑中<code>this</code>可能看起来就是彻头彻尾的魔法。</p>
+<p><strong>注意：</strong> “this”这个词是在一般的论述中极常用的代词。所以，特别是在口头论述中，很难确定我们是在将“this”作为一个代词使用，还是在将它作为一个实际的关键字识别符使用。为了表意清晰，我会总是使用<code>this</code>来代表特殊的关键字，而在其他情况下使用“this”或 <em>this</em> 或this。</p>
+<a id="more"></a>
+<p>​    1、普通函数中的this（严格模式this指的是undefined，否则指的是window）</p>
+<p>​    2、构造函数中的this：this就是该构造函数创建的实例对象</p>
+<p>​    3、原型方法中的this：this和构造函数中的this相同，都是实例对象</p>
+<p>​    4、对象方法中的this: 调用该方法的对象（重点理解）（对象方法就是function）</p>
+<p>​    5、事件方法中的this：绑定该事件的对象</p>
+<p>​    6、定时函数中的this: this就是window</p>
+<p>​    call/apply可以改变this指向，两者的唯一区别是：第二个参数格式不同：call参数都是单个的，而apply参数是数组</p>
+<p>​    bind也可以改变函数的this指向，但是不调用函数（bind是ES5新测性）</p>
+<p>(4)理解: // 对象方法</p>
+<p>​    // 对象方法中的this就是方法的调用者（方法前面的点前面的对象）</p>
+<p>​    // var obj = {};</p>
+<p>​    // obj.info = 123;</p>
+<p>​    // obj.showInfo = function(){</p>
+<p>​    //     console.log(this.info);</p>
+<p>​    // }</p>
+<p>​    // obj.showInfo();</p>
+<p>/*</p>
+<p>​    函数调用形式与this的关系</p>
+<p>​    */</p>
+<p>​    // 普通函数</p>
+<p>​    // 普通函数中this指向window，但是在严格模式下this的值是undefined</p>
+<p>​    // function foo(){</p>
+<p>​    //     “use strict”</p>
+<p>​    //     console.log(this);</p>
+<p>​    //     console.log(this === window);</p>
+<p>​    // }</p>
+<p>​    // foo();</p>
+<p>​    // ———————————</p>
+<p>​    // 构造函数</p>
+<p>​    // 构造函数中的this与构造函数原型方法中的this指向相同，都指向该构造函数的实例对象</p>
+<p>​    // function Student(name,age){</p>
+<p>​    //     this.name = name;</p>
+<p>​    //     this.age = age;</p>
+<p>​    // }</p>
+<p>​    // Student.prototype.showName = function(){</p>
+<p>​    //     console.log(this.name);</p>
+<p>​    // }</p>
+<p>​    // var stu = new Student(‘张三’,12);</p>
+<p>​    // console.log(stu.age);</p>
+<p>​    // stu.showName();</p>
+<p>​    // ———————————–</p>
+<p>​    // 对象方法</p>
+<p>​    // 对象方法中的this就是方法的调用者（方法前面的点前面的对象）</p>
+<p>​    // var obj = {};</p>
+<p>​    // obj.info = 123;</p>
+<p>​    // obj.showInfo = function(){</p>
+<p>​    //     console.log(this.info);</p>
+<p>​    // }</p>
+<p>​    // obj.showInfo();</p>
+<p>​    // ———————————-</p>
+<p>​    // call/apply改变所调用函数的内部this指向</p>
+<p>​    // function foo(){</p>
+<p>​    //     console.log(this);</p>
+<p>​    // }</p>
+<p>​    // foo.call({name:’abc’});</p>
+<p>​    // foo.apply({name:’hello’});</p>
+<p>​    // function sum(flag){</p>
+<p>​    //     console.log(this.a + this.b);</p>
+<p>​    //     console.log(flag);</p>
+<p>​    //     return this.a + this.b;</p>
+<p>​    // }</p>
+<p>​    // // var ret = sum.call({a:123,b:456});</p>
+<p>​    // // var ret = sum.call({a:11,b:22},true);</p>
+<p>​    // var ret = sum.apply({a:11,b:22},[true]);</p>
+<p>​    // console.log(ret);</p>
+<p>​    // var arr = [1,223,34,455,34,3443,34];</p>
+<p>​    // var ret = Math.max(1,223,34,455,34,3443,34);</p>
+<p>​    // console.log(ret);</p>
+<p>​    // var ret = Math.max.apply(null,arr);</p>
+<p>​    // console.log(ret);</p>
+<p>​    // arr.sort(function(a,b){</p>
+<p>​    //     if(a &gt; b){</p>
+<p>​    //         return 1;</p>
+<p>​    //     }else if(a &lt; b){</p>
+<p>​    //         return -1;</p>
+<p>​    //     }else{</p>
+<p>​    //         return 0;</p>
+<p>​    //     }</p>
+<p>​    // });</p>
+<p>​    // console.log(arr);</p>
+<p> /*</p>
+<p>​    this补充</p>
+<p>​    1、事件函数中的this</p>
+<p>​    2、定时函数</p>
+<p>​    */</p>
+<p>​    window.onload = function(){</p>
+<p>​        function Change(btn,div){</p>
+<p>​            this.btn = document.getElementById(btn);</p>
+<p>​            this.div = document.getElementById(div);</p>
+<p>​        }</p>
+<p>​        Change.prototype.change = function(){</p>
+<p>​            // 原型方法中的this指的是构造函数的实例对象</p>
+<p>​            var that = this;</p>
+<p>​            this.btn.onclick = function(){</p>
+<p>​                // 事件函数中的this就是绑定事件的对象</p>
+<p>​                that.div.innerHTML = ‘测试数据’;</p>
+<p>​            }</p>
+<p>​        }</p>
+<p>​    }</p>
+<p>​    // ————————————–</p>
+<p>​    setTimeout(function(){</p>
+<p>​        // 定时函数中的this就是window</p>
+<p>​        console.log(this);</p>
+<p>​    },1000);</p>
+</div></article></div></main><footer><div class="paginator"><a href="/2017/02/10/前端知识点/前端知识点：任意元素的垂直水平居中/" class="prev">上一篇</a><a href="/2017/01/26/前端知识点/前端知识点：前端知识点：面向对象(下)/" class="next">下一篇</a></div><div class="copyright"><p>© 2014 - 2017 刘擎.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-65933410-1",'auto');ga('send','pageview');</script></body></html>
