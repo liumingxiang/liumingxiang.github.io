@@ -1,0 +1,145 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> 前端知识点：事件篇 · 刘擎</title><meta name="description" content="前端知识点：事件篇 - John Doe"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="http://yoursite.com/atom.xml" title="刘擎"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">博客</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">文章列表</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">前端知识点：事件篇</h1><div class="post-info">Oct 11, 2016</div><div class="post-content"><h2 id="1-事件对象"><a href="#1-事件对象" class="headerlink" title="1. 事件对象"></a>1. 事件对象</h2><ul>
+<li>event  事件对象(系统自带)<br>*兼容：Chrome IE系<br>FF -&gt; 报错</li>
+<li>ev     事件函数传入参数<br>*兼容：高级浏览器(Chrome、FF、IE9+)<br>IE8- -&gt; undefined</li>
+</ul>
+<p><strong>兼容写法</strong>：var oEvent = ev || event;</p>
+<h2 id="2-事件冒泡"><a href="#2-事件冒泡" class="headerlink" title="2. 事件冒泡"></a>2. 事件冒泡</h2><p>概念：子级的事件会传递给父级。如果父级有相同的事件，会依次从内到外执行，直到相同事件的祖宗节点，否则会继续冒泡。</p>
+<p><strong>阻止事件冒泡：</strong></p>
+<p>子级事件内添加  <code>oEvent.cancelBubble = true;</code></p>
+<h2 id="3-事件绑定"><a href="#3-事件绑定" class="headerlink" title="3. 事件绑定"></a>3. 事件绑定</h2><p><strong>有效解决事件冲突</strong></p>
+<ul>
+<li>obj.addEventListener(事件名, 函数名/函数, 是否捕获);</li>
+</ul>
+<p>*兼容：高级浏览器</p>
+<p>事件名 -&gt; 不能加’on’</p>
+<p>函数名 -&gt; 不能加括号</p>
+<p>是否捕获 -&gt; false</p>
+<ul>
+<li>obj.attachEvent(事件名, 函数名/函数);</li>
+</ul>
+<p>*兼容：IE10-</p>
+<p>事件名 -&gt; 必须加’on’</p>
+<p>函数名 -&gt; 不能加括号</p>
+<p><strong>兼容写法</strong></p>
+<p>封装一个事件绑定的函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    function addEvent(obj, sEv, fn) &#123;    //对象, 事件(不加on), 函数名/函数</div><div class="line">        if(obj.addEventListner) &#123;    //高级浏览器 -&gt; function  低级 -&gt;undefined</div><div class="line">            //高级浏览器</div><div class="line">            obj.addEventListener(sEv, fn, false);</div><div class="line">        &#125; else &#123;            //低级浏览器</div><div class="line">            obj.attachEvent(&apos;on&apos; + sEv, fn);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
+<h2 id="4-关于捕获-这点理解不是很到位"><a href="#4-关于捕获-这点理解不是很到位" class="headerlink" title="4. 关于捕获(这点理解不是很到位)"></a>4. 关于捕获(这点理解不是很到位)</h2><p>事件冒泡：子级 -&gt; 父级<br>设置捕获：父级 -&gt; 子级</p>
+<h2 id="5-事件解绑"><a href="#5-事件解绑" class="headerlink" title="5. 事件解绑"></a>5. 事件解绑</h2><ul>
+<li>obj.removeEventListener(事件名, 函数名/函数, 是否捕获);</li>
+</ul>
+<p>*兼容：高级浏览器</p>
+<p><strong>注意：函数不能是匿名函数，每个匿名函数都相当于新创建了一个函数。</strong></p>
+<p>创建函数 var show = new Function(‘a’,’b’, ‘alert(a + b)’);</p>
+<ul>
+<li>obj.detachEvent(事件名, 函数名/函数);</li>
+</ul>
+<p>*兼容：IE10-</p>
+<p><strong>兼容写法</strong></p>
+<p>封装一个事件解绑的函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    function removeEvent(obj, sEv, fn) &#123;    //对象, 事件(不加on), 函数名/函数</div><div class="line">        if(obj.removeEventListner) &#123;    //高级浏览器 -&gt; function  低级 -&gt;undefined</div><div class="line">            //高级浏览器</div><div class="line">            obj.removeEventListener(sEv, fn, false);</div><div class="line">        &#125; else &#123;            //低级</div><div class="line">            obj.detachEvent(&apos;on&apos; + sEv, fn);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
+<h2 id="6-查看鼠标点击位置"><a href="#6-查看鼠标点击位置" class="headerlink" title="6. 查看鼠标点击位置"></a>6. 查看鼠标点击位置</h2><p>var oEvent = ev || event;</p>
+<p>X轴：oEvent.clientX;</p>
+<p>Y轴：oEvent.clientY;</p>
+<h2 id="7-键盘事件"><a href="#7-键盘事件" class="headerlink" title="7. 键盘事件"></a>7. 键盘事件</h2><ol>
+<li>obj.onkeydown  按下键盘触发</li>
+<li>obj.onkeyup    释放键盘触发</li>
+<li>obj.oninput           键盘输入时实时触发<br>*兼容：高级浏览器<br>IE9删除时有问题</li>
+</ol>
+<ul>
+<li>obj.onpropertychange    键盘输入时实时触发<br>*兼容：IE10-<br>IE9删除时有问题</li>
+</ul>
+<p><strong>兼容处理</strong></p>
+<p>事件的兼容不需要处理，直接连等</p>
+<p>obj.oninput = obj.onpropertychange = function() {}</p>
+<p>*处理IE9：定时器</p>
+<p>封装一个实时统计字数的函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    function calLen(obj1, obj2) &#123;        if (window.navigator.userAgent.indexOf(&apos;MSIE 9.0&apos;) != -1) &#123; //IE9</div><div class="line">            var timer = null;</div><div class="line">            obj1.onfocus = function() &#123;</div><div class="line">                timer = setInterval(function() &#123;</div><div class="line">                    obj2.innerHTML = obj1.value.length;</div><div class="line">                &#125;, 50);</div><div class="line">            &#125;;</div><div class="line">            obj1.onblur = function() &#123;</div><div class="line">                clearInterval(timer);</div><div class="line">            &#125;</div><div class="line">        &#125; else &#123; //能不添加定时器时就不添加</div><div class="line">            obj1.oninput = obj1.onpropertychange = function() &#123; //高级浏览器、IE10-</div><div class="line">                obj2.innerHTML = obj1.value.length;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
+<p>应用：实时统计输入字数</p>
+<h3 id="键码-oEvent-keyCode"><a href="#键码-oEvent-keyCode" class="headerlink" title="键码 oEvent.keyCode"></a>键码 <code>oEvent.keyCode</code></h3><p><strong>重要</strong></p>
+<ul>
+<li>0~9：48~57</li>
+<li>a~z：65~90</li>
+<li>ctrl：17</li>
+<li>delete：46</li>
+<li>backspace：8</li>
+<li>enter：13</li>
+<li>左键：37</li>
+<li>上键：38</li>
+<li>右键：39</li>
+<li>下键：40</li>
+</ul>
+<blockquote>
+<p>组合键(js中键码不能组合使用)</p>
+</blockquote>
+<ul>
+<li>ctrl  -&gt; ctrlKey</li>
+<li>shift -&gt; shiftKey</li>
+<li>alt   -&gt; altKey</li>
+</ul>
+<p>eg:<br><code>if(oEvent.ctrlKey &amp;&amp; oEvent.shiftKey &amp;&amp; oEvent.keyCode == 65){...}</code></p>
+<h2 id="8-鼠标事件"><a href="#8-鼠标事件" class="headerlink" title="8. 鼠标事件"></a>8. 鼠标事件</h2><ol>
+<li><p>obj.oncontextmenu 点击鼠标右键触发(有默认右键菜单行为)</p>
+<blockquote>
+<p>默认行为：<br>点击右键有菜单 文本框能输入内容 点击a标签能跳转等</p>
+</blockquote>
+<p><strong>阻止默认行为：return  false;</strong></p>
+<p>应用：自定义右键菜单<br>应用：自定义输入框</p>
+</li>
+<li><p>obj.onmousedown    按下鼠标时触发</p>
+</li>
+<li><p>obj.onmouseup    抬起鼠标时触发</p>
+</li>
+<li><p>obj.onmousemove    鼠标移动触发</p>
+<p>应用：拖拽<br>应用：拖拽(带框)<br>应用：磁性吸附</p>
+</li>
+<li><p>obj.onmouseover  鼠标移入时触发</p>
+</li>
+<li><p>obj.onmouseout   鼠标移出时触发</p>
+<p><strong>问题</strong></p>
+<p>问题1：移入子级也算重新移入<br>解决1：onmouseover -&gt; onmouseenter</p>
+<p>问题2：移出子级也算移出<br>解决2：onmouseout -&gt; onmouseleave</p>
+</li>
+<li><p>obj.onmousewheel  滚动鼠标滚轮触发</p>
+</li>
+</ol>
+<p>*兼容：Chrome IE系</p>
+<p>DOMMouseScroll       DOM滚轮事件(<strong>DOM事件只能通过事件绑定添加</strong>)</p>
+<p>*兼容：FF</p>
+<p><strong>兼容写法</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    if (window.navigator.userAgent.indexOf(&apos;FireFox&apos;) != -1) &#123;        document.addEventListener(&apos;DOMMouseScroll&apos;, function() &#123; //FF</div><div class="line">            //scroll code here</div><div class="line">        &#125;, false)</div><div class="line">    &#125; else &#123;        document.onmousewheel = function() &#123; //Chrome IE系</div><div class="line">            //scroll code here</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
+<h3 id="判断滚动方向"><a href="#判断滚动方向" class="headerlink" title="判断滚动方向"></a>判断滚动方向</h3><ul>
+<li><p>oEvent.wheelDelta</p>
+<p>*兼容：Chrome IE系</p>
+<p>向上：120</p>
+<p>向下：-120</p>
+</li>
+<li><p>DOMMouseScroll</p>
+<p>*兼容：FF</p>
+<p>向上：-3</p>
+<p>向下：3</p>
+</li>
+</ul>
+<p><strong>兼容写法</strong></p>
+<p>封装一个鼠标滚动方向的函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    function addWheel(obj, fn) &#123; //向上fn(false)，向下fn(true)</div><div class="line">        function wheel(ev) &#123;            var oEvent = ev || event;            // var bDown = true;                //默认向下 --&gt;</div><div class="line">            // if(oEvent.wheelDelta) &#123;            //FF -&gt; undefined</div><div class="line">            //     //Chrome IE系</div><div class="line">            //     bDown = oEvent.wheelDelta &lt; 0;</div><div class="line">            // &#125; else &#123;</div><div class="line">            //     //FF</div><div class="line">            //     bDown = oEvent.detail &gt; 0;</div><div class="line">            // &#125;</div><div class="line"></div><div class="line">            var bDown = oEvent.wheelDelta ? oEvent.wheelDelta &lt; 0 : oEvent.detail &gt; 0;            //判断是否传入函数，执行回调函数</div><div class="line">            fn &amp;&amp; fn(bDown);            //FF阻止默认</div><div class="line">            oEvent.preventDefault &amp;&amp; oEvent.preventDefault();            //阻止默认</div><div class="line">            return false;</div><div class="line">        &#125;        if (window.navigator.userAgent.indexOf(&apos;FireFox&apos;) != -1) &#123;            //FF</div><div class="line">            document.addEventListener(&apos;DOMMouseScroll&apos;, wheel, false); //事件中阻止默认没有用</div><div class="line">        &#125; else &#123;            //Chrome IE系</div><div class="line">            // document.onmousewheel = wheel;</div><div class="line">            addEvent(obj, &apos;mousewheel&apos;, wheel);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>oEvent.preventDefault();<br> 兼容：高级浏览器<br> IE8- -&gt; undefined</p>
+</blockquote>
+<p>应用：自定义滚动条</p>
+<h2 id="9-domReady"><a href="#9-domReady" class="headerlink" title="9. domReady"></a>9. domReady</h2><ul>
+<li>DOMContentLoaded 当DOM加载完成时触发(在页面前) <strong>DOM事件必须通过事件绑定添加</strong><br>*兼容：高级浏览器</li>
+<li>onreadystatechange 模拟domReady</li>
+</ul>
+<p><strong>兼容写法</strong><br>封装domReady全兼容方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;    function domReady(fn) &#123;        if (document.addEventListener) &#123;            //高级浏览器</div><div class="line">            document.addEventListener(&apos;DOMContentLoaded&apos;, function() &#123;</div><div class="line">                fn &amp;&amp; fn();</div><div class="line">            &#125;, false);</div><div class="line">        &#125; else &#123;            //低级浏览器  模拟domReady</div><div class="line">            document.onreadystatechange = function() &#123;                if (document.readyState == &apos;complete&apos;) &#123;    // 全兼容</div><div class="line">                    fn &amp;&amp; fn();</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
+<h2 id="10-事件委托"><a href="#10-事件委托" class="headerlink" title="10. 事件委托"></a>10. 事件委托</h2><p>概念：子级自己的事件可以委托给父级处理</p>
+<p>好处： (1)提高性能  <strong>(2)可以给未来的子元素添加事件</strong></p>
+<h2 id="11-事件源"><a href="#11-事件源" class="headerlink" title="11. 事件源"></a>11. 事件源</h2><ul>
+<li>oEvent.target<br>*兼容：高级浏览器<br>低级浏览器 -&gt; undefined</li>
+<li>oEvent.srcElement<br>*兼容：Chrome、IE系<br>FF -&gt; undefined</li>
+</ul>
+<p><strong>兼容写法</strong><br>var oSrc = oEvent.srcElement || oEvent.target;</p>
+<blockquote>
+<p>注意：oSrc.tagName获取到的标签名都是大写</p>
+</blockquote>
+<h3 id="给子级循环添加事件-闭包的替代写法-gt-委托"><a href="#给子级循环添加事件-闭包的替代写法-gt-委托" class="headerlink" title="给子级循环添加事件 闭包的替代写法 -&gt; 委托"></a>给子级循环添加事件 闭包的替代写法 -&gt; 委托</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">window.onload=function()&#123;</div><div class="line">       var ul=document.getElementById(&quot;number&quot;);</div><div class="line">       var li=ul.getElementsByTagName(&quot;li&quot;);</div><div class="line">       var but=document.getElementById(&quot;add&quot;);</div><div class="line"></div><div class="line">       but.onclick=function()&#123;</div><div class="line">       	var li =document.createElement(&quot;li&quot;);</div><div class="line">       	li.innerHTML=&quot;hello&quot;;</div><div class="line">       	ul.appendChild(li)</div><div class="line">       &#125;</div><div class="line">       ul.onmouseover=function(ev)&#123;</div><div class="line">           var ev=ev||window.event;</div><div class="line">           var target=ev.target||ev.srcElement;</div><div class="line">           if(target.nodeName.toLowerCase()==&quot;li&quot;)&#123;</div><div class="line">               target.style.background=&quot;red&quot;;</div><div class="line">           &#125;</div><div class="line">       &#125;</div><div class="line">       ul.onmouseout=function(ev)&#123;</div><div class="line">           var ev=ev||window.event;</div><div class="line">           var target=ev.target||ev.srcElement;</div><div class="line">           if(target.nodeName.toLowerCase()==&quot;li&quot;)&#123;</div><div class="line">               target.style.background=&quot;white&quot;;</div><div class="line">           &#125;</div><div class="line">       &#125;</div><div class="line"></div><div class="line"></div><div class="line">       ul.onclick=function(ev)&#123;</div><div class="line">           var ev = event||window.event;</div><div class="line">           var target=ev.target||ev.srcElement  //获取事件源</div><div class="line">           if(target.nodeName==&quot;LI&quot; )&#123;</div><div class="line">               target.style.background=&quot;pink&quot;</div><div class="line">           &#125;</div><div class="line">       &#125;</div><div class="line"></div><div class="line">       </div><div class="line">   &#125;</div></pre></td></tr></table></figure></div></article></div></main><footer><div class="paginator"><a href="/2016/10/28/前端知识点/前端知识点：slice和splice区别/" class="prev">上一篇</a><a href="/2016/09/18/前端知识点/前端知识点：offset与style系列/" class="next">下一篇</a></div><div class="copyright"><p>© 2014 - 2017 刘擎.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-65933410-1",'auto');ga('send','pageview');</script></body></html>
